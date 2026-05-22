@@ -15,6 +15,9 @@
 </head>
 <body>
 
+<!-- SPOTLIGHT cursor follow -->
+<div class="spotlight" id="spotlight"></div>
+
 <!-- NAME PROMPT (first visit) -->
 <div class="name-prompt" id="namePrompt">
   <div class="name-prompt-content">
@@ -2720,10 +2723,11 @@
 
 <script src="js/main.js"></script>
 <script src="js/game.js"></script>
+<script src="js/fx.js"></script>
 <script>
-  // Kick off the game once the page is interactive
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { try { initGame(); } catch (e) { console.warn(e); } }, 2200);
+    try { initFx(); } catch (e) { console.warn(e); }
   });
 </script>
 </body>
