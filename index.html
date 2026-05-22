@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commercial Management in Construction - Interactive Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-logo"><i class="fas fa-hard-hat"></i></div>
+    <div class="loader-text">Commercial Management</div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="reading-progress">
+  <div class="reading-progress-fill" id="readingProgress"></div>
+</div>
+
+<!-- SIDEBAR NAVIGATION -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      <i class="fas fa-hard-hat"></i>
+      <span>CM Guide</span>
+    </div>
+    <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#hero" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#introduction" class="nav-link"><i class="fas fa-book-open"></i><span>1. Introduction</span></a>
+    <a href="#pre-contract" class="nav-link"><i class="fas fa-file-signature"></i><span>2. Pre-Contract</span></a>
+    <a href="#post-contract" class="nav-link"><i class="fas fa-chart-line"></i><span>3. Post-Contract</span></a>
+    <a href="#risk-ethics" class="nav-link"><i class="fas fa-shield-alt"></i><span>4. Risk & Ethics</span></a>
+    <a href="#tools" class="nav-link"><i class="fas fa-tools"></i><span>Tools & Tech</span></a>
+    <a href="#quiz" class="nav-link"><i class="fas fa-question-circle"></i><span>Quiz</span></a>
+    <a href="#flashcards" class="nav-link"><i class="fas fa-clone"></i><span>Flashcards</span></a>
+    <a href="#summary" class="nav-link"><i class="fas fa-flag-checkered"></i><span>5. Summary</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button id="themeToggle" class="theme-toggle">
+      <i class="fas fa-moon"></i><span>Dark Mode</span>
+    </button>
+    <div class="completion-tracker">
+      <div class="completion-label">Your Progress</div>
+      <div class="completion-bar"><div class="completion-fill" id="completionFill"></div></div>
+      <div class="completion-percent" id="completionPercent">0%</div>
+    </div>
+  </div>
+</aside>
+
+<button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-particles"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge" data-aos="fade-down"><i class="fas fa-graduation-cap"></i> APC Guidance Note</div>
+      <h1 class="hero-title" data-aos="fade-up">Commercial Management<br><span class="gradient-text">in Construction</span></h1>
+      <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">An Interactive Study Guide for MRICS and MAIQS/CQS Candidates</p>
+      <div class="hero-author" data-aos="fade-up" data-aos-delay="300">
+        <i class="fas fa-user-tie"></i> By Roshan de Silva, BSc(Hons)QS, LLM (Construction Law), MRICS, MAIQS, CQS
+      </div>
+      <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+          <div class="stat-value">5</div>
+          <div class="stat-label">Sections</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-list-check"></i></div>
+          <div class="stat-value">3</div>
+          <div class="stat-label">APC Levels</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
+          <div class="stat-value">10+</div>
+          <div class="stat-label">Interactive Charts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-question"></i></div>
+          <div class="stat-value">15</div>
+          <div class="stat-label">Quiz Questions</div>
+        </div>
+      </div>
+      <div class="hero-cta" data-aos="fade-up" data-aos-delay="500">
+        <a href="#introduction" class="btn btn-primary">Start Learning <i class="fas fa-arrow-right"></i></a>
+        <a href="#quiz" class="btn btn-secondary">Take the Quiz <i class="fas fa-question-circle"></i></a>
+      </div>
+      <div class="hero-quote" data-aos="fade-up" data-aos-delay="600">
+        <i class="fas fa-quote-left"></i>
+        <p>"Beware of little expenses. A small leak will sink a great ship."</p>
+        <span>— Benjamin Franklin</span>
+      </div>
+    </div>
+    <div class="scroll-down"><i class="fas fa-chevron-down"></i></div>
+  </section>
+
+  <!-- SECTION 1: INTRODUCTION -->
+  <section class="section" id="introduction">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">01</div>
+        <h2 class="section-title">Introduction</h2>
+        <p class="section-subtitle">The foundation of commercial management in construction projects</p>
+      </div>
+
+      <!-- 1.1 Purpose -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-bullseye card-icon"></i>
+          <h3>1.1 Purpose of this Guidance Note</h3>
+        </div>
+        <p>This guidance note explains, in <strong>practical yet technically sound language</strong>, how commercial management functions within a contracting organisation to control cost, value, and risk while safeguarding profitability throughout the life of a construction project.</p>
+        <div class="standards-grid">
+          <div class="standard-pill"><i class="fas fa-certificate"></i> RICS CM Construction Works Guidance</div>
+          <div class="standard-pill"><i class="fas fa-certificate"></i> FIDIC 1999/2017</div>
+          <div class="standard-pill"><i class="fas fa-certificate"></i> NRM 1 & NRM 2</div>
+          <div class="standard-pill"><i class="fas fa-certificate"></i> AIQS Cost Management Manual</div>
+        </div>
+      </div>
+
+      <!-- 1.2 RICS Competency Levels -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-stairs card-icon"></i>
+          <h3>1.2 RICS Competency Levels</h3>
+        </div>
+        <div class="competency-pyramid">
+          <div class="comp-level comp-level-3" data-level="3">
+            <div class="comp-badge">Level 3</div>
+            <div class="comp-title">Advice</div>
+            <div class="comp-desc">Advise senior management or clients on strategic commercial matters</div>
+            <div class="comp-icon"><i class="fas fa-crown"></i></div>
+          </div>
+          <div class="comp-level comp-level-2" data-level="2">
+            <div class="comp-badge">Level 2</div>
+            <div class="comp-title">Application</div>
+            <div class="comp-desc">Apply commercial management principles to live projects</div>
+            <div class="comp-icon"><i class="fas fa-cogs"></i></div>
+          </div>
+          <div class="comp-level comp-level-1" data-level="1">
+            <div class="comp-badge">Level 1</div>
+            <div class="comp-title">Knowledge</div>
+            <div class="comp-desc">Explain how commercial management integrates with cost control, valuation, and reporting</div>
+            <div class="comp-icon"><i class="fas fa-book"></i></div>
+          </div>
+        </div>
+        <div class="apc-tip">
+          <i class="fas fa-lightbulb"></i>
+          <div><strong>APC Tip:</strong> At Level 3, assessors expect reasoning — why you took specific commercial decisions and how those decisions affected project profitability or client value.</div>
+        </div>
+      </div>
+
+      <!-- 1.3 Core Objectives -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-bullseye card-icon"></i>
+          <h3>1.3 Core Objectives of Commercial Management</h3>
+        </div>
+        <p>The ultimate aim is to <strong>create and protect value</strong> throughout the project life cycle to ensure profitability:</p>
+        <div class="objectives-grid">
+          <div class="objective-card">
+            <div class="obj-num">1</div>
+            <div class="obj-icon"><i class="fas fa-chart-line"></i></div>
+            <h4>Financial Forecasting</h4>
+            <p>Ensuring accurate financial forecasting and control</p>
+          </div>
+          <div class="objective-card">
+            <div class="obj-num">2</div>
+            <div class="obj-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Risk Management</h4>
+            <p>Managing risks and opportunities proactively</p>
+          </div>
+          <div class="objective-card">
+            <div class="obj-num">3</div>
+            <div class="obj-icon"><i class="fas fa-eye"></i></div>
+            <h4>Transparency</h4>
+            <p>Establishing transparent reporting and governance systems</p>
+          </div>
+          <div class="objective-card">
+            <div class="obj-num">4</div>
+            <div class="obj-icon"><i class="fas fa-balance-scale"></i></div>
+            <h4>Triple Balance</h4>
+            <p>Balancing cost, quality, and time performance</p>
+          </div>
+          <div class="objective-card">
+            <div class="obj-num">5</div>
+            <div class="obj-icon"><i class="fas fa-handshake"></i></div>
+            <h4>Ethical Behaviour</h4>
+            <p>Promoting fair and ethical commercial behaviour</p>
+          </div>
+        </div>
+        <div class="example-box">
+          <div class="example-header"><i class="fas fa-flag"></i> Real-World Example</div>
+          <p>On a <strong>USD 120M hospital project</strong>, the commercial manager maintained weekly cost-to-complete forecasts, reconciling site progress with earned-value metrics. This allowed early identification of cost overruns in structural steel, enabling timely procurement of alternative suppliers and preserving the profit margin.</p>
+        </div>
+      </div>
+
+      <!-- 1.5 CM vs QS Comparison -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-not-equal card-icon"></i>
+          <h3>1.5 Commercial Management vs Quantity Surveying</h3>
+        </div>
+        <div class="comparison-wrapper">
+          <div class="comparison-side qs-side">
+            <div class="comparison-header">
+              <i class="fas fa-ruler-combined"></i>
+              <h4>Quantity Surveying</h4>
+              <div class="comparison-tag">Foundation</div>
+            </div>
+            <div class="comparison-item"><strong>Focus:</strong> Measurement, cost planning, and valuation</div>
+            <div class="comparison-item"><strong>Primary Output:</strong> BOQ, cost plans, estimates</div>
+            <div class="comparison-item"><strong>Key Concern:</strong> Accuracy and compliance</div>
+            <div class="comparison-item"><strong>Scope:</strong> Pre- and post-contract tasks</div>
+          </div>
+          <div class="comparison-vs">VS</div>
+          <div class="comparison-side cm-side">
+            <div class="comparison-header">
+              <i class="fas fa-chess-king"></i>
+              <h4>Commercial Management</h4>
+              <div class="comparison-tag">Evolution</div>
+            </div>
+            <div class="comparison-item"><strong>Focus:</strong> Strategic control, risk, profitability</div>
+            <div class="comparison-item"><strong>Primary Output:</strong> CVR, CTC, performance reports</div>
+            <div class="comparison-item"><strong>Key Concern:</strong> Financial performance & decision-making</div>
+            <div class="comparison-item"><strong>Scope:</strong> Entire commercial lifecycle including strategy</div>
+          </div>
+        </div>
+        <div class="reflection-box">
+          <i class="fas fa-lightbulb"></i>
+          <div><strong>Reflection:</strong> Quantity Surveying is the foundation; Commercial Management is the evolution that adds leadership, foresight, and accountability to financial stewardship.</div>
+        </div>
+      </div>
+
+      <!-- 1.7 Tools and Techniques Chart -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-toolbox card-icon"></i>
+          <h3>1.7 Tools & Techniques in Commercial Management</h3>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-container-wrapper">
+            <h4>Tool Usage Distribution</h4>
+            <canvas id="toolsChart"></canvas>
+          </div>
+          <div class="tools-list">
+            <div class="tool-item">
+              <div class="tool-icon"><i class="fas fa-balance-scale"></i></div>
+              <div><strong>CVR</strong><span>Cost Value Reconciliation - Tracks profitability</span></div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-icon"><i class="fas fa-calculator"></i></div>
+              <div><strong>CTC</strong><span>Cost to Complete - Forecasts final margin</span></div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-icon"><i class="fas fa-chart-area"></i></div>
+              <div><strong>EVA</strong><span>Earned Value Analysis - Measures performance</span></div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-icon"><i class="fas fa-money-bill-wave"></i></div>
+              <div><strong>Cashflow Forecasting</strong><span>Ensures liquidity</span></div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-icon"><i class="fas fa-exclamation-triangle"></i></div>
+              <div><strong>Risk Registers</strong><span>Identify & mitigate risks</span></div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-icon"><i class="fas fa-truck"></i></div>
+              <div><strong>Procurement Schedules</strong><span>Monitor procurement progress</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.9 Ethics -->
+      <div class="content-card ethics-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-balance-scale-right card-icon"></i>
+          <h3>1.9 Ethical and Professional Obligations</h3>
+        </div>
+        <div class="ethics-grid">
+          <div class="ethics-pillar">
+            <div class="ethics-icon"><i class="fas fa-handshake"></i></div>
+            <h4>Integrity</h4>
+            <p>Never misrepresent costs or values</p>
+          </div>
+          <div class="ethics-pillar">
+            <div class="ethics-icon"><i class="fas fa-eye"></i></div>
+            <h4>Transparency</h4>
+            <p>Open reporting and accountability</p>
+          </div>
+          <div class="ethics-pillar">
+            <div class="ethics-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Responsibility</h4>
+            <p>Protect client and public interest</p>
+          </div>
+          <div class="ethics-pillar">
+            <div class="ethics-icon"><i class="fas fa-equals"></i></div>
+            <h4>Fairness</h4>
+            <p>Treat all parties impartially</p>
+          </div>
+          <div class="ethics-pillar">
+            <div class="ethics-icon"><i class="fas fa-medal"></i></div>
+            <h4>Competence</h4>
+            <p>Work within professional ability</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PRE-CONTRACT -->
+  <section class="section section-alt" id="pre-contract">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">02</div>
+        <h2 class="section-title">Pre-Contract Commercial Management</h2>
+        <p class="section-subtitle">From bid invitation to tender submission</p>
+      </div>
+
+      <!-- Process Flow Diagram -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-route card-icon"></i>
+          <h3>Pre-Contract Process Flow</h3>
+        </div>
+        <div class="process-flow">
+          <div class="process-step">
+            <div class="step-circle">1</div>
+            <div class="step-content">
+              <i class="fas fa-search"></i>
+              <h4>Pre-Selection</h4>
+              <p>Prequalification documentation</p>
+            </div>
+          </div>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="process-step">
+            <div class="step-circle">2</div>
+            <div class="step-content">
+              <i class="fas fa-clipboard-check"></i>
+              <h4>Decision to Tender</h4>
+              <p>Bid / No-Bid evaluation</p>
+            </div>
+          </div>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="process-step">
+            <div class="step-circle">3</div>
+            <div class="step-content">
+              <i class="fas fa-eye"></i>
+              <h4>Project Appreciation</h4>
+              <p>Understanding scope & risks</p>
+            </div>
+          </div>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="process-step">
+            <div class="step-circle">4</div>
+            <div class="step-content">
+              <i class="fas fa-map-marker-alt"></i>
+              <h4>Site Visit</h4>
+              <p>Physical inspection</p>
+            </div>
+          </div>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="process-step">
+            <div class="step-circle">5</div>
+            <div class="step-content">
+              <i class="fas fa-calculator"></i>
+              <h4>Estimating</h4>
+              <p>Building the cost</p>
+            </div>
+          </div>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="process-step">
+            <div class="step-circle">6</div>
+            <div class="step-content">
+              <i class="fas fa-gavel"></i>
+              <h4>Adjudication</h4>
+              <p>Final bid strategy</p>
+            </div>
+          </div>
+          <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="process-step">
+            <div class="step-circle">7</div>
+            <div class="step-content">
+              <i class="fas fa-paper-plane"></i>
+              <h4>Submission</h4>
+              <p>Tender submission</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.2 Pre-Selection Documents -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-folder-open card-icon"></i>
+          <h3>2.2 Pre-Selection Phase Documents</h3>
+        </div>
+        <div class="docs-tabs">
+          <button class="tab-btn active" data-tab="financial">📊 Financial</button>
+          <button class="tab-btn" data-tab="technical">🔧 Technical</button>
+        </div>
+        <div class="tab-content active" id="financial-tab">
+          <ul class="doc-list">
+            <li><i class="fas fa-file-invoice-dollar"></i> Audited Financial Statements (past 3 years)</li>
+            <li><i class="fas fa-file-contract"></i> Bonding capacity (bank references, surety limits)</li>
+            <li><i class="fas fa-shield-alt"></i> Insurance certificates (employer's liability, third-party)</li>
+            <li><i class="fas fa-chart-line"></i> P&L Account, Balance Sheet, Auditor's Statement</li>
+          </ul>
+        </div>
+        <div class="tab-content" id="technical-tab">
+          <ul class="doc-list">
+            <li><i class="fas fa-building"></i> Company Profile (structure, projects, turnover)</li>
+            <li><i class="fas fa-users"></i> CVs of Key Personnel</li>
+            <li><i class="fas fa-file-certificate"></i> Business Registration</li>
+            <li><i class="fas fa-tools"></i> Resource capabilities (Plant, Fleet, Labour)</li>
+            <li><i class="fas fa-hard-hat"></i> HSE Performance Records</li>
+            <li><i class="fas fa-check-double"></i> QA/QC Policies and Procedures</li>
+          </ul>
+        </div>
+        <div class="example-box">
+          <div class="example-header"><i class="fas fa-flag"></i> Real-World Example</div>
+          <p>In an <strong>airport expansion project</strong>, the commercial manager's submission of three years of audited reports and confirmation of a <strong>20 million OMR bonding limit</strong> led to successful inclusion on the tender shortlist.</p>
+        </div>
+      </div>
+
+      <!-- 2.3 Bid/No-Bid Decision Matrix -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-th card-icon"></i>
+          <h3>2.3 Bid / No-Bid Decision Matrix</h3>
+        </div>
+        <div class="decision-matrix">
+          <div class="matrix-row matrix-header">
+            <div>Evaluation Criteria</div>
+            <div>Consideration</div>
+            <div>Risk Score</div>
+          </div>
+          <div class="matrix-row">
+            <div><i class="fas fa-handshake"></i> Client & Consultant</div>
+            <div>Past collaboration record</div>
+            <div><span class="score-pill score-low">Low</span></div>
+          </div>
+          <div class="matrix-row">
+            <div><i class="fas fa-file-contract"></i> Contract Form</div>
+            <div>FIDIC 1999 / NEC / Bespoke</div>
+            <div><span class="score-pill score-medium">Medium</span></div>
+          </div>
+          <div class="matrix-row">
+            <div><i class="fas fa-building"></i> Work Type & Value</div>
+            <div>Infrastructure/Commercial</div>
+            <div><span class="score-pill score-medium">Medium</span></div>
+          </div>
+          <div class="matrix-row">
+            <div><i class="fas fa-map-marked-alt"></i> Location</div>
+            <div>Logistics, mobilisation cost</div>
+            <div><span class="score-pill score-medium">Medium</span></div>
+          </div>
+          <div class="matrix-row">
+            <div><i class="fas fa-exclamation-triangle"></i> Risk Level</div>
+            <div>Political, environmental, technical</div>
+            <div><span class="score-pill score-high">High</span></div>
+          </div>
+          <div class="matrix-row">
+            <div><i class="fas fa-clock"></i> Timeframe</div>
+            <div>Adequacy of tender period</div>
+            <div><span class="score-pill score-low">Low</span></div>
+          </div>
+          <div class="matrix-row">
+            <div><i class="fas fa-coins"></i> Profit Potential</div>
+            <div>Target vs historical margin</div>
+            <div><span class="score-pill score-high">High</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.7 Estimating Methods Chart -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-chart-pie card-icon"></i>
+          <h3>2.7 Estimating Methods</h3>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-container-wrapper">
+            <canvas id="estimatingChart"></canvas>
+          </div>
+          <div class="methods-list">
+            <div class="method-card">
+              <div class="method-num">1</div>
+              <h4>First-Principles Estimating</h4>
+              <p>Each activity is priced from scratch, considering resource consumption and productivity</p>
+            </div>
+            <div class="method-card">
+              <div class="method-num">2</div>
+              <h4>Operational Estimates</h4>
+              <p>Assess costs for each operation or trade activity</p>
+            </div>
+            <div class="method-card">
+              <div class="method-num">3</div>
+              <h4>Quotation-Based</h4>
+              <p>Use vendor and subcontractor prices</p>
+            </div>
+            <div class="method-card">
+              <div class="method-num">4</div>
+              <h4>Benchmarking</h4>
+              <p>Compare against similar projects or industry indices</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.7.3 Risk Identification -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-exclamation-triangle card-icon"></i>
+          <h3>2.7.3 Risk Identification in Estimating</h3>
+        </div>
+        <div class="risk-grid">
+          <div class="risk-item">
+            <i class="fas fa-file-alt"></i>
+            <h4>Documentation</h4>
+            <p>Missing drawings or incomplete specifications</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-ruler"></i>
+            <h4>Quantities</h4>
+            <p>Re-measured vs lump-sum uncertainty</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-arrow-up"></i>
+            <h4>Price Escalation</h4>
+            <p>Price fixity and escalation risk</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-users"></i>
+            <h4>Labour Market</h4>
+            <p>Labour market fluctuations</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-mountain"></i>
+            <h4>Site Conditions</h4>
+            <p>Buildability challenges</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-calendar-alt"></i>
+            <h4>Programme</h4>
+            <p>Duration and liquidated damages</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.8 Tender Adjudication -->
+      <div class="content-card highlight-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-gavel card-icon"></i>
+          <h3>2.8 Tender Adjudication</h3>
+        </div>
+        <p>Tender adjudication converts the estimate into a formal bid through management judgment. It balances <strong>competitive pricing</strong> against <strong>acceptable risk</strong> and <strong>profit margin</strong>.</p>
+        <div class="adjudication-balance">
+          <div class="balance-side">
+            <i class="fas fa-trophy"></i>
+            <h4>Competitive Pricing</h4>
+            <p>Win the bid</p>
+          </div>
+          <div class="balance-center">
+            <i class="fas fa-balance-scale"></i>
+            <div class="balance-label">BALANCE</div>
+          </div>
+          <div class="balance-side">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Risk & Profit</h4>
+            <p>Protect margin</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: POST-CONTRACT -->
+  <section class="section" id="post-contract">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">03</div>
+        <h2 class="section-title">Post-Contract Commercial Management</h2>
+        <p class="section-subtitle">Securing profit, controlling cost, and protecting value</p>
+      </div>
+
+      <!-- 3.1 Profit Enhancement Strategies -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-chart-line card-icon"></i>
+          <h3>3.1 Profit Enhancement Strategies</h3>
+        </div>
+        <div class="strategy-grid">
+          <div class="strategy-card">
+            <div class="strategy-icon"><i class="fas fa-lightbulb"></i></div>
+            <h4>Value Engineering</h4>
+            <p>Identify alternative materials or methods delivering equivalent performance at lower cost</p>
+            <div class="impact-badge">↓ Direct Costs</div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-icon"><i class="fas fa-handshake"></i></div>
+            <h4>Procurement Re-negotiation</h4>
+            <p>Seek volume discounts or revised payment terms</p>
+            <div class="impact-badge">↑ Cashflow</div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <h4>Productivity Management</h4>
+            <p>Monitor labour efficiency; introduce incentives</p>
+            <div class="impact-badge">↓ Labour Cost</div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-icon"><i class="fas fa-recycle"></i></div>
+            <h4>Waste Reduction</h4>
+            <p>Control wastage of concrete, steel, etc.</p>
+            <div class="impact-badge">↑ Material Yield</div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-icon"><i class="fas fa-stream"></i></div>
+            <h4>Re-sequencing</h4>
+            <p>Optimise construction sequence for resource utilisation</p>
+            <div class="impact-badge">↓ Preliminaries</div>
+          </div>
+          <div class="strategy-card">
+            <div class="strategy-icon"><i class="fas fa-file-invoice"></i></div>
+            <h4>Commercial Claims</h4>
+            <p>Timely notice and substantiation of variations</p>
+            <div class="impact-badge">↑ Entitlement</div>
+          </div>
+        </div>
+        <div class="example-box">
+          <div class="example-header"><i class="fas fa-flag"></i> Real-World Example</div>
+          <p>In a hospital project, concrete wastage averaged 7%. By introducing batching-plant monitoring and re-training workers, the wastage reduced to <strong>2%, saving OMR 45,000</strong> and increasing net margin by <strong>0.6%</strong>.</p>
+        </div>
+      </div>
+
+      <!-- 3.3 CVR Interactive -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-balance-scale card-icon"></i>
+          <h3>3.3 Cost Value Reconciliation (CVR)</h3>
+        </div>
+        <p>CVR measures the project's financial position by comparing <strong>earned value</strong> against <strong>actual cost incurred</strong>.</p>
+        <div class="chart-container-wrapper">
+          <canvas id="cvrChart"></canvas>
+        </div>
+        <div class="cvr-steps">
+          <h4>CVR 6-Step Process</h4>
+          <div class="step-list">
+            <div class="cvr-step"><span>1</span> Calculate earned value/Revenue (based on certified quantities)</div>
+            <div class="cvr-step"><span>2</span> Record actual costs from the ledger</div>
+            <div class="cvr-step"><span>3</span> Adjust revenue (MOS, under/over measurement, certification)</div>
+            <div class="cvr-step"><span>4</span> Compute gross margin = Value – Cost</div>
+            <div class="cvr-step"><span>5</span> Identify major cost drivers</div>
+            <div class="cvr-step"><span>6</span> Report key deviations and actions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.3.3 EVA Interactive Calculator -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-calculator card-icon"></i>
+          <h3>3.3.3 Earned Value Analysis (EVA) - Interactive Calculator</h3>
+        </div>
+        <div class="eva-calculator">
+          <div class="eva-inputs">
+            <div class="input-group">
+              <label>Earned Value (EV)</label>
+              <input type="number" id="ev" value="800000" />
+              <small>Value of work completed</small>
+            </div>
+            <div class="input-group">
+              <label>Actual Cost (AC)</label>
+              <input type="number" id="ac" value="700000" />
+              <small>Real cost incurred</small>
+            </div>
+            <div class="input-group">
+              <label>Planned Value (PV)</label>
+              <input type="number" id="pv" value="850000" />
+              <small>Budgeted cost of scheduled work</small>
+            </div>
+            <div class="input-group">
+              <label>Budget at Completion (BAC)</label>
+              <input type="number" id="bac" value="1500000" />
+              <small>Total project budget</small>
+            </div>
+            <button onclick="calculateEVA()" class="btn btn-primary">Calculate <i class="fas fa-calculator"></i></button>
+          </div>
+          <div class="eva-results">
+            <div class="result-card" id="cpiCard">
+              <div class="result-label">CPI (Cost Performance Index)</div>
+              <div class="result-value" id="cpiValue">1.14</div>
+              <div class="result-formula">EV / AC</div>
+              <div class="result-status" id="cpiStatus">Efficient</div>
+            </div>
+            <div class="result-card" id="spiCard">
+              <div class="result-label">SPI (Schedule Performance Index)</div>
+              <div class="result-value" id="spiValue">0.94</div>
+              <div class="result-formula">EV / PV</div>
+              <div class="result-status" id="spiStatus">Behind Schedule</div>
+            </div>
+            <div class="result-card" id="eacCard">
+              <div class="result-label">EAC (Estimate at Completion)</div>
+              <div class="result-value" id="eacValue">1,312,500</div>
+              <div class="result-formula">BAC / CPI</div>
+              <div class="result-status" id="eacStatus">Under Budget</div>
+            </div>
+          </div>
+        </div>
+        <div class="apc-tip">
+          <i class="fas fa-lightbulb"></i>
+          <div><strong>Reflection:</strong> CPI > 1 indicates cost efficiency. SPI > 1 shows schedule advancement. EVA bridges finance and project management — it quantifies progress in monetary terms that finance teams understand.</div>
+        </div>
+      </div>
+
+      <!-- 3.4 Contract Administration -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-file-signature card-icon"></i>
+          <h3>3.4 Contract Administration Functions</h3>
+        </div>
+        <div class="admin-grid">
+          <div class="admin-card">
+            <div class="admin-clause">FIDIC 13.1</div>
+            <h4><i class="fas fa-edit"></i> Variation Management</h4>
+            <p>Identify scope changes, submit timely notifications</p>
+          </div>
+          <div class="admin-card">
+            <div class="admin-clause">FIDIC 20</div>
+            <h4><i class="fas fa-file-alt"></i> Claims & Entitlements</h4>
+            <p>Assess delay events and prepare EOT and cost claims</p>
+          </div>
+          <div class="admin-card">
+            <div class="admin-clause">FIDIC 14</div>
+            <h4><i class="fas fa-money-check"></i> Interim Payments</h4>
+            <p>Prepare and verify payment applications</p>
+          </div>
+          <div class="admin-card">
+            <div class="admin-clause">Bonds</div>
+            <h4><i class="fas fa-shield-alt"></i> Retention & Bonds</h4>
+            <p>Track expiry and release of guarantees</p>
+          </div>
+          <div class="admin-card">
+            <div class="admin-clause">Tax</div>
+            <h4><i class="fas fa-receipt"></i> Insurance & Tax</h4>
+            <p>Ensure policy renewal and VAT alignment</p>
+          </div>
+          <div class="admin-card">
+            <div class="admin-clause">Close-out</div>
+            <h4><i class="fas fa-flag-checkered"></i> Final Account</h4>
+            <p>Reconcile all variations and claims</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.4.2 Variation Control Process -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-sync card-icon"></i>
+          <h3>3.4.2 Variation Control Process</h3>
+        </div>
+        <div class="variation-flow">
+          <div class="var-step">
+            <div class="var-num">1</div>
+            <i class="fas fa-envelope-open-text"></i>
+            <h4>Receive EI</h4>
+            <p>Engineer's Instruction received</p>
+          </div>
+          <div class="var-step">
+            <div class="var-num">2</div>
+            <i class="fas fa-search"></i>
+            <h4>Review & Classify</h4>
+            <p>Omission / Addition / Substitution</p>
+          </div>
+          <div class="var-step">
+            <div class="var-num">3</div>
+            <i class="fas fa-ruler"></i>
+            <h4>Measure</h4>
+            <p>Quantities & rates per BOQ preambles</p>
+          </div>
+          <div class="var-step">
+            <div class="var-num">4</div>
+            <i class="fas fa-file-invoice-dollar"></i>
+            <h4>Submit Proposal</h4>
+            <p>Cost breakdown & time impact</p>
+          </div>
+          <div class="var-step">
+            <div class="var-num">5</div>
+            <i class="fas fa-handshake"></i>
+            <h4>Negotiate</h4>
+            <p>Agree VO Order approval</p>
+          </div>
+          <div class="var-step">
+            <div class="var-num">6</div>
+            <i class="fas fa-clipboard-check"></i>
+            <h4>Record</h4>
+            <p>Update Variation Register</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.3.4 Cashflow Chart -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-water card-icon"></i>
+          <h3>3.3.4 Cashflow Management</h3>
+        </div>
+        <div class="chart-container-wrapper">
+          <canvas id="cashflowChart"></canvas>
+        </div>
+        <p>Cashflow stability ensures the organisation can fund operations without borrowing. Commercial managers must align client certification schedules with supplier payments, track retention, and forecast peak funding requirements.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: RISK & ETHICS -->
+  <section class="section section-alt" id="risk-ethics">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">04</div>
+        <h2 class="section-title">Risk, Ethics, and APC Guidance</h2>
+        <p class="section-subtitle">Managing exposure and maintaining professional integrity</p>
+      </div>
+
+      <!-- 4.1.2 Risk Categories -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-exclamation-circle card-icon"></i>
+          <h3>4.1.2 Risk Categories in Construction</h3>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-container-wrapper">
+            <canvas id="riskCategoriesChart"></canvas>
+          </div>
+          <div class="risk-categories">
+            <div class="risk-cat-card risk-design">
+              <div class="risk-cat-icon"><i class="fas fa-drafting-compass"></i></div>
+              <h4>Design Risk</h4>
+              <p>Late IFC drawings, design errors → Delay, rework, additional cost</p>
+            </div>
+            <div class="risk-cat-card risk-proc">
+              <div class="risk-cat-icon"><i class="fas fa-truck"></i></div>
+              <h4>Procurement Risk</h4>
+              <p>Supplier insolvency, price fluctuation → Cost overrun, delivery delays</p>
+            </div>
+            <div class="risk-cat-card risk-exec">
+              <div class="risk-cat-icon"><i class="fas fa-hard-hat"></i></div>
+              <h4>Execution Risk</h4>
+              <p>Low productivity, safety issues → Inefficiency, penalties</p>
+            </div>
+            <div class="risk-cat-card risk-cont">
+              <div class="risk-cat-icon"><i class="fas fa-file-contract"></i></div>
+              <h4>Contractual Risk</h4>
+              <p>Ambiguities, conflicting clauses → Claims and disputes</p>
+            </div>
+            <div class="risk-cat-card risk-fin">
+              <div class="risk-cat-icon"><i class="fas fa-dollar-sign"></i></div>
+              <h4>Financial Risk</h4>
+              <p>Cashflow shortfall, currency fluctuation → Increased finance cost</p>
+            </div>
+            <div class="risk-cat-card risk-env">
+              <div class="risk-cat-icon"><i class="fas fa-globe"></i></div>
+              <h4>Environmental Risk</h4>
+              <p>Regulatory change, force majeure → Extended time, cost recovery</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.1.3 EMV Calculator -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-dice card-icon"></i>
+          <h3>4.1.3 Quantitative Risk Analysis - EMV Calculator</h3>
+        </div>
+        <p>EMV = Probability × Impact (Cost or Time). Calculate the Expected Monetary Value of project risks.</p>
+        <div class="emv-table">
+          <div class="emv-row emv-header">
+            <div>Risk Event</div>
+            <div>Probability (%)</div>
+            <div>Impact (OMR)</div>
+            <div>EMV (OMR)</div>
+          </div>
+          <div class="emv-row">
+            <div>Late design approval</div>
+            <div><input type="number" class="emv-prob" value="30" data-row="0" /></div>
+            <div><input type="number" class="emv-impact" value="150000" data-row="0" /></div>
+            <div class="emv-result" id="emv-0">45,000</div>
+          </div>
+          <div class="emv-row">
+            <div>Material escalation</div>
+            <div><input type="number" class="emv-prob" value="20" data-row="1" /></div>
+            <div><input type="number" class="emv-impact" value="100000" data-row="1" /></div>
+            <div class="emv-result" id="emv-1">20,000</div>
+          </div>
+          <div class="emv-row">
+            <div>Labour shortage</div>
+            <div><input type="number" class="emv-prob" value="15" data-row="2" /></div>
+            <div><input type="number" class="emv-impact" value="50000" data-row="2" /></div>
+            <div class="emv-result" id="emv-2">7,500</div>
+          </div>
+          <div class="emv-row emv-total">
+            <div colspan="3"><strong>Total Risk Contingency</strong></div>
+            <div></div>
+            <div></div>
+            <div class="emv-result" id="emv-total">72,500 OMR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.2 Ethics Standards -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-balance-scale card-icon"></i>
+          <h3>4.2 RICS Global Professional & Ethical Standards (2021)</h3>
+        </div>
+        <div class="ethics-standards">
+          <div class="standard-card">
+            <div class="standard-num">01</div>
+            <i class="fas fa-handshake"></i>
+            <h4>Act with Integrity</h4>
+            <p>Be honest and straightforward in all professional and business relationships</p>
+          </div>
+          <div class="standard-card">
+            <div class="standard-num">02</div>
+            <i class="fas fa-star"></i>
+            <h4>High Standard of Service</h4>
+            <p>Maintain technical competence and diligence</p>
+          </div>
+          <div class="standard-card">
+            <div class="standard-num">03</div>
+            <i class="fas fa-shield-alt"></i>
+            <h4>Promote Trust</h4>
+            <p>Uphold the reputation of RICS and the QS community</p>
+          </div>
+          <div class="standard-card">
+            <div class="standard-num">04</div>
+            <i class="fas fa-users"></i>
+            <h4>Treat Others with Respect</h4>
+            <p>Maintain fairness in negotiations and reporting</p>
+          </div>
+          <div class="standard-card">
+            <div class="standard-num">05</div>
+            <i class="fas fa-check-circle"></i>
+            <h4>Take Responsibility</h4>
+            <p>Be accountable for your professional advice and actions</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.7 Dispute Resolution Ladder -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-gavel card-icon"></i>
+          <h3>4.7 Dispute Resolution Mechanisms</h3>
+        </div>
+        <div class="dispute-ladder">
+          <div class="dispute-step dispute-1">
+            <div class="dispute-num">1</div>
+            <div class="dispute-content">
+              <h4><i class="fas fa-comments"></i> Negotiation</h4>
+              <p>Parties settle differences directly</p>
+              <div class="dispute-when">First resort</div>
+            </div>
+          </div>
+          <div class="dispute-step dispute-2">
+            <div class="dispute-num">2</div>
+            <div class="dispute-content">
+              <h4><i class="fas fa-user-friends"></i> Mediation / Conciliation</h4>
+              <p>Neutral facilitator promotes agreement</p>
+              <div class="dispute-when">Before escalation</div>
+            </div>
+          </div>
+          <div class="dispute-step dispute-3">
+            <div class="dispute-num">3</div>
+            <div class="dispute-content">
+              <h4><i class="fas fa-balance-scale"></i> Adjudication / DAB</h4>
+              <p>Third-party gives interim decision</p>
+              <div class="dispute-when">During contract</div>
+            </div>
+          </div>
+          <div class="dispute-step dispute-4">
+            <div class="dispute-num">4</div>
+            <div class="dispute-content">
+              <h4><i class="fas fa-gavel"></i> Arbitration</h4>
+              <p>Legally binding decision by tribunal</p>
+              <div class="dispute-when">Formal disputes</div>
+            </div>
+          </div>
+          <div class="dispute-step dispute-5">
+            <div class="dispute-num">5</div>
+            <div class="dispute-content">
+              <h4><i class="fas fa-university"></i> Litigation</h4>
+              <p>Court process under local law</p>
+              <div class="dispute-when">Last resort</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.9 APC Levels Detail -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-graduation-cap card-icon"></i>
+          <h3>4.9 APC Competency Guidance</h3>
+        </div>
+        <div class="apc-tabs">
+          <button class="apc-tab-btn active" data-apc="1">Level 1 - Knowledge</button>
+          <button class="apc-tab-btn" data-apc="2">Level 2 - Application</button>
+          <button class="apc-tab-btn" data-apc="3">Level 3 - Advice</button>
+        </div>
+        <div class="apc-content active" id="apc-1">
+          <h4>Demonstrate understanding of:</h4>
+          <ul class="apc-list">
+            <li><i class="fas fa-check"></i> Commercial processes and contract administration</li>
+            <li><i class="fas fa-check"></i> Cost control methods (CVR, CTC, Cash Flow, EVA)</li>
+            <li><i class="fas fa-check"></i> Risk management and value engineering principles</li>
+            <li><i class="fas fa-check"></i> Procurement and subcontract management frameworks</li>
+          </ul>
+          <div class="sample-q">
+            <strong>Sample Question:</strong> "Explain how a CVR report helps monitor project performance."
+          </div>
+        </div>
+        <div class="apc-content" id="apc-2">
+          <h4>Demonstrate practical implementation on live projects:</h4>
+          <ul class="apc-list">
+            <li><i class="fas fa-check"></i> Preparing monthly cost reports and advising on variances</li>
+            <li><i class="fas fa-check"></i> Managing subcontractor payments and procurement</li>
+            <li><i class="fas fa-check"></i> Evaluating and substantiating variations and claims</li>
+            <li><i class="fas fa-check"></i> Contributing to risk reviews and mitigation actions</li>
+          </ul>
+          <div class="sample-q">
+            <strong>Sample Question:</strong> "Describe a time when your commercial advice helped mitigate a potential loss."
+          </div>
+        </div>
+        <div class="apc-content" id="apc-3">
+          <h4>Demonstrate the ability to provide reasoned, evidence-based commercial recommendations:</h4>
+          <ul class="apc-list">
+            <li><i class="fas fa-check"></i> Advising on strategic commercial decisions</li>
+            <li><i class="fas fa-check"></i> Evaluating cost implications of design or programme changes</li>
+            <li><i class="fas fa-check"></i> Leading negotiation of major subcontract or variation settlements</li>
+            <li><i class="fas fa-check"></i> Advising on final account strategy and close-out</li>
+          </ul>
+          <div class="sample-q">
+            <strong>Sample Question:</strong> "How did your commercial reporting influence management's decision-making?"
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.10 Modern Manager -->
+      <div class="content-card highlight-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-user-tie card-icon"></i>
+          <h3>4.10 The Modern Commercial Manager</h3>
+        </div>
+        <div class="attributes-grid">
+          <div class="attr-card">
+            <i class="fas fa-brain"></i>
+            <h4>Analytical</h4>
+            <p>Understands numbers and trends</p>
+          </div>
+          <div class="attr-card">
+            <i class="fas fa-comments"></i>
+            <h4>Communicative</h4>
+            <p>Explains complex issues simply</p>
+          </div>
+          <div class="attr-card">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Ethical</h4>
+            <p>Protects integrity under pressure</p>
+          </div>
+          <div class="attr-card">
+            <i class="fas fa-bolt"></i>
+            <h4>Decisive</h4>
+            <p>Balances data with judgment</p>
+          </div>
+          <div class="attr-card">
+            <i class="fas fa-users"></i>
+            <h4>Collaborative</h4>
+            <p>Builds trust across teams</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS & TECHNOLOGY -->
+  <section class="section" id="tools">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">★</div>
+        <h2 class="section-title">Digital Tools & Technology</h2>
+        <p class="section-subtitle">Modern systems supporting commercial management</p>
+      </div>
+      <div class="tools-showcase" data-aos="fade-up">
+        <div class="tech-card">
+          <div class="tech-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);"><i class="fas fa-ruler-combined"></i></div>
+          <h4>CostX / CATO</h4>
+          <p>Measurement, estimating, and cost planning</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);"><i class="fas fa-calendar-alt"></i></div>
+          <h4>Primavera / MS Project</h4>
+          <p>Programme integration with EVA metrics</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"><i class="fas fa-database"></i></div>
+          <h4>SAP / Oracle ERP</h4>
+          <p>Centralised cost and revenue tracking</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);"><i class="fas fa-cloud"></i></div>
+          <h4>Aconex / Procore</h4>
+          <p>Contract correspondence and audit trail</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);"><i class="fas fa-chart-pie"></i></div>
+          <h4>Power BI / Excel</h4>
+          <p>Visual reporting of CVR, cash flow, and KPIs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ SECTION -->
+  <section class="section section-alt" id="quiz">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">?</div>
+        <h2 class="section-title">Test Your Knowledge</h2>
+        <p class="section-subtitle">15 questions covering all sections</p>
+      </div>
+
+      <div class="quiz-container" data-aos="fade-up">
+        <div class="quiz-progress">
+          <div class="quiz-progress-text">Question <span id="qCurrent">1</span> of <span id="qTotal">15</span></div>
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+        </div>
+        <div class="quiz-card" id="quizCard">
+          <div class="quiz-question" id="quizQuestion">Loading question...</div>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+        <div class="quiz-nav">
+          <button id="prevQ" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Previous</button>
+          <button id="nextQ" class="btn btn-primary">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="quiz-results" id="quizResults" style="display:none;">
+          <div class="results-icon"><i class="fas fa-trophy"></i></div>
+          <h3>Quiz Complete!</h3>
+          <div class="results-score">
+            <div class="score-display"><span id="finalScore">0</span>/<span id="finalTotal">15</span></div>
+            <div class="score-label" id="scoreLabel">Calculating...</div>
+          </div>
+          <button onclick="restartQuiz()" class="btn btn-primary">Restart Quiz <i class="fas fa-redo"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="section" id="flashcards">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">♦</div>
+        <h2 class="section-title">Interactive Flashcards</h2>
+        <p class="section-subtitle">Click cards to reveal definitions</p>
+      </div>
+
+      <div class="flashcard-controls" data-aos="fade-up">
+        <button class="fc-btn" id="prevFc"><i class="fas fa-chevron-left"></i></button>
+        <div class="fc-counter"><span id="fcCurrent">1</span> / <span id="fcTotal">12</span></div>
+        <button class="fc-btn" id="nextFc"><i class="fas fa-chevron-right"></i></button>
+      </div>
+
+      <div class="flashcard-wrapper" data-aos="fade-up">
+        <div class="flashcard" id="flashcard">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <div class="fc-label">TERM</div>
+              <div class="fc-content" id="fcTerm">CVR</div>
+              <div class="fc-hint">Click to reveal</div>
+            </div>
+            <div class="flashcard-back">
+              <div class="fc-label">DEFINITION</div>
+              <div class="fc-content" id="fcDefinition">Cost Value Reconciliation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-grid" data-aos="fade-up">
+        <div class="fc-mini" data-fc="0"><strong>CVR</strong><span>Cost Value Reconciliation</span></div>
+        <div class="fc-mini" data-fc="1"><strong>CTC</strong><span>Cost to Complete</span></div>
+        <div class="fc-mini" data-fc="2"><strong>EVA</strong><span>Earned Value Analysis</span></div>
+        <div class="fc-mini" data-fc="3"><strong>CPI</strong><span>Cost Performance Index</span></div>
+        <div class="fc-mini" data-fc="4"><strong>SPI</strong><span>Schedule Performance Index</span></div>
+        <div class="fc-mini" data-fc="5"><strong>EAC</strong><span>Estimate at Completion</span></div>
+        <div class="fc-mini" data-fc="6"><strong>EMV</strong><span>Expected Monetary Value</span></div>
+        <div class="fc-mini" data-fc="7"><strong>BOQ</strong><span>Bill of Quantities</span></div>
+        <div class="fc-mini" data-fc="8"><strong>FIDIC</strong><span>International Federation of Engineers</span></div>
+        <div class="fc-mini" data-fc="9"><strong>NRM</strong><span>New Rules of Measurement</span></div>
+        <div class="fc-mini" data-fc="10"><strong>RICS</strong><span>Royal Inst. of Chartered Surveyors</span></div>
+        <div class="fc-mini" data-fc="11"><strong>DAB</strong><span>Dispute Adjudication Board</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="section section-alt" id="summary">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">05</div>
+        <h2 class="section-title">Summary & Key Takeaways</h2>
+        <p class="section-subtitle">The financial and contractual backbone of construction</p>
+      </div>
+
+      <div class="summary-grid" data-aos="fade-up">
+        <div class="summary-card">
+          <div class="summary-icon"><i class="fas fa-link"></i></div>
+          <h3>Strategic Link</h3>
+          <p>Commercial Management links the strategic decisions of tendering with the operational realities of project delivery.</p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon"><i class="fas fa-bullseye"></i></div>
+          <h3>Profit Protection</h3>
+          <p>From pre-contract bid formulation to post-contract value management, CM defines financial success.</p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon"><i class="fas fa-brain"></i></div>
+          <h3>Integrated Approach</h3>
+          <p>A professional CM integrates technical knowledge, business strategy, and ethical conduct.</p>
+        </div>
+        <div class="summary-card">
+          <div class="summary-icon"><i class="fas fa-heart"></i></div>
+          <h3>Commercial Conscience</h3>
+          <p>Acts as the organisation's commercial conscience, ensuring decisions are based on accurate data and risk awareness.</p>
+        </div>
+      </div>
+
+      <div class="final-quote" data-aos="fade-up">
+        <i class="fas fa-quote-left"></i>
+        <blockquote>
+          Through structured learning, reflective practice, and adherence to RICS ethical standards, candidates can evolve from quantity surveyors into <strong>strategic commercial leaders</strong> — professionals who not only measure cost but create value.
+        </blockquote>
+      </div>
+
+      <div class="cta-banner" data-aos="fade-up">
+        <h3>Ready to Master Commercial Management?</h3>
+        <p>Test your knowledge with our interactive quiz</p>
+        <a href="#quiz" class="btn btn-primary btn-large">Start Quiz <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4><i class="fas fa-hard-hat"></i> CM Study Guide</h4>
+          <p>An interactive resource for MRICS and MAIQS/CQS candidates pursuing the Quantity Surveying and Construction pathway.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Standards Referenced</h4>
+          <ul>
+            <li>RICS CM Construction Works Guidance Note</li>
+            <li>FIDIC 1999/2017 Conditions of Contract</li>
+            <li>NRM 1 and NRM 2</li>
+            <li>AIQS Cost Management Manual</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Author</h4>
+          <p><strong>Roshan de Silva</strong><br>BSc(Hons)QS, LLM (Construction Law)<br>MRICS, MAIQS, CQS</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; APCCoaching.me® - Guidance Note for MRICS and MAIQS/CQS Candidates</p>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+<script src="js/main.js"></script>
+</body>
+</html>
