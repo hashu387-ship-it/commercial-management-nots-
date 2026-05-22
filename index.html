@@ -15,6 +15,109 @@
 </head>
 <body>
 
+<!-- NAME PROMPT (first visit) -->
+<div class="name-prompt" id="namePrompt">
+  <div class="name-prompt-content">
+    <div class="name-prompt-icon"><i class="fas fa-trophy"></i></div>
+    <h2>Welcome, Future APC Champion!</h2>
+    <p>Enter your name to start your commercial management journey. Earn XP, unlock achievements, and master the game.</p>
+    <input type="text" id="playerNameInput" placeholder="Your name" maxlength="20" />
+    <button onclick="startGame()" class="btn btn-primary" style="width:100%;justify-content:center;">Begin Adventure <i class="fas fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- GAME HUD -->
+<div class="game-hud" id="gameHud" onclick="openProfile()" style="display:none;">
+  <div class="hud-avatar" id="hudAvatar">P</div>
+  <div class="hud-section"><i class="fas fa-star"></i> <span>Lv </span><span id="hudLevel">1</span></div>
+  <div class="hud-section">
+    <i class="fas fa-bolt"></i>
+    <div class="hud-xp-bar"><div class="hud-xp-fill" id="hudXpFill"></div></div>
+    <span id="hudXp">0</span>
+  </div>
+  <div class="hud-section"><i class="fas fa-coins"></i> <span id="hudPoints">0</span></div>
+  <div class="hud-section">
+    <div class="hud-hearts" id="hudHearts">
+      <i class="fas fa-heart hud-heart"></i>
+      <i class="fas fa-heart hud-heart"></i>
+      <i class="fas fa-heart hud-heart"></i>
+    </div>
+  </div>
+</div>
+
+<!-- LEVEL UP MODAL -->
+<div class="level-up-modal" id="levelUpModal">
+  <div class="level-up-content">
+    <div class="level-up-icon"><i class="fas fa-crown"></i></div>
+    <div class="level-up-title">LEVEL UP!</div>
+    <div class="level-up-number" id="levelUpNumber">2</div>
+    <p>Keep learning to unlock more achievements!</p>
+    <button onclick="closeLevelUp()" class="btn btn-primary" style="margin-top:1rem;">Awesome!</button>
+  </div>
+</div>
+
+<!-- ACHIEVEMENT TOAST -->
+<div class="achievement-toast" id="achievementToast">
+  <div class="toast-icon" id="toastIcon"><i class="fas fa-trophy"></i></div>
+  <div class="toast-content">
+    <div class="toast-title">🏆 Achievement Unlocked</div>
+    <div class="toast-name" id="toastName">Achievement Name</div>
+  </div>
+</div>
+
+<!-- CONFETTI CONTAINER -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- COMBO INDICATOR -->
+<div class="combo-indicator" id="comboIndicator">
+  <span class="combo-x" id="comboX">x2</span>
+  <small>COMBO</small>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="profile-modal" id="profileModal">
+  <div class="profile-content">
+    <button class="profile-close" onclick="closeProfile()"><i class="fas fa-times"></i></button>
+    <div class="profile-header">
+      <div class="profile-avatar" id="profileAvatar">P</div>
+      <div class="profile-name" id="profileName">Player</div>
+      <div class="profile-level">Level <span id="profileLevel">1</span></div>
+      <div class="profile-stats-row">
+        <div class="profile-stat">
+          <div class="profile-stat-value" id="profileXp">0</div>
+          <div class="profile-stat-label">XP</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value" id="profilePoints">0</div>
+          <div class="profile-stat-label">Points</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value" id="profileStreak">0</div>
+          <div class="profile-stat-label">Best Combo</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value" id="profileAchCount">0</div>
+          <div class="profile-stat-label">Badges</div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-section-title"><i class="fas fa-trophy" style="color:var(--rsg-gold);"></i> Achievements</div>
+    <div class="achievements-grid" id="achievementsGrid"></div>
+  </div>
+</div>
+
+<!-- GAME MODAL (for mini-games) -->
+<div class="game-modal" id="gameModal">
+  <div class="game-modal-content">
+    <button class="game-modal-close" onclick="closeGameModal()"><i class="fas fa-times"></i></button>
+    <div class="game-modal-header">
+      <div class="game-modal-title" id="gameModalTitle">Mini Game</div>
+      <div class="game-modal-stats" id="gameModalStats"></div>
+    </div>
+    <div id="gameModalBody"></div>
+  </div>
+</div>
+
 <!-- LOADING SCREEN -->
 <div class="loader" id="loader">
   <div class="loader-content">
@@ -49,6 +152,7 @@
     <a href="#risk-ethics" class="nav-link"><i class="fas fa-shield-alt"></i><span>11. Risk & Ethics</span></a>
     <a href="#quiz" class="nav-link"><i class="fas fa-question-circle"></i><span>Quiz</span></a>
     <a href="#flashcards" class="nav-link"><i class="fas fa-clone"></i><span>Flashcards</span></a>
+    <a href="#minigames" class="nav-link"><i class="fas fa-gamepad"></i><span>Mini-Games</span></a>
     <a href="#summary" class="nav-link"><i class="fas fa-flag-checkered"></i><span>Summary</span></a>
   </nav>
   <div class="sidebar-footer">
@@ -2229,8 +2333,41 @@
     </div>
   </section>
 
+  <!-- MINI-GAMES -->
+  <section class="section" id="minigames">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number">🎮</div>
+        <h2 class="section-title">Mini-Games</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Learn through play — earn XP, points, and unlock achievements</p>
+      </div>
+
+      <div class="minigames-grid" data-aos="fade-up">
+        <div class="minigame-card" onclick="openMiniGame('match')">
+          <div class="minigame-icon"><i class="fas fa-link"></i></div>
+          <h4>Term Match</h4>
+          <p>Match the acronym to its definition. Speed and accuracy = bigger rewards!</p>
+          <div class="minigame-badge"><i class="fas fa-star"></i> +50 XP per win</div>
+        </div>
+        <div class="minigame-card" onclick="openMiniGame('memory')">
+          <div class="minigame-icon"><i class="fas fa-brain"></i></div>
+          <h4>Memory Match</h4>
+          <p>Find pairs of related terms. Fewer moves = higher score.</p>
+          <div class="minigame-badge"><i class="fas fa-star"></i> +100 XP perfect</div>
+        </div>
+        <div class="minigame-card" onclick="openMiniGame('speed')">
+          <div class="minigame-icon"><i class="fas fa-bolt"></i></div>
+          <h4>Speed Quiz</h4>
+          <p>60 seconds. As many correct answers as you can. Combo multiplier active!</p>
+          <div class="minigame-badge"><i class="fas fa-fire"></i> Combo XP</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SUMMARY -->
-  <section class="section" id="summary">
+  <section class="section section-alt" id="summary">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <div class="section-number">★</div>
@@ -2311,5 +2448,12 @@
 <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
 <script src="js/main.js"></script>
+<script src="js/game.js"></script>
+<script>
+  // Kick off the game once the page is interactive
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => { try { initGame(); } catch (e) { console.warn(e); } }, 2200);
+  });
+</script>
 </body>
 </html>

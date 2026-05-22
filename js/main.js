@@ -374,8 +374,22 @@ function renderQuestion() {
 }
 
 function selectAnswer(idx) {
+  if (userAnswers[currentQ] !== undefined) return; // already answered
   userAnswers[currentQ] = idx;
-  renderQuestion();
+  const correct = quizQuestions[currentQ].correct;
+  const opts = document.querySelectorAll('.quiz-option');
+  opts.forEach((o, i) => {
+    if (i === correct) o.classList.add('correct');
+    if (i === idx && idx !== correct) o.classList.add('wrong');
+  });
+  // Game integration
+  try {
+    if (idx === correct) {
+      if (typeof quizAnswerCorrect === 'function') quizAnswerCorrect();
+    } else {
+      if (typeof quizAnswerWrong === 'function') quizAnswerWrong();
+    }
+  } catch (e) {}
 }
 
 function nextQuestion() {
@@ -397,6 +411,7 @@ function submitQuiz() {
   userAnswers.forEach((ans, idx) => {
     if (ans === quizQuestions[idx].correct) score++;
   });
+  try { if (typeof quizComplete === 'function') quizComplete(score, quizQuestions.length); } catch (e) {}
 
   document.getElementById('quizCard').style.display = 'none';
   document.querySelector('.quiz-nav').style.display = 'none';
@@ -495,6 +510,8 @@ function renderFlashcard() {
   document.querySelectorAll('.fc-mini').forEach((m, idx) => {
     m.classList.toggle('active', idx === currentFc);
   });
+
+  try { if (typeof trackFlashcardView === 'function') trackFlashcardView(currentFc); } catch (e) {}
 }
 
 function initBackToTop() {
