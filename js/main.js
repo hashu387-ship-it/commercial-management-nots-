@@ -1,100 +1,85 @@
 /* ==========================================================================
-   COMMERCIAL MANAGEMENT IN CONSTRUCTION - INTERACTIVE STUDY GUIDE
-   Main JavaScript File
+   COMMERCIAL MANAGEMENT - INTERACTIVE STUDY GUIDE
+   Red Sea Global inspired theme
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   const inits = [
     initLoader, initAOS, initSidebar, initThemeToggle, initScrollEffects,
-    initTabs, initApcTabs, initEvaCalculator, initEmvCalculator,
-    initCharts, initQuiz, initFlashcards, initBackToTop
+    initTabs, initApcTabs, initEvaCalculator, initCtcCalculator,
+    initEmvCalculator, initCharts, initQuiz, initFlashcards, initBackToTop
   ];
   inits.forEach(fn => {
     try { fn(); } catch (e) { console.warn(fn.name + ' failed:', e.message); }
   });
 });
 
-/* ==========================================================================
-   LOADER
-   ========================================================================== */
 function initLoader() {
   window.addEventListener('load', () => {
     setTimeout(() => {
-      document.getElementById('loader').classList.add('hidden');
-    }, 1500);
+      const el = document.getElementById('loader');
+      if (el) el.classList.add('hidden');
+    }, 1800);
   });
 }
 
-/* ==========================================================================
-   AOS (Animate On Scroll)
-   ========================================================================== */
 function initAOS() {
   if (typeof AOS === 'undefined') return;
-  AOS.init({ duration: 800, once: true, offset: 100 });
+  AOS.init({ duration: 900, once: true, offset: 80, easing: 'ease-out-cubic' });
 }
 
-/* ==========================================================================
-   SIDEBAR
-   ========================================================================== */
 function initSidebar() {
   const sidebar = document.getElementById('sidebar');
   const menuToggle = document.getElementById('menuToggle');
   const sidebarClose = document.getElementById('sidebarClose');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  menuToggle.addEventListener('click', () => sidebar.classList.add('open'));
-  sidebarClose.addEventListener('click', () => sidebar.classList.remove('open'));
+  if (menuToggle) menuToggle.addEventListener('click', () => sidebar.classList.add('open'));
+  if (sidebarClose) sidebarClose.addEventListener('click', () => sidebar.classList.remove('open'));
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      if (window.innerWidth <= 1024) {
-        sidebar.classList.remove('open');
-      }
+      if (window.innerWidth <= 1024) sidebar.classList.remove('open');
       navLinks.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
     });
   });
 
-  // Update active link based on scroll
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 100;
-      if (window.scrollY >= sectionTop) {
-        current = section.getAttribute('id');
-      }
+      if (window.scrollY >= sectionTop) current = section.getAttribute('id');
     });
     navLinks.forEach(link => {
       link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
+      if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
     });
   });
 }
 
-/* ==========================================================================
-   THEME TOGGLE
-   ========================================================================== */
 function initThemeToggle() {
   const themeToggle = document.getElementById('themeToggle');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
   updateThemeIcon(savedTheme);
 
-  themeToggle.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const newTheme = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-  });
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+  }
 }
 
 function updateThemeIcon(theme) {
   const icon = document.querySelector('#themeToggle i');
   const text = document.querySelector('#themeToggle span');
+  if (!icon || !text) return;
   if (theme === 'dark') {
     icon.className = 'fas fa-sun';
     text.textContent = 'Light Mode';
@@ -104,9 +89,6 @@ function updateThemeIcon(theme) {
   }
 }
 
-/* ==========================================================================
-   SCROLL EFFECTS
-   ========================================================================== */
 function initScrollEffects() {
   const progressBar = document.getElementById('readingProgress');
   const completionFill = document.getElementById('completionFill');
@@ -115,73 +97,95 @@ function initScrollEffects() {
   window.addEventListener('scroll', () => {
     const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrolled = (window.scrollY / windowHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-    completionFill.style.width = scrolled + '%';
-    completionPercent.textContent = Math.round(scrolled) + '%';
+    if (progressBar) progressBar.style.width = scrolled + '%';
+    if (completionFill) completionFill.style.width = scrolled + '%';
+    if (completionPercent) completionPercent.textContent = Math.round(scrolled) + '%';
   });
 }
 
-/* ==========================================================================
-   TABS
-   ========================================================================== */
 function initTabs() {
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  tabBtns.forEach(btn => {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const tabId = btn.getAttribute('data-tab');
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById(`${tabId}-tab`).classList.add('active');
+      const target = document.getElementById(`${tabId}-tab`);
+      if (target) target.classList.add('active');
     });
   });
 }
 
 function initApcTabs() {
-  const tabs = document.querySelectorAll('.apc-tab-btn');
-  tabs.forEach(tab => {
+  document.querySelectorAll('.apc-tab-btn').forEach(tab => {
     tab.addEventListener('click', () => {
       const level = tab.getAttribute('data-apc');
       document.querySelectorAll('.apc-tab-btn').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.apc-content').forEach(c => c.classList.remove('active'));
       tab.classList.add('active');
-      document.getElementById(`apc-${level}`).classList.add('active');
+      const target = document.getElementById(`apc-${level}`);
+      if (target) target.classList.add('active');
     });
   });
 }
 
-/* ==========================================================================
-   EVA CALCULATOR
-   ========================================================================== */
+/* EVA CALCULATOR */
 function initEvaCalculator() {
   ['ev', 'ac', 'pv', 'bac'].forEach(id => {
-    document.getElementById(id).addEventListener('input', calculateEVA);
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', calculateEVA);
   });
   calculateEVA();
 }
 
 function calculateEVA() {
-  const ev = parseFloat(document.getElementById('ev').value) || 0;
-  const ac = parseFloat(document.getElementById('ac').value) || 0;
-  const pv = parseFloat(document.getElementById('pv').value) || 0;
-  const bac = parseFloat(document.getElementById('bac').value) || 0;
+  const ev = parseFloat(document.getElementById('ev')?.value) || 0;
+  const ac = parseFloat(document.getElementById('ac')?.value) || 0;
+  const pv = parseFloat(document.getElementById('pv')?.value) || 0;
+  const bac = parseFloat(document.getElementById('bac')?.value) || 0;
 
   const cpi = ac > 0 ? (ev / ac).toFixed(2) : 0;
   const spi = pv > 0 ? (ev / pv).toFixed(2) : 0;
   const eac = cpi > 0 ? (bac / cpi).toFixed(0) : 0;
+  const sv = ev - pv;
+  const cv = ev - ac;
 
-  document.getElementById('cpiValue').textContent = cpi;
-  document.getElementById('spiValue').textContent = spi;
-  document.getElementById('eacValue').textContent = parseFloat(eac).toLocaleString();
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
 
-  document.getElementById('cpiStatus').textContent = cpi >= 1 ? '✓ Cost Efficient' : '✗ Over Budget';
-  document.getElementById('spiStatus').textContent = spi >= 1 ? '✓ On/Ahead Schedule' : '✗ Behind Schedule';
-  document.getElementById('eacStatus').textContent = eac <= bac ? '✓ Under Budget' : '✗ Will Exceed Budget';
+  set('cpiValue', cpi);
+  set('spiValue', spi);
+  set('eacValue', parseFloat(eac).toLocaleString());
+  set('svcvValue', `${(sv/1000).toFixed(0)}K / ${(cv >= 0 ? '+' : '')}${(cv/1000).toFixed(0)}K`);
+
+  set('cpiStatus', cpi >= 1 ? '✓ Cost Efficient' : '✗ Over Budget');
+  set('spiStatus', spi >= 1 ? '✓ On/Ahead Schedule' : '✗ Behind Schedule');
+  set('eacStatus', eac <= bac ? '✓ Under Budget' : '✗ Will Exceed');
 }
 
-/* ==========================================================================
-   EMV CALCULATOR
-   ========================================================================== */
+/* CTC CALCULATOR */
+function initCtcCalculator() {
+  ['ctc-x', 'ctc-y'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', calculateCTC);
+  });
+  calculateCTC();
+}
+
+function calculateCTC() {
+  const x = parseFloat(document.getElementById('ctc-x')?.value) || 0;
+  const y = parseFloat(document.getElementById('ctc-y')?.value) || 0;
+  const z = x - y;
+  const pct = x > 0 ? ((y / x) * 100).toFixed(1) : 0;
+
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  set('ctc-z', z.toLocaleString());
+  set('ctc-percent', pct + '%');
+  set('ctc-remaining', z.toLocaleString());
+  set('ctc-status', z > 0 ? '✓ Healthy' : '✗ Over-incurred');
+}
+
+/* EMV CALCULATOR */
 function initEmvCalculator() {
   document.querySelectorAll('.emv-prob, .emv-impact').forEach(input => {
     input.addEventListener('input', calculateEMV);
@@ -197,15 +201,15 @@ function calculateEMV() {
     const p = parseFloat(probs[i].value) || 0;
     const imp = parseFloat(impacts[i].value) || 0;
     const emv = (p / 100) * imp;
-    document.getElementById(`emv-${i}`).textContent = emv.toLocaleString() + ' OMR';
+    const el = document.getElementById(`emv-${i}`);
+    if (el) el.textContent = emv.toLocaleString() + ' OMR';
     total += emv;
   }
-  document.getElementById('emv-total').textContent = total.toLocaleString() + ' OMR';
+  const totalEl = document.getElementById('emv-total');
+  if (totalEl) totalEl.textContent = total.toLocaleString() + ' OMR';
 }
 
-/* ==========================================================================
-   CHARTS
-   ========================================================================== */
+/* CHARTS */
 function initCharts() {
   if (typeof Chart === 'undefined') {
     document.querySelectorAll('canvas').forEach(c => {
@@ -214,341 +218,141 @@ function initCharts() {
     });
     return;
   }
+
   Chart.defaults.font.family = "'Inter', sans-serif";
-  Chart.defaults.color = getComputedStyle(document.documentElement).getPropertyValue('--text-light').trim();
+  Chart.defaults.color = '#5a6373';
+
+  const rsgColors = ['#0d4f5c', '#14919b', '#c9985f', '#e85a4f', '#ff7e5f', '#16a085'];
 
   // Tools Chart
   const toolsCtx = document.getElementById('toolsChart');
-  if (toolsCtx) {
-    new Chart(toolsCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['CVR', 'CTC', 'EVA', 'Cashflow Forecast', 'Risk Registers', 'Procurement Schedules'],
-        datasets: [{
-          data: [25, 20, 18, 15, 12, 10],
-          backgroundColor: [
-            '#1e3a8a', '#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444'
-          ],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { padding: 15, font: { size: 11 } }
-          },
-          title: {
-            display: true,
-            text: 'Commercial Management Tools',
-            font: { size: 14, weight: 'bold' }
-          }
-        }
+  if (toolsCtx) new Chart(toolsCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['CVR', 'CTC', 'EVM', 'Cost Report', 'Cash Flow Forecast'],
+      datasets: [{ data: [28, 22, 20, 17, 13], backgroundColor: rsgColors, borderWidth: 3, borderColor: '#fdfbf7' }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 15, font: { size: 11 } } },
+        title: { display: true, text: 'Commercial Management Tools', font: { size: 14, weight: 'bold' } }
       }
-    });
-  }
-
-  // Estimating Chart
-  const estCtx = document.getElementById('estimatingChart');
-  if (estCtx) {
-    new Chart(estCtx, {
-      type: 'polarArea',
-      data: {
-        labels: ['First-Principles', 'Operational', 'Quotation-Based', 'Benchmarking'],
-        datasets: [{
-          data: [35, 25, 25, 15],
-          backgroundColor: [
-            'rgba(30,58,138,0.7)',
-            'rgba(59,130,246,0.7)',
-            'rgba(6,182,212,0.7)',
-            'rgba(245,158,11,0.7)'
-          ],
-          borderColor: ['#1e3a8a', '#3b82f6', '#06b6d4', '#f59e0b'],
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'bottom' },
-          title: {
-            display: true,
-            text: 'Estimating Methods Usage',
-            font: { size: 14, weight: 'bold' }
-          }
-        }
-      }
-    });
-  }
+    }
+  });
 
   // CVR Chart
   const cvrCtx = document.getElementById('cvrChart');
-  if (cvrCtx) {
-    new Chart(cvrCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'],
-        datasets: [
-          {
-            label: 'Earned Value (Revenue)',
-            data: [120000, 280000, 450000, 620000, 800000, 980000],
-            backgroundColor: 'rgba(59,130,246,0.7)',
-            borderColor: '#3b82f6',
-            borderWidth: 2
-          },
-          {
-            label: 'Actual Cost',
-            data: [100000, 250000, 420000, 580000, 720000, 870000],
-            backgroundColor: 'rgba(16,185,129,0.7)',
-            borderColor: '#10b981',
-            borderWidth: 2
-          },
-          {
-            label: 'Margin',
-            data: [20000, 30000, 30000, 40000, 80000, 110000],
-            backgroundColor: 'rgba(245,158,11,0.7)',
-            borderColor: '#f59e0b',
-            borderWidth: 2,
-            type: 'line',
-            tension: 0.4,
-            fill: false
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'CVR: Value vs Cost vs Margin Trend',
-            font: { size: 14, weight: 'bold' }
-          },
-          legend: { position: 'bottom' }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              callback: value => 'OMR ' + (value/1000) + 'k'
-            }
-          }
-        }
-      }
-    });
-  }
+  if (cvrCtx) new Chart(cvrCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'],
+      datasets: [
+        { label: 'Earned Value (Revenue)', data: [120000, 280000, 450000, 620000, 800000, 980000], backgroundColor: 'rgba(20,145,155,0.75)', borderColor: '#14919b', borderWidth: 2 },
+        { label: 'Actual Cost', data: [100000, 250000, 420000, 580000, 720000, 870000], backgroundColor: 'rgba(232,90,79,0.75)', borderColor: '#e85a4f', borderWidth: 2 },
+        { label: 'Margin', data: [20000, 30000, 30000, 40000, 80000, 110000], backgroundColor: 'rgba(201,152,95,0.75)', borderColor: '#c9985f', borderWidth: 3, type: 'line', tension: 0.4, fill: false }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { title: { display: true, text: 'CVR: Value vs Cost vs Margin', font: { size: 14, weight: 'bold' } }, legend: { position: 'bottom' } },
+      scales: { y: { beginAtZero: true, ticks: { callback: v => 'OMR ' + (v/1000) + 'k' } } }
+    }
+  });
 
-  // Cashflow Chart
+  // Cashflow Chart - S-Curve
   const cfCtx = document.getElementById('cashflowChart');
-  if (cfCtx) {
-    new Chart(cfCtx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        datasets: [
-          {
-            label: 'Cash Inflow (Client Payments)',
-            data: [50000, 120000, 200000, 280000, 350000, 420000, 500000, 580000, 650000, 700000, 750000, 800000],
-            borderColor: '#10b981',
-            backgroundColor: 'rgba(16,185,129,0.1)',
-            tension: 0.4,
-            fill: true,
-            borderWidth: 3
-          },
-          {
-            label: 'Cash Outflow (Costs)',
-            data: [80000, 180000, 240000, 320000, 380000, 440000, 510000, 580000, 640000, 690000, 730000, 770000],
-            borderColor: '#ef4444',
-            backgroundColor: 'rgba(239,68,68,0.1)',
-            tension: 0.4,
-            fill: true,
-            borderWidth: 3
-          },
-          {
-            label: 'Net Position',
-            data: [-30000, -60000, -40000, -40000, -30000, -20000, -10000, 0, 10000, 10000, 20000, 30000],
-            borderColor: '#f59e0b',
-            backgroundColor: 'rgba(245,158,11,0.2)',
-            tension: 0.4,
-            fill: false,
-            borderWidth: 3,
-            borderDash: [5,5]
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Annual Cashflow Forecast',
-            font: { size: 14, weight: 'bold' }
-          },
-          legend: { position: 'bottom' }
-        },
-        scales: {
-          y: {
-            ticks: {
-              callback: value => 'OMR ' + (value/1000) + 'k'
-            }
-          }
-        }
-      }
-    });
-  }
+  if (cfCtx) new Chart(cfCtx, {
+    type: 'line',
+    data: {
+      labels: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'],
+      datasets: [
+        { label: 'Cumulative Inflow (Client)', data: [50000, 130000, 230000, 360000, 500000, 650000, 790000, 900000, 980000, 1040000, 1080000, 1100000], borderColor: '#16a085', backgroundColor: 'rgba(22,160,133,0.15)', tension: 0.4, fill: true, borderWidth: 3 },
+        { label: 'Cumulative Outflow (Costs)', data: [80000, 180000, 310000, 460000, 620000, 770000, 900000, 990000, 1050000, 1090000, 1110000, 1120000], borderColor: '#e85a4f', backgroundColor: 'rgba(232,90,79,0.15)', tension: 0.4, fill: true, borderWidth: 3 },
+        { label: 'Net Cash Position', data: [-30000, -50000, -80000, -100000, -120000, -120000, -110000, -90000, -70000, -50000, -30000, -20000], borderColor: '#c9985f', tension: 0.4, fill: false, borderWidth: 3, borderDash: [6,4] }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { title: { display: true, text: 'S-Curve: Annual Project Cash Flow', font: { size: 14, weight: 'bold' } }, legend: { position: 'bottom' } },
+      scales: { y: { ticks: { callback: v => 'OMR ' + (v/1000) + 'k' } } }
+    }
+  });
 
-  // Risk Categories Chart
+  // Risk Categories Radar
   const riskCtx = document.getElementById('riskCategoriesChart');
-  if (riskCtx) {
-    new Chart(riskCtx, {
-      type: 'radar',
-      data: {
-        labels: ['Design Risk', 'Procurement Risk', 'Execution Risk', 'Contractual Risk', 'Financial Risk', 'Environmental Risk'],
-        datasets: [
-          {
-            label: 'Probability (%)',
-            data: [30, 25, 35, 20, 20, 15],
-            borderColor: '#ef4444',
-            backgroundColor: 'rgba(239,68,68,0.2)',
-            borderWidth: 2
-          },
-          {
-            label: 'Impact Level',
-            data: [40, 35, 30, 45, 50, 35],
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59,130,246,0.2)',
-            borderWidth: 2
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Risk Categories: Probability vs Impact',
-            font: { size: 14, weight: 'bold' }
-          },
-          legend: { position: 'bottom' }
-        },
-        scales: {
-          r: {
-            beginAtZero: true,
-            max: 60
-          }
-        }
-      }
-    });
-  }
+  if (riskCtx) new Chart(riskCtx, {
+    type: 'radar',
+    data: {
+      labels: ['Design', 'Procurement', 'Execution', 'Contractual', 'Financial', 'Environmental'],
+      datasets: [
+        { label: 'Probability (%)', data: [30, 25, 35, 20, 20, 15], borderColor: '#e85a4f', backgroundColor: 'rgba(232,90,79,0.2)', borderWidth: 2, pointBackgroundColor: '#e85a4f' },
+        { label: 'Impact Level', data: [40, 35, 30, 45, 50, 35], borderColor: '#14919b', backgroundColor: 'rgba(20,145,155,0.2)', borderWidth: 2, pointBackgroundColor: '#14919b' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { title: { display: true, text: 'Risk: Probability vs Impact', font: { size: 14, weight: 'bold' } }, legend: { position: 'bottom' } },
+      scales: { r: { beginAtZero: true, max: 60 } }
+    }
+  });
 }
 
-/* ==========================================================================
-   QUIZ
-   ========================================================================== */
+/* QUIZ - 20 Questions covering both PDFs */
 const quizQuestions = [
-  {
-    q: "What does CVR stand for in commercial management?",
-    options: ["Cost Variance Report", "Cost Value Reconciliation", "Contract Value Report", "Construction Value Review"],
-    correct: 1
-  },
-  {
-    q: "At which APC Level are candidates expected to advise senior management on strategic commercial matters?",
-    options: ["Level 1 - Knowledge", "Level 2 - Application", "Level 3 - Advice", "All Levels"],
-    correct: 2
-  },
-  {
-    q: "Which formula correctly represents Cost Performance Index (CPI)?",
-    options: ["CPI = EV / PV", "CPI = AC / EV", "CPI = EV / AC", "CPI = PV / AC"],
-    correct: 2
-  },
-  {
-    q: "What is the primary purpose of pre-contract commercial management?",
-    options: ["To certify payments", "To resolve disputes", "To ensure profitable tendering and bid strategy", "To manage variations"],
-    correct: 2
-  },
-  {
-    q: "Which FIDIC sub-clause typically deals with variation orders?",
-    options: ["Sub-Clause 8.4", "Sub-Clause 13.1", "Sub-Clause 14", "Sub-Clause 20"],
-    correct: 1
-  },
-  {
-    q: "EMV (Expected Monetary Value) is calculated by:",
-    options: ["Cost ÷ Probability", "Probability × Impact", "Impact ÷ Time", "Cost + Risk"],
-    correct: 1
-  },
-  {
-    q: "Which is NOT a recognised estimating method?",
-    options: ["First-Principles Estimating", "Operational Estimates", "Quotation-Based", "Reactive Estimating"],
-    correct: 3
-  },
-  {
-    q: "What is the first step in dispute resolution mechanisms?",
-    options: ["Litigation", "Arbitration", "Negotiation", "Adjudication"],
-    correct: 2
-  },
-  {
-    q: "Cost to Complete (CTC) reports primarily forecast:",
-    options: ["Hourly labour rates", "Total expenditure and final profit margin", "Tax obligations", "Project schedule changes"],
-    correct: 1
-  },
-  {
-    q: "If CPI = 1.20, the project is:",
-    options: ["Behind schedule", "Cost efficient", "Over budget", "Cancelled"],
-    correct: 1
-  },
-  {
-    q: "Which is a core RICS ethical standard (2021)?",
-    options: ["Act with profit motive", "Act with integrity", "Maximize claims", "Avoid documentation"],
-    correct: 1
-  },
-  {
-    q: "A 'back-to-back' subcontract aligns:",
-    options: ["Payment dates only", "Liability with main contract obligations", "Color schemes", "Office locations"],
-    correct: 1
-  },
-  {
-    q: "Value Engineering aims to:",
-    options: ["Increase costs", "Deliver equivalent performance at lower cost", "Delay procurement", "Inflate variations"],
-    correct: 1
-  },
-  {
-    q: "Which is the highest authority in the dispute ladder?",
-    options: ["Negotiation", "Mediation", "Adjudication", "Litigation"],
-    correct: 3
-  },
-  {
-    q: "What is the recommended frequency for preparing CVR reports?",
-    options: ["Annually", "Once at project end", "Monthly", "Only when problems arise"],
-    correct: 2
-  }
+  { q: "What does commercial management primarily identify and develop?", options: ["Cost and time only", "Risk and business opportunities", "Drawings and specifications", "Material quantities"], correct: 1 },
+  { q: "When does commercial management start?", options: ["At project handover", "At the time of collecting the tender", "After contract signing", "At final account"], correct: 1 },
+  { q: "What does CVR stand for?", options: ["Cost Variance Report", "Cost Value Reconciliation", "Contract Value Review", "Capital Value Return"], correct: 1 },
+  { q: "Which APC Level expects advising senior management on strategic matters?", options: ["Level 1", "Level 2", "Level 3", "Level 4"], correct: 2 },
+  { q: "CPI formula is:", options: ["EV / PV", "AC / EV", "EV / AC", "PV / AC"], correct: 2 },
+  { q: "If CPI > 1, the project is:", options: ["Behind schedule", "Cost efficient (profit)", "Over budget", "Cancelled"], correct: 1 },
+  { q: "Which estimation method is regarded as the most accurate?", options: ["Unit Method", "Superficial Method", "Approximate Quantities", "Comparative Cost Plan"], correct: 2 },
+  { q: "EMV = ?", options: ["Cost ÷ Probability", "Probability × Impact", "Impact ÷ Time", "Cost + Risk"], correct: 1 },
+  { q: "Front-loaded BOQ means:", options: ["Higher costs at end", "Higher costs in early stages", "Same throughout", "Spot pricing each month"], correct: 1 },
+  { q: "Which FIDIC clause covers Variation?", options: ["13.1", "8.4", "14", "4.10"], correct: 0 },
+  { q: "CTC formula is:", options: ["Y = Z + X", "Z = X − Y (Planned − Incurred)", "Z = X + Y", "Z = Y / X"], correct: 1 },
+  { q: "What does MOS stand for in CVR context?", options: ["Method of Statement", "Material on Site", "Mode of Service", "Margin on Sale"], correct: 1 },
+  { q: "Over-measure means:", options: ["Work completed but not claimed", "Trying to claim before eligibility", "Excess materials delivered", "Cost overrun"], correct: 1 },
+  { q: "A nominated subcontractor is:", options: ["Chosen by the contractor only", "Single specialist nominated by the Employer", "Any qualified bidder", "Self-nominated"], correct: 1 },
+  { q: "First step in dispute resolution should be:", options: ["Litigation", "Arbitration", "Negotiation", "Adjudication"], correct: 2 },
+  { q: "Which is a core RICS ethical standard (2021)?", options: ["Maximize profit at all costs", "Act with integrity", "Conceal errors", "Avoid documentation"], correct: 1 },
+  { q: "Why might a project have negative cash flow early?", options: ["Outgoing exceeds incoming", "Too much profit booked", "Client overpays", "Bank gives free credit"], correct: 0 },
+  { q: "An S-curve in cash flow represents:", options: ["Daily spending", "Cumulative cash position over time", "Liquidated damages", "Profit margin"], correct: 1 },
+  { q: "Value Engineering aims to:", options: ["Increase costs", "Deliver equivalent performance at lower cost", "Delay procurement", "Inflate claims"], correct: 1 },
+  { q: "Tender adjudication meeting discusses:", options: ["Only the OH", "How cost was established, risks, cash flow, profit, opportunities", "Only profit margin", "Site safety only"], correct: 1 }
 ];
 
 let currentQ = 0;
 let userAnswers = [];
 
 function initQuiz() {
-  document.getElementById('qTotal').textContent = quizQuestions.length;
-  document.getElementById('finalTotal').textContent = quizQuestions.length;
+  const qTotal = document.getElementById('qTotal');
+  const finalTotal = document.getElementById('finalTotal');
+  if (qTotal) qTotal.textContent = quizQuestions.length;
+  if (finalTotal) finalTotal.textContent = quizQuestions.length;
   renderQuestion();
 
-  document.getElementById('nextQ').addEventListener('click', nextQuestion);
-  document.getElementById('prevQ').addEventListener('click', prevQuestion);
+  const nextBtn = document.getElementById('nextQ');
+  const prevBtn = document.getElementById('prevQ');
+  if (nextBtn) nextBtn.addEventListener('click', nextQuestion);
+  if (prevBtn) prevBtn.addEventListener('click', prevQuestion);
 }
 
 function renderQuestion() {
   const q = quizQuestions[currentQ];
-  document.getElementById('quizQuestion').textContent = q.q;
-  document.getElementById('qCurrent').textContent = currentQ + 1;
+  if (!q) return;
+  const qText = document.getElementById('quizQuestion');
+  const qCurrent = document.getElementById('qCurrent');
+  if (qText) qText.textContent = q.q;
+  if (qCurrent) qCurrent.textContent = currentQ + 1;
 
   const progress = ((currentQ + 1) / quizQuestions.length) * 100;
-  document.getElementById('quizProgressFill').style.width = progress + '%';
+  const progFill = document.getElementById('quizProgressFill');
+  if (progFill) progFill.style.width = progress + '%';
 
   const optionsContainer = document.getElementById('quizOptions');
+  if (!optionsContainer) return;
   optionsContainer.innerHTML = '';
 
   const letters = ['A', 'B', 'C', 'D'];
@@ -561,9 +365,10 @@ function renderQuestion() {
     optionsContainer.appendChild(div);
   });
 
-  document.getElementById('prevQ').disabled = currentQ === 0;
+  const prevBtn = document.getElementById('prevQ');
+  if (prevBtn) prevBtn.disabled = currentQ === 0;
   const nextBtn = document.getElementById('nextQ');
-  nextBtn.innerHTML = currentQ === quizQuestions.length - 1
+  if (nextBtn) nextBtn.innerHTML = currentQ === quizQuestions.length - 1
     ? 'Submit <i class="fas fa-check"></i>'
     : 'Next <i class="fas fa-arrow-right"></i>';
 }
@@ -577,9 +382,7 @@ function nextQuestion() {
   if (currentQ < quizQuestions.length - 1) {
     currentQ++;
     renderQuestion();
-  } else {
-    submitQuiz();
-  }
+  } else submitQuiz();
 }
 
 function prevQuestion() {
@@ -603,10 +406,12 @@ function submitQuiz() {
   document.getElementById('finalScore').textContent = score;
   const percent = (score / quizQuestions.length) * 100;
   const label = document.getElementById('scoreLabel');
-  if (percent >= 80) label.innerHTML = '🏆 Excellent! You\'re APC-ready!';
-  else if (percent >= 60) label.innerHTML = '👏 Good progress, review key topics!';
-  else if (percent >= 40) label.innerHTML = '📖 Keep studying - you\'re getting there!';
-  else label.innerHTML = '📚 Time to review the material!';
+  if (label) {
+    if (percent >= 80) label.innerHTML = '🏆 Excellent! You\'re APC-ready!';
+    else if (percent >= 60) label.innerHTML = '👏 Good progress, review key topics!';
+    else if (percent >= 40) label.innerHTML = '📖 Keep studying - getting there!';
+    else label.innerHTML = '📚 Time to review the material!';
+  }
 }
 
 function restartQuiz() {
@@ -619,70 +424,82 @@ function restartQuiz() {
   renderQuestion();
 }
 
-/* ==========================================================================
-   FLASHCARDS
-   ========================================================================== */
+/* FLASHCARDS - 16 cards */
 const flashcards = [
-  { term: 'CVR', def: 'Cost Value Reconciliation - Compares earned value to cost incurred to monitor profit' },
-  { term: 'CTC', def: 'Cost to Complete - Forecasts total final cost and margin variance' },
-  { term: 'EVA', def: 'Earned Value Analysis - Measures cost and schedule performance indices' },
-  { term: 'CPI', def: 'Cost Performance Index = EV / AC. CPI > 1 indicates cost efficiency' },
-  { term: 'SPI', def: 'Schedule Performance Index = EV / PV. SPI > 1 shows schedule advancement' },
-  { term: 'EAC', def: 'Estimate at Completion = BAC / CPI. Predicts total cost at project end' },
-  { term: 'EMV', def: 'Expected Monetary Value = Probability × Impact. Used to quantify risk' },
-  { term: 'BOQ', def: 'Bill of Quantities - Detailed measured quantities used for pricing' },
-  { term: 'FIDIC', def: 'International Federation of Consulting Engineers - Standard contract forms' },
-  { term: 'NRM', def: 'New Rules of Measurement - RICS standards for cost planning and measurement' },
-  { term: 'RICS', def: 'Royal Institution of Chartered Surveyors - Global professional body' },
-  { term: 'DAB', def: 'Dispute Adjudication Board - Provides interim decisions on disputes' }
+  { term: 'CVR', def: 'Cost Value Reconciliation — Compares earned value to cost incurred' },
+  { term: 'CTC', def: 'Cost to Complete — Z = X − Y (Planned − Incurred). Forecasts final cost.' },
+  { term: 'EVM', def: 'Earned Value Method — compares actual work with original budget & schedule' },
+  { term: 'CPI', def: 'Cost Performance Index = EV / AC. > 1 = profit/efficient' },
+  { term: 'SPI', def: 'Schedule Performance Index = EV / PV. > 1 = ahead of schedule' },
+  { term: 'EAC', def: 'Estimate at Completion = BAC / CPI. Total cost at project end' },
+  { term: 'EMV', def: 'Expected Monetary Value = Probability × Impact. Quantifies risk' },
+  { term: 'BOQ', def: 'Bill of Quantities — measured quantities used for pricing' },
+  { term: 'FIDIC', def: 'International Federation of Consulting Engineers — standard contracts' },
+  { term: 'NRM', def: 'New Rules of Measurement (NRM1, NRM2) — RICS measurement standards' },
+  { term: 'RICS', def: 'Royal Institution of Chartered Surveyors — global professional body' },
+  { term: 'DAB', def: 'Dispute Adjudication Board — interim dispute decisions' },
+  { term: 'MOS', def: 'Material on Site — received but no contract provision yet' },
+  { term: 'IPC', def: 'Interim Payment Certificate — periodic payment for completed work' },
+  { term: 'VE', def: 'Value Engineering — alternative materials/methods at lower cost' },
+  { term: 'OH', def: 'Overhead — indirect costs (office, admin, head office staff)' }
 ];
 
 let currentFc = 0;
 
 function initFlashcards() {
-  document.getElementById('fcTotal').textContent = flashcards.length;
+  const total = document.getElementById('fcTotal');
+  if (total) total.textContent = flashcards.length;
   renderFlashcard();
 
-  document.getElementById('nextFc').addEventListener('click', () => {
+  const nextFc = document.getElementById('nextFc');
+  const prevFc = document.getElementById('prevFc');
+  const flashcard = document.getElementById('flashcard');
+
+  if (nextFc) nextFc.addEventListener('click', () => {
     currentFc = (currentFc + 1) % flashcards.length;
     renderFlashcard();
   });
 
-  document.getElementById('prevFc').addEventListener('click', () => {
+  if (prevFc) prevFc.addEventListener('click', () => {
     currentFc = (currentFc - 1 + flashcards.length) % flashcards.length;
     renderFlashcard();
   });
 
-  document.getElementById('flashcard').addEventListener('click', () => {
-    document.getElementById('flashcard').classList.toggle('flipped');
+  if (flashcard) flashcard.addEventListener('click', () => {
+    flashcard.classList.toggle('flipped');
   });
 
   document.querySelectorAll('.fc-mini').forEach(mini => {
     mini.addEventListener('click', () => {
       currentFc = parseInt(mini.getAttribute('data-fc'));
       renderFlashcard();
-      document.getElementById('flashcard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const fc = document.getElementById('flashcard');
+      if (fc) fc.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   });
 }
 
 function renderFlashcard() {
   const fc = flashcards[currentFc];
-  document.getElementById('fcTerm').textContent = fc.term;
-  document.getElementById('fcDefinition').textContent = fc.def;
-  document.getElementById('fcCurrent').textContent = currentFc + 1;
-  document.getElementById('flashcard').classList.remove('flipped');
+  if (!fc) return;
+  const term = document.getElementById('fcTerm');
+  const def = document.getElementById('fcDefinition');
+  const current = document.getElementById('fcCurrent');
+  const card = document.getElementById('flashcard');
+
+  if (term) term.textContent = fc.term;
+  if (def) def.textContent = fc.def;
+  if (current) current.textContent = currentFc + 1;
+  if (card) card.classList.remove('flipped');
 
   document.querySelectorAll('.fc-mini').forEach((m, idx) => {
     m.classList.toggle('active', idx === currentFc);
   });
 }
 
-/* ==========================================================================
-   BACK TO TOP
-   ========================================================================== */
 function initBackToTop() {
   const btn = document.getElementById('backToTop');
+  if (!btn) return;
   window.addEventListener('scroll', () => {
     if (window.scrollY > 500) btn.classList.add('visible');
     else btn.classList.remove('visible');
@@ -692,6 +509,6 @@ function initBackToTop() {
   });
 }
 
-// Expose for inline onclick
 window.calculateEVA = calculateEVA;
+window.calculateCTC = calculateCTC;
 window.restartQuiz = restartQuiz;
