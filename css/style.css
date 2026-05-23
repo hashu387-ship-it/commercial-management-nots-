@@ -1301,3 +1301,23 @@ body::before {
   .hero { min-height: auto; page-break-after: always; }
   .section { page-break-before: always; }
 }
+
+/* ==========================================================================
+   THREE.JS SCENE LAYER
+   ========================================================================== */
+.three-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+}
+.three-bg canvas { display: block; width: 100% !important; height: 100% !important; }
+
+.hero { position: relative; }
+.hero > * { position: relative; z-index: 2; }
+.hero::before { z-index: 1; }
+.hero::after { z-index: 1; }
+.hero-content { z-index: 3 !important; }
+
+@media (max-width: 768px) { .three-bg { opacity: 0.5; } }

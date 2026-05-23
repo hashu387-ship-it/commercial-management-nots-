@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -176,6 +177,7 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
+    <div class="three-bg" id="three-bg"></div>
     <div class="hero-bg">
       <div class="hero-waves"></div>
       <div class="hero-particles"></div>
@@ -2724,6 +2726,7 @@
 <script src="js/main.js"></script>
 <script src="js/game.js"></script>
 <script src="js/fx.js"></script>
+<script src="js/three-scene.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { try { initGame(); } catch (e) { console.warn(e); } }, 2200);
