@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const inits = [
     initLoader, initAOS, initSidebar, initThemeToggle, initScrollEffects,
     initTabs, initApcTabs, initEvaCalculator, initCtcCalculator,
-    initEmvCalculator, initCharts, initQuiz, initFlashcards, initBackToTop
+    initEmvCalculator, initCharts, initQuiz, initFlashcards, initBackToTop,
+    initFitness
   ];
   inits.forEach(fn => {
     try { fn(); } catch (e) { console.warn(fn.name + ' failed:', e.message); }
@@ -529,3 +530,307 @@ function initBackToTop() {
 window.calculateEVA = calculateEVA;
 window.calculateCTC = calculateCTC;
 window.restartQuiz = restartQuiz;
+
+/* ==========================================================================
+   FITNESS PLAN (BONUS) — calculator, projection chart, weight log,
+   day tabs, exercise checks, animated form-card flips
+   ========================================================================== */
+
+let fitChart = null;
+const FIT_GOAL = 78;                 // target weight (kg)
+const FIT_TARGET_DATE = new Date(2026, 7, 31); // 31 Aug 2026 (month is 0-indexed)
+
+function initFitness() {
+  if (!document.getElementById('fitness')) return;
+
+  // live calculator
+  ['fitWeight', 'fitHeight', 'fitAge', 'fitSex', 'fitActivity', 'fitPace'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', recalcFitness);
+      el.addEventListener('change', recalcFitness);
+    }
+  });
+
+  initFitCountdown();
+  initFitDayTabs();
+  initFitChecks();
+  initFitDemos();
+  initFitLog();
+  recalcFitness();   // also draws/refreshes the chart
+}
+
+/* ---- Countdown to target date ---- */
+function initFitCountdown() {
+  const el = document.getElementById('fitCountdown');
+  if (!el) return;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const days = Math.max(0, Math.round((FIT_TARGET_DATE - today) / 86400000));
+  el.textContent = days;
+}
+
+/* ---- Core calculations (Mifflin–St Jeor) ---- */
+function recalcFitness() {
+  const w = parseFloat(val('fitWeight')) || 98;
+  const h = parseFloat(val('fitHeight')) || 165;
+  const age = parseFloat(val('fitAge')) || 32;
+  const sex = val('fitSex') || 'male';
+  const act = parseFloat(val('fitActivity')) || 1.55;
+  const pace = parseFloat(val('fitPace')) || 1.0;
+
+  const bmr = 10 * w + 6.25 * h - 5 * age + (sex === 'male' ? 5 : -161);
+  const tdee = bmr * act;
+  const deficit = pace * 7700 / 7;
+  const floor = sex === 'male' ? 1500 : 1200;
+  let target = Math.max(floor, tdee - deficit);
+  target = Math.round(target / 10) * 10;
+
+  // macros
+  const protein = Math.round(1.8 * w);
+  const fat = Math.round(0.6 * w);
+  const carbs = Math.max(50, Math.round((target - (protein * 4 + fat * 9)) / 4));
+
+  // BMI
+  const bmi = w / Math.pow(h / 100, 2);
+  const cat = bmiCategory(bmi);
+
+  setText('fitBMR', Math.round(bmr).toLocaleString());
+  setText('fitTDEE', Math.round(tdee).toLocaleString());
+  setText('fitTarget', target.toLocaleString());
+  setText('fitBMI', bmi.toFixed(1));
+  setText('fitBMICat', cat);
+  setText('fitProtein', protein);
+  setText('fitCarbs', carbs);
+  setText('fitFat', fat);
+
+  // snapshot cards + hero orb
+  setText('snapCals', target.toLocaleString());
+  setText('snapProtein', '~' + protein + 'g');
+  setText('snapBmi', bmi.toFixed(1));
+  setText('snapToLose', Math.max(0, (w - FIT_GOAL)).toFixed(0));
+  setText('fitOrbNow', Math.round(w));
+
+  // ETA to goal at chosen pace
+  const toLose = w - FIT_GOAL;
+  const etaEl = document.getElementById('fitEta');
+  if (etaEl) {
+    if (toLose <= 0) {
+      etaEl.innerHTML = "You're at or below your <strong>78 kg</strong> goal — switch to a maintenance plan. 🎉";
+    } else {
+      const weeks = Math.ceil(toLose / pace);
+      const etaDate = new Date(); etaDate.setDate(etaDate.getDate() + weeks * 7);
+      etaEl.innerHTML = `At ${pace} kg/week you reach <strong>78 kg</strong> in about <strong>${weeks} weeks</strong> (~${etaDate.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}).`;
+    }
+  }
+
+  drawFitChart(w, pace);
+}
+
+function bmiCategory(bmi) {
+  if (bmi < 18.5) return 'Underweight';
+  if (bmi < 25) return 'Healthy';
+  if (bmi < 30) return 'Overweight';
+  if (bmi < 35) return 'Obese (I)';
+  if (bmi < 40) return 'Obese (II)';
+  return 'Obese (III)';
+}
+
+/* ---- Projection chart ---- */
+function drawFitChart(currentW, pace) {
+  const ctx = document.getElementById('fitProjectionChart');
+  if (!ctx || typeof Chart === 'undefined') return;
+
+  const numWeeks = 26;
+  const start = new Date(); start.setHours(0, 0, 0, 0);
+  const labels = [];
+  const planData = [];
+  const stretchData = [];
+  const goalData = [];
+
+  // index (in weeks) of the Aug-2026 target date
+  const stretchIdx = Math.max(1, Math.round((FIT_TARGET_DATE - start) / (86400000 * 7)));
+
+  for (let i = 0; i <= numWeeks; i++) {
+    const d = new Date(start); d.setDate(d.getDate() + i * 7);
+    labels.push(d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }));
+    planData.push(Math.max(FIT_GOAL, +(currentW - pace * i).toFixed(1)));
+    stretchData.push(i <= stretchIdx
+      ? +(currentW - (currentW - FIT_GOAL) * (i / stretchIdx)).toFixed(1)
+      : FIT_GOAL);
+    goalData.push(FIT_GOAL);
+  }
+
+  // user's logged weigh-ins mapped onto the weekly grid
+  const log = getFitLog();
+  const logData = new Array(numWeeks + 1).fill(null);
+  log.forEach(e => {
+    const d = new Date(e.date); d.setHours(0, 0, 0, 0);
+    const idx = Math.round((d - start) / (86400000 * 7));
+    if (idx >= 0 && idx <= numWeeks) logData[idx] = e.kg;
+  });
+
+  const datasets = [
+    { label: 'Your plan (' + pace + ' kg/wk)', data: planData, borderColor: '#14919b', backgroundColor: 'rgba(20,145,155,0.12)', tension: 0.3, fill: true, borderWidth: 3, pointRadius: 0 },
+    { label: 'Stretch (78 by Aug)', data: stretchData, borderColor: '#e85a4f', borderDash: [6, 4], tension: 0.2, fill: false, borderWidth: 2, pointRadius: 0 },
+    { label: 'Goal 78 kg', data: goalData, borderColor: '#c9985f', borderDash: [2, 3], fill: false, borderWidth: 1.5, pointRadius: 0 },
+    { label: 'Your log', data: logData, borderColor: '#16a085', backgroundColor: '#16a085', tension: 0.2, fill: false, borderWidth: 3, pointRadius: 5, pointHoverRadius: 7, spanGaps: true }
+  ];
+
+  if (fitChart) {
+    fitChart.data.labels = labels;
+    fitChart.data.datasets = datasets;
+    fitChart.update();
+    return;
+  }
+
+  fitChart = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+        title: { display: true, text: 'Projected vs actual weight (kg)', font: { size: 13, weight: 'bold' } }
+      },
+      scales: {
+        y: { ticks: { callback: v => v + ' kg' }, suggestedMin: FIT_GOAL - 4 },
+        x: { ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 9 } }
+      }
+    }
+  });
+}
+
+/* ---- Weight log (localStorage) ---- */
+function getFitLog() {
+  try { return JSON.parse(localStorage.getItem('fitWeightLog') || '[]'); }
+  catch (e) { return []; }
+}
+function saveFitLog(log) {
+  try { localStorage.setItem('fitWeightLog', JSON.stringify(log)); } catch (e) {}
+}
+function initFitLog() {
+  const btn = document.getElementById('fitLogBtn');
+  const dateEl = document.getElementById('fitLogDate');
+  if (dateEl && !dateEl.value) dateEl.value = new Date().toISOString().slice(0, 10);
+  if (btn) btn.addEventListener('click', addFitLog);
+  renderFitLog();
+}
+function addFitLog() {
+  const dateEl = document.getElementById('fitLogDate');
+  const kgEl = document.getElementById('fitLogWeight');
+  const date = dateEl && dateEl.value ? dateEl.value : new Date().toISOString().slice(0, 10);
+  const kg = parseFloat(kgEl && kgEl.value);
+  if (!kg || kg < 30 || kg > 300) { if (kgEl) { kgEl.focus(); kgEl.style.borderColor = '#e85a4f'; } return; }
+  if (kgEl) kgEl.style.borderColor = '';
+
+  const log = getFitLog().filter(e => e.date !== date);
+  log.push({ date, kg });
+  log.sort((a, b) => a.date.localeCompare(b.date));
+  saveFitLog(log);
+  if (kgEl) kgEl.value = '';
+  renderFitLog();
+  recalcFitness();
+
+  try { if (typeof awardXp === 'function') awardXp(15); } catch (e) {}
+  try { if (typeof triggerConfetti === 'function') triggerConfetti(40); } catch (e) {}
+}
+function deleteFitLog(date) {
+  saveFitLog(getFitLog().filter(e => e.date !== date));
+  renderFitLog();
+  recalcFitness();
+}
+function renderFitLog() {
+  const ul = document.getElementById('fitLogList');
+  if (!ul) return;
+  const log = getFitLog();
+  if (!log.length) {
+    ul.innerHTML = '<li class="fit-log-empty">No weigh-ins yet. Log your first one above!</li>';
+    return;
+  }
+  ul.innerHTML = '';
+  log.slice().reverse().forEach((e, i, arr) => {
+    const prev = arr[i + 1];
+    let trend = '';
+    if (prev) {
+      const diff = +(e.kg - prev.kg).toFixed(1);
+      const color = diff < 0 ? '#16a085' : (diff > 0 ? '#e85a4f' : 'var(--text-muted)');
+      const sign = diff > 0 ? '+' : '';
+      trend = ` <small style="color:${color};">(${sign}${diff})</small>`;
+    }
+    const d = new Date(e.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' });
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="fit-log-date">${d}</span>` +
+                   `<span><span class="fit-log-kg">${e.kg} kg</span>${trend} ` +
+                   `<button class="fit-log-del" data-date="${e.date}" aria-label="Delete entry"><i class="fas fa-trash"></i></button></span>`;
+    ul.appendChild(li);
+  });
+  ul.querySelectorAll('.fit-log-del').forEach(b => {
+    b.addEventListener('click', () => deleteFitLog(b.getAttribute('data-date')));
+  });
+}
+
+/* ---- Day tabs ---- */
+function initFitDayTabs() {
+  document.querySelectorAll('.fit-day-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const day = tab.getAttribute('data-day');
+      document.querySelectorAll('.fit-day-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.fit-day-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = document.querySelector('.fit-day-panel[data-day="' + day + '"]');
+      if (panel) panel.classList.add('active');
+    });
+  });
+}
+
+/* ---- Exercise checkboxes + per-day progress ---- */
+function getFitDone() {
+  try { return JSON.parse(localStorage.getItem('fitExDone') || '{}'); }
+  catch (e) { return {}; }
+}
+function initFitChecks() {
+  const done = getFitDone();
+  document.querySelectorAll('.fit-check').forEach(item => {
+    const ex = item.getAttribute('data-ex');
+    if (done[ex]) markCheck(item, true);
+    item.addEventListener('click', () => {
+      const isDone = !item.classList.contains('done');
+      markCheck(item, isDone);
+      const map = getFitDone();
+      if (isDone) map[ex] = true; else delete map[ex];
+      try { localStorage.setItem('fitExDone', JSON.stringify(map)); } catch (e) {}
+      updateDayProgress(item.closest('.fit-day-panel'));
+    });
+  });
+  document.querySelectorAll('.fit-day-panel').forEach(updateDayProgress);
+}
+function markCheck(item, isDone) {
+  item.classList.toggle('done', isDone);
+  const icon = item.querySelector('i');
+  if (icon) icon.className = isDone ? 'fas fa-circle-check' : 'far fa-circle';
+}
+function updateDayProgress(panel) {
+  if (!panel) return;
+  const items = panel.querySelectorAll('.fit-check');
+  const done = panel.querySelectorAll('.fit-check.done').length;
+  const pct = items.length ? Math.round(done / items.length * 100) : 0;
+  const fill = panel.querySelector('.fit-progress-fill');
+  const txt = panel.querySelector('.fit-progress-txt');
+  if (fill) fill.style.width = pct + '%';
+  if (txt) txt.textContent = pct + '% complete';
+}
+
+/* ---- Animated demo card flips ---- */
+function initFitDemos() {
+  document.querySelectorAll('.fit-demo').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); }
+    });
+  });
+}
+
+/* ---- tiny helpers ---- */
+function val(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+function setText(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }

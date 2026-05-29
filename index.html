@@ -154,6 +154,8 @@
     <a href="#flashcards" class="nav-link"><i class="fas fa-clone"></i><span>Flashcards</span></a>
     <a href="#minigames" class="nav-link"><i class="fas fa-gamepad"></i><span>Mini-Games</span></a>
     <a href="#summary" class="nav-link"><i class="fas fa-flag-checkered"></i><span>Summary</span></a>
+    <div class="nav-divider"><span>Bonus</span></div>
+    <a href="#fitness" class="nav-link nav-link-fit"><i class="fas fa-dumbbell"></i><span>Fitness Plan</span></a>
   </nav>
   <div class="sidebar-footer">
     <button id="themeToggle" class="theme-toggle">
@@ -2682,6 +2684,584 @@
         <p>Test your knowledge with our 20-question quiz</p>
         <a href="#quiz" class="btn btn-secondary btn-large" style="background:var(--rsg-deep);color:var(--rsg-pearl);">Start Quiz <i class="fas fa-arrow-right"></i></a>
       </div>
+    </div>
+  </section>
+
+  <!-- ======================= FITNESS PLAN (BONUS) ======================= -->
+  <section class="section" id="fitness">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <div class="section-number"><i class="fas fa-dumbbell"></i></div>
+        <h2 class="section-title">Your Transformation Plan</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">98&nbsp;kg → 78&nbsp;kg · A personalised gym &amp; diet game plan with animated form guides</p>
+      </div>
+
+      <!-- HERO BANNER -->
+      <div class="fit-hero" data-aos="zoom-in">
+        <div class="fit-hero-bg"></div>
+        <div class="fit-hero-inner">
+          <div class="fit-hero-left">
+            <div class="fit-badge"><i class="fas fa-bolt"></i> Mission: −20 kg</div>
+            <h3>From <span class="fit-from">98 kg</span> to <span class="fit-to">78 kg</span></h3>
+            <p>Male · 32 yrs · 165 cm · Full gym access. A high-protein, calorie-controlled plan paired with 6 days of training. Train smart, eat with intent, and let the numbers do the work.</p>
+            <div class="fit-countdown-wrap">
+              <div class="fit-countdown" id="fitCountdown">—</div>
+              <span>days left until <strong>31 Aug 2026</strong></span>
+            </div>
+          </div>
+          <div class="fit-hero-right">
+            <div class="fit-weight-orb">
+              <div class="fit-orb-ring"></div>
+              <div class="fit-orb-core">
+                <span class="fit-orb-now" id="fitOrbNow">98</span>
+                <small>kg now</small>
+                <div class="fit-orb-arrow"><i class="fas fa-arrow-down-long"></i></div>
+                <span class="fit-orb-goal">78 kg goal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAFETY / REALITY CHECK -->
+      <div class="fit-callout warn" data-aos="fade-up">
+        <i class="fas fa-triangle-exclamation"></i>
+        <div>
+          <strong>Reality check &amp; safety first.</strong> Losing 20 kg by 31 Aug 2026 (~13 weeks) means ~1.5 kg/week — faster than the safe limit. This plan targets a healthy <strong>~0.8–1.0 kg/week</strong>, which realistically puts you around <strong>85–86 kg by end of August</strong> and at your <strong>78 kg goal by early November 2026</strong>. The chart below shows both lines. This page is general educational information, <strong>not medical advice</strong> — with a BMI of 36, please get a doctor's clearance before starting, and stop if you feel chest pain, dizziness, or unusual breathlessness.
+        </div>
+      </div>
+
+      <!-- SNAPSHOT STAT CARDS -->
+      <div class="fit-stats-grid" data-aos="fade-up">
+        <div class="fit-stat">
+          <div class="fit-stat-icon"><i class="fas fa-weight-scale"></i></div>
+          <div class="fit-stat-value" id="snapToLose">20</div>
+          <div class="fit-stat-label">kg to lose</div>
+        </div>
+        <div class="fit-stat">
+          <div class="fit-stat-icon"><i class="fas fa-gauge-high"></i></div>
+          <div class="fit-stat-value" id="snapBmi">36.0</div>
+          <div class="fit-stat-label">BMI now (Obese II)</div>
+        </div>
+        <div class="fit-stat">
+          <div class="fit-stat-icon"><i class="fas fa-bullseye"></i></div>
+          <div class="fit-stat-value">28.6</div>
+          <div class="fit-stat-label">BMI at goal</div>
+        </div>
+        <div class="fit-stat">
+          <div class="fit-stat-icon"><i class="fas fa-fire-flame-curved"></i></div>
+          <div class="fit-stat-value" id="snapCals">~1800</div>
+          <div class="fit-stat-label">kcal / day target</div>
+        </div>
+        <div class="fit-stat">
+          <div class="fit-stat-icon"><i class="fas fa-drumstick-bite"></i></div>
+          <div class="fit-stat-value" id="snapProtein">~175g</div>
+          <div class="fit-stat-label">protein / day</div>
+        </div>
+        <div class="fit-stat">
+          <div class="fit-stat-icon"><i class="fas fa-calendar-week"></i></div>
+          <div class="fit-stat-value">~0.9</div>
+          <div class="fit-stat-label">kg / week (safe)</div>
+        </div>
+      </div>
+
+      <!-- CALCULATOR + PROJECTION -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-calculator card-icon"></i>
+          <h3>Calorie &amp; Macro Calculator</h3>
+        </div>
+        <p style="color:var(--text-light);margin-bottom:1rem;">Pre-filled with your stats. Adjust anything to see your numbers update live (Mifflin–St Jeor formula).</p>
+        <div class="fit-calc">
+          <div class="fit-calc-inputs">
+            <div class="input-group">
+              <label>Weight (kg)</label>
+              <input type="number" id="fitWeight" value="98" min="40" max="250" />
+            </div>
+            <div class="input-group">
+              <label>Height (cm)</label>
+              <input type="number" id="fitHeight" value="165" min="120" max="220" />
+            </div>
+            <div class="input-group">
+              <label>Age</label>
+              <input type="number" id="fitAge" value="32" min="14" max="90" />
+            </div>
+            <div class="input-group">
+              <label>Sex</label>
+              <select id="fitSex">
+                <option value="male" selected>Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Activity level</label>
+              <select id="fitActivity">
+                <option value="1.2">Sedentary (desk job)</option>
+                <option value="1.375">Light (1–3 days/wk)</option>
+                <option value="1.55" selected>Moderate (6 days/wk)</option>
+                <option value="1.725">Very active (hard daily)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Target pace</label>
+              <select id="fitPace">
+                <option value="0.5">Steady – 0.5 kg/wk</option>
+                <option value="0.75">Brisk – 0.75 kg/wk</option>
+                <option value="1.0" selected>Aggressive – 1.0 kg/wk</option>
+              </select>
+            </div>
+          </div>
+          <div class="fit-calc-results">
+            <div class="fit-result-card">
+              <div class="fit-result-label">BMR</div>
+              <div class="fit-result-value" id="fitBMR">1856</div>
+              <div class="fit-result-sub">kcal at rest</div>
+            </div>
+            <div class="fit-result-card">
+              <div class="fit-result-label">Maintenance (TDEE)</div>
+              <div class="fit-result-value" id="fitTDEE">2877</div>
+              <div class="fit-result-sub">kcal to stay same</div>
+            </div>
+            <div class="fit-result-card highlight">
+              <div class="fit-result-label">Eat this to lose</div>
+              <div class="fit-result-value" id="fitTarget">1800</div>
+              <div class="fit-result-sub">kcal / day</div>
+            </div>
+            <div class="fit-result-card">
+              <div class="fit-result-label">BMI</div>
+              <div class="fit-result-value" id="fitBMI">36.0</div>
+              <div class="fit-result-sub" id="fitBMICat">Obese (II)</div>
+            </div>
+            <div class="fit-macros">
+              <div class="fit-macro p"><span id="fitProtein">175</span>g<small>Protein</small></div>
+              <div class="fit-macro c"><span id="fitCarbs">150</span>g<small>Carbs</small></div>
+              <div class="fit-macro f"><span id="fitFat">55</span>g<small>Fat</small></div>
+            </div>
+            <div class="fit-eta" id="fitEta">At this pace you reach <strong>78 kg</strong> in about <strong>—</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECTION CHART + WEIGHT LOG -->
+      <div class="fit-two-col">
+        <div class="content-card" data-aos="fade-right">
+          <div class="card-header">
+            <i class="fas fa-chart-line card-icon"></i>
+            <h3>Weight Projection &amp; Your Log</h3>
+          </div>
+          <div class="chart-container-wrapper" style="height:340px;">
+            <canvas id="fitProjectionChart"></canvas>
+          </div>
+        </div>
+        <div class="content-card" data-aos="fade-left">
+          <div class="card-header">
+            <i class="fas fa-pen-to-square card-icon"></i>
+            <h3>Log Your Weigh-In</h3>
+          </div>
+          <p style="color:var(--text-light);font-size:0.95rem;">Weigh yourself once a week, same morning, after the toilet, before food. Log it to see your real line vs the plan (saved on this device, +15 XP each).</p>
+          <div class="fit-log-form">
+            <input type="date" id="fitLogDate" />
+            <input type="number" id="fitLogWeight" placeholder="kg" step="0.1" min="40" max="250" />
+            <button class="btn btn-primary" id="fitLogBtn"><i class="fas fa-plus"></i> Log</button>
+          </div>
+          <ul class="fit-log-list" id="fitLogList"></ul>
+        </div>
+      </div>
+
+      <!-- WEEKLY WORKOUT SCHEDULE -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-calendar-days card-icon"></i>
+          <h3>Weekly Gym Split — 6 Days On, 1 Rest</h3>
+        </div>
+        <p style="color:var(--text-light);margin-bottom:1rem;">Tap a day to see the session. Tap an exercise to tick it off — your progress bar fills up. Resistance training keeps your muscle while you burn fat; cardio &amp; steps drive the deficit.</p>
+        <div class="fit-day-tabs" id="fitDayTabs">
+          <button class="fit-day-tab active" data-day="mon">Mon</button>
+          <button class="fit-day-tab" data-day="tue">Tue</button>
+          <button class="fit-day-tab" data-day="wed">Wed</button>
+          <button class="fit-day-tab" data-day="thu">Thu</button>
+          <button class="fit-day-tab" data-day="fri">Fri</button>
+          <button class="fit-day-tab" data-day="sat">Sat</button>
+          <button class="fit-day-tab" data-day="sun">Sun</button>
+        </div>
+
+        <div class="fit-day-panel active" data-day="mon">
+          <div class="fit-day-head"><span class="fit-day-tag legs">Lower Body · Strength</span><span class="fit-day-focus">Quads, glutes &amp; core</span></div>
+          <div class="fit-progress"><div class="fit-progress-fill"></div><span class="fit-progress-txt">0%</span></div>
+          <ul class="fit-ex-list">
+            <li class="fit-check" data-ex="mon1"><i class="far fa-circle"></i><span><strong>Goblet / Leg-Press Squat</strong> — 3 × 10–12</span></li>
+            <li class="fit-check" data-ex="mon2"><i class="far fa-circle"></i><span><strong>Leg Press</strong> — 3 × 12</span></li>
+            <li class="fit-check" data-ex="mon3"><i class="far fa-circle"></i><span><strong>Romanian Deadlift (DB/BB)</strong> — 3 × 10</span></li>
+            <li class="fit-check" data-ex="mon4"><i class="far fa-circle"></i><span><strong>Seated Leg Curl</strong> — 3 × 12</span></li>
+            <li class="fit-check" data-ex="mon5"><i class="far fa-circle"></i><span><strong>Standing Calf Raise</strong> — 3 × 15</span></li>
+            <li class="fit-check" data-ex="mon6"><i class="far fa-circle"></i><span><strong>Plank</strong> — 3 × 30–45 s</span></li>
+            <li class="fit-check" data-ex="mon7"><i class="far fa-circle"></i><span><strong>Finisher:</strong> 10 min incline treadmill walk</span></li>
+          </ul>
+        </div>
+
+        <div class="fit-day-panel" data-day="tue">
+          <div class="fit-day-head"><span class="fit-day-tag push">Upper Push + Cardio</span><span class="fit-day-focus">Chest, shoulders &amp; triceps</span></div>
+          <div class="fit-progress"><div class="fit-progress-fill"></div><span class="fit-progress-txt">0%</span></div>
+          <ul class="fit-ex-list">
+            <li class="fit-check" data-ex="tue1"><i class="far fa-circle"></i><span><strong>Incline Chest Press (DB/machine)</strong> — 3 × 10–12</span></li>
+            <li class="fit-check" data-ex="tue2"><i class="far fa-circle"></i><span><strong>Seated Shoulder Press</strong> — 3 × 10</span></li>
+            <li class="fit-check" data-ex="tue3"><i class="far fa-circle"></i><span><strong>Pec Deck / Cable Fly</strong> — 3 × 12</span></li>
+            <li class="fit-check" data-ex="tue4"><i class="far fa-circle"></i><span><strong>Lateral Raise</strong> — 3 × 15</span></li>
+            <li class="fit-check" data-ex="tue5"><i class="far fa-circle"></i><span><strong>Triceps Rope Pushdown</strong> — 3 × 12–15</span></li>
+            <li class="fit-check" data-ex="tue6"><i class="far fa-circle"></i><span><strong>Cardio:</strong> 20 min steady cross-trainer / bike</span></li>
+          </ul>
+        </div>
+
+        <div class="fit-day-panel" data-day="wed">
+          <div class="fit-day-head"><span class="fit-day-tag cardio">Active Recovery + Cardio</span><span class="fit-day-focus">Burn fat, stay loose</span></div>
+          <div class="fit-progress"><div class="fit-progress-fill"></div><span class="fit-progress-txt">0%</span></div>
+          <ul class="fit-ex-list">
+            <li class="fit-check" data-ex="wed1"><i class="far fa-circle"></i><span><strong>Incline walk</strong> — 40–45 min (treadmill 6–10% incline, 5–5.5 km/h) or cycle</span></li>
+            <li class="fit-check" data-ex="wed2"><i class="far fa-circle"></i><span><strong>Full-body mobility / stretch</strong> — 10 min</span></li>
+            <li class="fit-check" data-ex="wed3"><i class="far fa-circle"></i><span><strong>Step goal</strong> — hit 10,000 steps today</span></li>
+          </ul>
+        </div>
+
+        <div class="fit-day-panel" data-day="thu">
+          <div class="fit-day-head"><span class="fit-day-tag legs">Lower Body · Posterior</span><span class="fit-day-focus">Glutes, hamstrings &amp; abs</span></div>
+          <div class="fit-progress"><div class="fit-progress-fill"></div><span class="fit-progress-txt">0%</span></div>
+          <ul class="fit-ex-list">
+            <li class="fit-check" data-ex="thu1"><i class="far fa-circle"></i><span><strong>Hip Thrust / Glute Bridge</strong> — 3 × 10–12</span></li>
+            <li class="fit-check" data-ex="thu2"><i class="far fa-circle"></i><span><strong>Walking Lunge / Bulgarian Split Squat</strong> — 3 × 10 / leg</span></li>
+            <li class="fit-check" data-ex="thu3"><i class="far fa-circle"></i><span><strong>Leg Extension</strong> — 3 × 15</span></li>
+            <li class="fit-check" data-ex="thu4"><i class="far fa-circle"></i><span><strong>Lying Leg Curl</strong> — 3 × 12</span></li>
+            <li class="fit-check" data-ex="thu5"><i class="far fa-circle"></i><span><strong>Cable / Hanging Crunch</strong> — 3 × 15</span></li>
+            <li class="fit-check" data-ex="thu6"><i class="far fa-circle"></i><span><strong>Finisher:</strong> 10 min incline walk</span></li>
+          </ul>
+        </div>
+
+        <div class="fit-day-panel" data-day="fri">
+          <div class="fit-day-head"><span class="fit-day-tag pull">Upper Pull + Cardio</span><span class="fit-day-focus">Back &amp; biceps</span></div>
+          <div class="fit-progress"><div class="fit-progress-fill"></div><span class="fit-progress-txt">0%</span></div>
+          <ul class="fit-ex-list">
+            <li class="fit-check" data-ex="fri1"><i class="far fa-circle"></i><span><strong>Lat Pulldown</strong> — 3 × 10–12</span></li>
+            <li class="fit-check" data-ex="fri2"><i class="far fa-circle"></i><span><strong>Seated Cable Row</strong> — 3 × 10–12</span></li>
+            <li class="fit-check" data-ex="fri3"><i class="far fa-circle"></i><span><strong>Chest-Supported DB Row</strong> — 3 × 12</span></li>
+            <li class="fit-check" data-ex="fri4"><i class="far fa-circle"></i><span><strong>Face Pull</strong> — 3 × 15</span></li>
+            <li class="fit-check" data-ex="fri5"><i class="far fa-circle"></i><span><strong>DB Biceps Curl</strong> — 3 × 12</span></li>
+            <li class="fit-check" data-ex="fri6"><i class="far fa-circle"></i><span><strong>Cardio:</strong> 20 min steady row / bike</span></li>
+          </ul>
+        </div>
+
+        <div class="fit-day-panel" data-day="sat">
+          <div class="fit-day-head"><span class="fit-day-tag hiit">HIIT + Full-Body Circuit</span><span class="fit-day-focus">Maximum calorie burn</span></div>
+          <div class="fit-progress"><div class="fit-progress-fill"></div><span class="fit-progress-txt">0%</span></div>
+          <ul class="fit-ex-list">
+            <li class="fit-check" data-ex="sat1"><i class="far fa-circle"></i><span><strong>Warm-up</strong> — 5 min easy cardio</span></li>
+            <li class="fit-check" data-ex="sat2"><i class="far fa-circle"></i><span><strong>HIIT intervals</strong> — 12–15 × (30 s hard / 60 s easy) on bike / rower</span></li>
+            <li class="fit-check" data-ex="sat3"><i class="far fa-circle"></i><span><strong>Circuit ×3:</strong> 15 squats · 10 push-ups · 30 s mountain climbers · 30 s plank</span></li>
+            <li class="fit-check" data-ex="sat4"><i class="far fa-circle"></i><span><strong>Cool-down</strong> — 5 min walk + stretch</span></li>
+          </ul>
+        </div>
+
+        <div class="fit-day-panel" data-day="sun">
+          <div class="fit-day-head"><span class="fit-day-tag rest">Rest &amp; Reset</span><span class="fit-day-focus">Recover and prep</span></div>
+          <div class="fit-progress"><div class="fit-progress-fill"></div><span class="fit-progress-txt">0%</span></div>
+          <ul class="fit-ex-list">
+            <li class="fit-check" data-ex="sun1"><i class="far fa-circle"></i><span><strong>Full rest</strong> or an easy 30–45 min walk</span></li>
+            <li class="fit-check" data-ex="sun2"><i class="far fa-circle"></i><span><strong>Foam roll / stretch</strong> — 10–15 min</span></li>
+            <li class="fit-check" data-ex="sun3"><i class="far fa-circle"></i><span><strong>Meal prep</strong> — cook protein &amp; veg for the week</span></li>
+            <li class="fit-check" data-ex="sun4"><i class="far fa-circle"></i><span><strong>Weigh-in</strong> &amp; log your weight</span></li>
+          </ul>
+        </div>
+
+        <div class="fit-daily-musts">
+          <span class="fit-must"><i class="fas fa-shoe-prints"></i> 8–10k steps daily</span>
+          <span class="fit-must"><i class="fas fa-glass-water"></i> 3–4 L water</span>
+          <span class="fit-must"><i class="fas fa-drumstick-bite"></i> Protein every meal</span>
+          <span class="fit-must"><i class="fas fa-bed"></i> 7–8 h sleep</span>
+        </div>
+      </div>
+
+      <!-- ANIMATED EXERCISE FORM GUIDES -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-person-running card-icon"></i>
+          <h3>How To Do It Properly — Animated Form Guides</h3>
+        </div>
+        <p style="color:var(--text-light);margin-bottom:1.5rem;">Watch the looping animation, then tap any card to flip it for step-by-step cues and the mistakes to avoid. Good form = better results and no injuries.</p>
+        <div class="fit-demo-grid">
+
+          <!-- SQUAT -->
+          <div class="fit-demo" tabindex="0">
+            <div class="fit-demo-inner">
+              <div class="fit-demo-front">
+                <div class="fit-stage">
+                  <div class="figure squat">
+                    <div class="fig-head"></div>
+                    <div class="fig-torso"></div>
+                    <div class="fig-arm"></div>
+                    <div class="fig-thigh"></div>
+                    <div class="fig-shin"></div>
+                    <div class="fig-floor"></div>
+                  </div>
+                </div>
+                <h4>Goblet Squat</h4>
+                <span class="fit-demo-muscle">Quads · Glutes · Core</span>
+                <span class="fit-flip-hint"><i class="fas fa-hand-pointer"></i> Tap for form</span>
+              </div>
+              <div class="fit-demo-back">
+                <h4><i class="fas fa-check-circle"></i> Do it right</h4>
+                <ol>
+                  <li>Feet shoulder-width, toes slightly out.</li>
+                  <li>Brace core, chest up, weight at chest.</li>
+                  <li>Push hips back &amp; down, knees track over toes.</li>
+                  <li>Go to thighs ~parallel, drive through heels up.</li>
+                </ol>
+                <p class="fit-avoid"><i class="fas fa-ban"></i> Avoid: knees caving in, heels lifting, rounding the back.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PUSH-UP -->
+          <div class="fit-demo" tabindex="0">
+            <div class="fit-demo-inner">
+              <div class="fit-demo-front">
+                <div class="fit-stage">
+                  <div class="figure pushup">
+                    <div class="fig-head"></div>
+                    <div class="fig-body"></div>
+                    <div class="fig-arm-p"></div>
+                    <div class="fig-floor"></div>
+                  </div>
+                </div>
+                <h4>Push-Up</h4>
+                <span class="fit-demo-muscle">Chest · Shoulders · Triceps</span>
+                <span class="fit-flip-hint"><i class="fas fa-hand-pointer"></i> Tap for form</span>
+              </div>
+              <div class="fit-demo-back">
+                <h4><i class="fas fa-check-circle"></i> Do it right</h4>
+                <ol>
+                  <li>Hands just wider than shoulders, body in a straight line.</li>
+                  <li>Brace abs &amp; squeeze glutes — no sagging hips.</li>
+                  <li>Lower until elbows ~90°, elbows ~45° from body.</li>
+                  <li>Press the floor away, full lockout. (Knees down to scale.)</li>
+                </ol>
+                <p class="fit-avoid"><i class="fas fa-ban"></i> Avoid: flaring elbows, dropping hips, half reps.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- GLUTE BRIDGE -->
+          <div class="fit-demo" tabindex="0">
+            <div class="fit-demo-inner">
+              <div class="fit-demo-front">
+                <div class="fit-stage">
+                  <div class="figure bridge">
+                    <div class="fig-head"></div>
+                    <div class="fig-hip"></div>
+                    <div class="fig-thigh-b"></div>
+                    <div class="fig-shin-b"></div>
+                    <div class="fig-floor"></div>
+                  </div>
+                </div>
+                <h4>Glute Bridge / Hip Thrust</h4>
+                <span class="fit-demo-muscle">Glutes · Hamstrings</span>
+                <span class="fit-flip-hint"><i class="fas fa-hand-pointer"></i> Tap for form</span>
+              </div>
+              <div class="fit-demo-back">
+                <h4><i class="fas fa-check-circle"></i> Do it right</h4>
+                <ol>
+                  <li>Lie back, feet flat, heels under your knees.</li>
+                  <li>Drive through heels, squeeze glutes hard.</li>
+                  <li>Lift until hips, knees &amp; shoulders line up.</li>
+                  <li>Pause 1 s at the top, lower with control.</li>
+                </ol>
+                <p class="fit-avoid"><i class="fas fa-ban"></i> Avoid: over-arching the low back, pushing through toes.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PLANK -->
+          <div class="fit-demo" tabindex="0">
+            <div class="fit-demo-inner">
+              <div class="fit-demo-front">
+                <div class="fit-stage">
+                  <div class="figure plank">
+                    <div class="fig-head"></div>
+                    <div class="fig-body-pl"></div>
+                    <div class="fig-forearm"></div>
+                    <div class="fig-floor"></div>
+                    <div class="fig-breath"></div>
+                  </div>
+                </div>
+                <h4>Forearm Plank</h4>
+                <span class="fit-demo-muscle">Core · Abs · Lower Back</span>
+                <span class="fit-flip-hint"><i class="fas fa-hand-pointer"></i> Tap for form</span>
+              </div>
+              <div class="fit-demo-back">
+                <h4><i class="fas fa-check-circle"></i> Do it right</h4>
+                <ol>
+                  <li>Elbows under shoulders, forearms flat.</li>
+                  <li>Body one straight line — head to heels.</li>
+                  <li>Squeeze abs &amp; glutes, breathe steadily.</li>
+                  <li>Hold 20–45 s; quality over time.</li>
+                </ol>
+                <p class="fit-avoid"><i class="fas fa-ban"></i> Avoid: sagging hips, butt in the air, holding breath.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- JUMPING JACK -->
+          <div class="fit-demo" tabindex="0">
+            <div class="fit-demo-inner">
+              <div class="fit-demo-front">
+                <div class="fit-stage">
+                  <div class="figure jack">
+                    <div class="fig-head"></div>
+                    <div class="fig-torso-j"></div>
+                    <div class="fig-arm-j left"></div>
+                    <div class="fig-arm-j right"></div>
+                    <div class="fig-leg-j left"></div>
+                    <div class="fig-leg-j right"></div>
+                    <div class="fig-floor"></div>
+                  </div>
+                </div>
+                <h4>Jumping Jack</h4>
+                <span class="fit-demo-muscle">Warm-up · Full body</span>
+                <span class="fit-flip-hint"><i class="fas fa-hand-pointer"></i> Tap for form</span>
+              </div>
+              <div class="fit-demo-back">
+                <h4><i class="fas fa-check-circle"></i> Do it right</h4>
+                <ol>
+                  <li>Start feet together, arms at sides.</li>
+                  <li>Jump feet wide as arms sweep overhead.</li>
+                  <li>Land soft on the balls of your feet.</li>
+                  <li>Stay light &amp; rhythmic for 30–60 s.</li>
+                </ol>
+                <p class="fit-avoid"><i class="fas fa-ban"></i> Avoid: stiff knees on landing, hunched shoulders.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- MOUNTAIN CLIMBER -->
+          <div class="fit-demo" tabindex="0">
+            <div class="fit-demo-inner">
+              <div class="fit-demo-front">
+                <div class="fit-stage">
+                  <div class="figure climber">
+                    <div class="fig-head"></div>
+                    <div class="fig-body-mc"></div>
+                    <div class="fig-arm-mc"></div>
+                    <div class="fig-knee-mc"></div>
+                    <div class="fig-leg-mc"></div>
+                    <div class="fig-floor"></div>
+                  </div>
+                </div>
+                <h4>Mountain Climber</h4>
+                <span class="fit-demo-muscle">Core · Cardio · Hips</span>
+                <span class="fit-flip-hint"><i class="fas fa-hand-pointer"></i> Tap for form</span>
+              </div>
+              <div class="fit-demo-back">
+                <h4><i class="fas fa-check-circle"></i> Do it right</h4>
+                <ol>
+                  <li>Strong plank — hands under shoulders.</li>
+                  <li>Drive one knee toward your chest.</li>
+                  <li>Switch legs quickly, hips stay low.</li>
+                  <li>Keep a flat back &amp; tight core throughout.</li>
+                </ol>
+                <p class="fit-avoid"><i class="fas fa-ban"></i> Avoid: bouncing hips up, hands drifting forward.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DIET PLAN -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-utensils card-icon"></i>
+          <h3>Daily Diet Plan — High Protein · ~1,800 kcal</h3>
+        </div>
+        <p style="color:var(--text-light);margin-bottom:1.25rem;">A non-veg, balanced day built around lean protein and vegetables to keep you full in a calorie deficit. Portions are a starting point — adjust to hit the calorie target from the calculator above.</p>
+        <div class="fit-meals">
+          <div class="fit-meal">
+            <div class="fit-meal-top"><i class="fas fa-mug-hot"></i><h4>Wake-up</h4><span class="fit-meal-kcal">~5 kcal</span></div>
+            <p>500 ml warm water + black coffee or green tea (no sugar). Sets the tone &amp; curbs appetite.</p>
+            <div class="fit-meal-macros"><span>P 0g</span></div>
+          </div>
+          <div class="fit-meal">
+            <div class="fit-meal-top"><i class="fas fa-egg"></i><h4>Breakfast</h4><span class="fit-meal-kcal">~400 kcal</span></div>
+            <p>3 whole eggs + 2 egg whites scrambled with onion, tomato &amp; spinach + 1 slice wholegrain toast <em>or</em> 40 g oats.</p>
+            <div class="fit-meal-macros"><span>P 35g</span><span>C 30g</span><span>F 18g</span></div>
+          </div>
+          <div class="fit-meal">
+            <div class="fit-meal-top"><i class="fas fa-drumstick-bite"></i><h4>Lunch</h4><span class="fit-meal-kcal">~520 kcal</span></div>
+            <p>180 g grilled chicken breast + 1 cup cooked rice <em>or</em> 2 medium roti + big salad with 1 tbsp olive oil. <small>(SL tip: rice &amp; curry — half the rice, double the veg, go easy on coconut milk.)</small></p>
+            <div class="fit-meal-macros"><span>P 48g</span><span>C 50g</span><span>F 14g</span></div>
+          </div>
+          <div class="fit-meal">
+            <div class="fit-meal-top"><i class="fas fa-bowl-food"></i><h4>Snack</h4><span class="fit-meal-kcal">~230 kcal</span></div>
+            <p>200 g low-fat Greek yogurt + a handful of berries, <em>or</em> 1 scoop whey + an apple. Great pre-workout.</p>
+            <div class="fit-meal-macros"><span>P 30g</span><span>C 18g</span><span>F 3g</span></div>
+          </div>
+          <div class="fit-meal">
+            <div class="fit-meal-top"><i class="fas fa-fish"></i><h4>Dinner</h4><span class="fit-meal-kcal">~450 kcal</span></div>
+            <p>200 g grilled fish (or chicken) + large plate of stir-fried veg + 1 small sweet potato (120 g). Lightest carbs of the day.</p>
+            <div class="fit-meal-macros"><span>P 50g</span><span>C 28g</span><span>F 12g</span></div>
+          </div>
+          <div class="fit-meal optional">
+            <div class="fit-meal-top"><i class="fas fa-carrot"></i><h4>If hungry</h4><span class="fit-meal-kcal">~80 kcal</span></div>
+            <p>Cucumber &amp; carrot sticks, or 1 boiled egg, or a cup of green tea. Free veggies anytime.</p>
+            <div class="fit-meal-macros"><span>P 6g</span></div>
+          </div>
+        </div>
+        <div class="fit-meal-total">
+          <span><i class="fas fa-fire-flame-curved"></i> ~1,685–1,800 kcal</span>
+          <span><i class="fas fa-drumstick-bite"></i> ~170–175 g protein</span>
+          <span><i class="fas fa-glass-water"></i> 3–4 L water</span>
+        </div>
+
+        <div class="fit-food-cols">
+          <div class="fit-food good">
+            <h4><i class="fas fa-circle-check"></i> Eat freely</h4>
+            <p>Leafy greens, cucumber, tomato, capsicum, broccoli, cauliflower, green beans, chicken breast, white fish, egg whites, plain low-fat yogurt, lentils/dhal.</p>
+          </div>
+          <div class="fit-food swap">
+            <h4><i class="fas fa-arrows-rotate"></i> Smart swaps</h4>
+            <p>Fried → grilled / air-fried / baked. White bread → wholegrain. Sugar → stevia. Soft drinks → soda water / green tea. Whole milk → low-fat. Big rice → half rice + extra veg.</p>
+          </div>
+          <div class="fit-food bad">
+            <h4><i class="fas fa-circle-xmark"></i> Limit / avoid</h4>
+            <p>Sugary drinks &amp; fruit juice, fried snacks (rolls, samosas, fries), sweets &amp; cakes, white pastries, creamy coconut-heavy curries, alcohol, late-night carb binges.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GOLDEN RULES -->
+      <div class="content-card" data-aos="fade-up">
+        <div class="card-header">
+          <i class="fas fa-trophy card-icon"></i>
+          <h3>10 Golden Rules That Win The Game</h3>
+        </div>
+        <div class="fit-rules">
+          <div class="fit-rule"><span>1</span>Protein with every meal — it protects muscle &amp; kills hunger.</div>
+          <div class="fit-rule"><span>2</span>Fill half your plate with vegetables.</div>
+          <div class="fit-rule"><span>3</span>Drink your calories? No. Water, coffee &amp; tea only.</div>
+          <div class="fit-rule"><span>4</span>Walk 8–10k steps every day — non-negotiable.</div>
+          <div class="fit-rule"><span>5</span>Lift weights 4× a week to keep muscle while losing fat.</div>
+          <div class="fit-rule"><span>6</span>Sleep 7–8 hours — poor sleep stalls fat loss.</div>
+          <div class="fit-rule"><span>7</span>Weigh in weekly, same time; judge the trend, not one day.</div>
+          <div class="fit-rule"><span>8</span>Prep food on Sunday so you're never caught hungry.</div>
+          <div class="fit-rule"><span>9</span>One sensible treat meal a week — then straight back on.</div>
+          <div class="fit-rule"><span>10</span>Be consistent, not perfect. 90% on-plan wins.</div>
+        </div>
+      </div>
+
+      <div class="fit-callout info" data-aos="fade-up">
+        <i class="fas fa-stethoscope"></i>
+        <div>
+          <strong>Medical note.</strong> This plan is general educational information, not personalised medical or dietary advice. Before starting a new diet or exercise programme — especially with a BMI in the obese range — get clearance from your doctor, and consider a session with a registered dietitian and a qualified trainer. Stop exercising and seek medical help if you feel chest pain, severe breathlessness, dizziness, or faintness.
+        </div>
+      </div>
+
     </div>
   </section>
 
