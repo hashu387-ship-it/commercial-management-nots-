@@ -2,6 +2,7 @@ import { ArrowRight, FileText, Gavel, Wallet } from 'lucide-react'
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { BulletList, GlassPanel, Pills, Reveal } from '../components/ui'
+import LectureNotes from '../components/LectureNotes'
 import { ADJUDICATION, SECTION_NARRATION, SUBMISSION } from '../data/content'
 
 export default function TenderSection() {
@@ -72,6 +73,8 @@ export default function TenderSection() {
           </div>
         </div>
       </Reveal>
+
+      <LectureNotes id="tender" />
     </Section>
   )
 }

@@ -3,6 +3,7 @@ import { ArrowLeftRight, ClipboardList, FileSignature, GraduationCap } from 'luc
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { Reveal } from '../components/ui'
+import LectureNotes from '../components/LectureNotes'
 import { CONTRACT_ADMIN, SECTION_NARRATION } from '../data/content'
 
 export default function AdminSection() {
@@ -51,6 +52,8 @@ export default function AdminSection() {
           </div>
         </div>
       </Reveal>
+
+      <LectureNotes id="admin" />
     </Section>
   )
 }

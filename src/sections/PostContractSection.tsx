@@ -1,6 +1,7 @@
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import Timeline from '../components/Timeline'
+import LectureNotes from '../components/LectureNotes'
 import { POST_CONTRACT_STAGES, SECTION_NARRATION } from '../data/content'
 
 export default function PostContractSection() {
@@ -14,6 +15,7 @@ export default function PostContractSection() {
         narration={{ id: 'postcontract', text: SECTION_NARRATION.postcontract }}
       />
       <Timeline stages={POST_CONTRACT_STAGES} />
+      <LectureNotes id="postcontract" />
     </Section>
   )
 }

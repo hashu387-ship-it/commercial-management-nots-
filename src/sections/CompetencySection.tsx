@@ -4,6 +4,7 @@ import { Building2, GitCompareArrows, ListChecks, Quote } from 'lucide-react'
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { BulletList, Pills, Reveal } from '../components/ui'
+import LectureNotes from '../components/LectureNotes'
 import { COMPETENCY_AIQS, COMPETENCY_MAPPING, COMPETENCY_RICS, SECTION_NARRATION } from '../data/content'
 
 type View = 'rics' | 'aiqs' | 'mapping'
@@ -264,6 +265,8 @@ export default function CompetencySection() {
           </div>
         </div>
       </Reveal>
+
+      <LectureNotes id="competency" />
     </Section>
   )
 }

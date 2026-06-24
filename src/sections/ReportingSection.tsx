@@ -5,6 +5,7 @@ import Tabs from '../components/Tabs'
 import { Reveal } from '../components/ui'
 import CashFlowCurve from '../components/art/CashFlowCurve'
 import CvrChart from '../components/art/CvrChart'
+import LectureNotes from '../components/LectureNotes'
 import { REPORTING_TABS, SECTION_NARRATION } from '../data/content'
 
 export default function ReportingSection() {
@@ -37,6 +38,8 @@ export default function ReportingSection() {
           </p>
         </div>
       </Reveal>
+
+      <LectureNotes id="reporting" />
     </Section>
   )
 }
