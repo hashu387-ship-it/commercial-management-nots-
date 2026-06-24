@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════════════
+   Base
+   ════════════════════════════════════════════════════════════════ */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchored scrolling for the fixed navbar */
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    @apply bg-cream text-charcoal font-sans antialiased;
+    /* Liquid, layered background built from the strict palette */
+    background-color: #f5f3ee;
+    background-image:
+      radial-gradient(60rem 60rem at 8% -10%, rgba(158, 135, 93, 0.10), transparent 60%),
+      radial-gradient(50rem 50rem at 105% 5%, rgba(237, 230, 211, 0.9), transparent 55%),
+      radial-gradient(45rem 45rem at 90% 110%, rgba(158, 135, 93, 0.08), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-display;
+  }
+
+  ::selection {
+    background-color: rgba(158, 135, 93, 0.28);
+    color: #2d3436;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ede6d3;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c6b083;
+    border-radius: 999px;
+    border: 3px solid #ede6d3;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9e875d;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Component utilities — Glass / Neomorphism / Liquid glass
+   ════════════════════════════════════════════════════════════════ */
+@layer components {
+  /* Frosted glass surface */
+  .glass {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 8px 32px rgba(45, 52, 54, 0.12);
+  }
+
+  .glass-tan {
+    background: rgba(237, 230, 211, 0.5);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(45, 52, 54, 0.10);
+  }
+
+  .glass-dark {
+    background: rgba(45, 52, 54, 0.72);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 40px rgba(45, 52, 54, 0.35);
+  }
+
+  /* Liquid-glass sheen overlay (decorative) */
+  .liquid-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-sheen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      130deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0) 35%,
+      rgba(255, 255, 255, 0) 65%,
+      rgba(255, 255, 255, 0.25) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Neomorphic raised surface (on cream) */
+  .neo {
+    background: #f1eee6;
+    border-radius: 1.5rem;
+    box-shadow: 10px 10px 24px #dad6cb, -10px -10px 24px #ffffff;
+  }
+  .neo-sm {
+    background: #f1eee6;
+    border-radius: 1rem;
+    box-shadow: 6px 6px 14px #dad6cb, -6px -6px 14px #ffffff;
+  }
+  .neo-inset {
+    background: #f1eee6;
+    box-shadow: inset 6px 6px 12px #dad6cb, inset -6px -6px 12px #ffffff;
+  }
+
+  /* Gradient text using palette only */
+  .text-gradient-bronze {
+    background: linear-gradient(120deg, #6a5938 0%, #9e875d 45%, #c6b083 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Section anchor wrapper */
+  .section-anchor {
+    scroll-margin-top: 96px;
+  }
+
+  /* Pill tag */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wide;
+  }
+}
+
+@layer utilities {
+  /* 3D flip support for flashcards */
+  .perspective {
+    perspective: 1600px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
