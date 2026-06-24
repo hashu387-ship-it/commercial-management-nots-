@@ -539,6 +539,20 @@ export const SLIDES: DeckSlide[] = [
     visual: 'recap',
   },
   {
+    id: 's-soe',
+    part: 0,
+    kicker: 'Write Your APC',
+    title: 'Sample SOEs',
+    bullets: [
+      'Three worked Commercial Management Summaries of Experience — structured across Levels 1, 2 and 3.',
+      'SOE 1 · Estimating & Tender Adjudication (pre-contract).',
+      'SOE 2 · Cost Reporting — CVR & Cost to Complete (post-contract).',
+      'SOE 3 · Subcontract Procurement & Risk (post-contract).',
+    ],
+    note: 'Read the full text in Explore mode → “Sample SOEs”. Models only — never copy; evidence your real projects.',
+    visual: 'submission',
+  },
+  {
     id: 's-closing',
     part: 0,
     kind: 'closing',

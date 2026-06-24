@@ -61,10 +61,10 @@ function Block({ block, i }: { block: LectureBlock; i: number }) {
   )
 }
 
-/** Collapsible handwritten "from the lecture" notebook for a section. */
-export default function LectureNotes({ id }: { id: SectionId }) {
+/** Handwritten "from the lecture" notebook for a section (open by default). */
+export default function LectureNotes({ id, defaultOpen = true }: { id: SectionId; defaultOpen?: boolean }) {
   const blocks = LECTURE_NOTES[id]
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(defaultOpen)
   if (!blocks || blocks.length === 0) return null
 
   return (
