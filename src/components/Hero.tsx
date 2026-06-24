@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, BookOpen, Building2, Layers, Sparkles } from 'lucide-react'
 import { COURSE } from '../data/content'
-import HeroDoodle from './art/HeroDoodle'
+import AiVideo from './AiVideo'
 import { DoodleArrow } from './art/Doodles'
 import type { SectionId } from '../types'
 
@@ -89,13 +89,12 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative mx-auto w-full max-w-md"
         >
-          <div className="sticky-note rotate-1 p-6">
-            <span className="washi -left-3 -top-3 -rotate-12" />
-            <HeroDoodle className="w-full" />
-            <p className="mt-1 text-center font-hand text-2xl font-bold text-charcoal">
-              secure it. then grow it.
-            </p>
-          </div>
+          <AiVideo
+            src="/ai/intro.mp4"
+            poster="/ai/hero.jpg"
+            caption="secure it. then grow it."
+            rotate={1.5}
+          />
           <DoodleArrow className="absolute -bottom-8 -left-10 hidden h-12 w-24 -rotate-12 lg:block" color="#7C8C5A" />
         </motion.div>
       </div>
