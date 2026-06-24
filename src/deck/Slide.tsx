@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import type { DeckSlide } from './slides'
-import SlideVisual from './SlideVisual'
+import SlideVisual, { hasSlideVisual } from './SlideVisual'
 import LectureNotes from '../components/LectureNotes'
 import { DoodleStar, DoodleUnderline } from '../components/art/Doodles'
 import { COURSE } from '../data/content'
@@ -92,10 +92,12 @@ export default function Slide({ slide, index, total }: { slide: DeckSlide; index
           )}
         </div>
 
-        {/* visual */}
-        <div className={`${isTitle ? 'mx-auto w-full max-w-md' : 'w-full'}`}>
-          <SlideVisual name={slide.visual} />
-        </div>
+        {/* visual — only when the slide carries a real, content-bearing graphic */}
+        {hasSlideVisual(slide.visual) && (
+          <div className={`${isTitle ? 'mx-auto w-full max-w-md' : 'w-full'}`}>
+            <SlideVisual name={slide.visual} />
+          </div>
+        )}
 
         {/* body */}
         {!isTitle && (

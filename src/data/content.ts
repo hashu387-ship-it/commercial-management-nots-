@@ -35,6 +35,7 @@ export const SECTIONS: NavSection[] = [
   { id: 'procurement', label: 'Procurement', icon: 'PackageSearch', part: 2 },
   { id: 'reporting', label: 'Reporting', icon: 'LineChart', part: 2 },
   { id: 'admin', label: 'Contract Admin', icon: 'FileSignature', part: 2 },
+  { id: 'fullnotes', label: 'Full Lecture Notes', icon: 'BookOpenText', part: 0 },
   { id: 'soe', label: 'Sample SOEs', icon: 'FileSignature', part: 0 },
   { id: 'flashcards', label: 'Flashcards', icon: 'Layers', part: 0 },
   { id: 'quiz', label: 'Knowledge Check', icon: 'CircleCheckBig', part: 0 },
@@ -1094,6 +1095,8 @@ export const SECTION_NARRATION: Record<SectionId, string> = {
     'Reporting in commercial management uses four tools: cash flow, cost value reconciliation, cost to complete, and earned value analysis. A cash flow forecast analyses expected inflows and outflows over a period, and can be organisational or project-specific. The R.I.C.S. Black Book defines three methods, including an equal cash assumption and a more accurate programme-based method. A negative cash flow, where cash out exceeds cash in, can be remedied with advance payments, extended supply-chain terms, reduced overheads, faster progress, retention release via a bond, or short-term finance. Cost to complete equals the actual cost to date plus the forecast cost to finish, compared against the final account and budget. Cost value reconciliation compares cost incurred against the value of work done, period by period — effectively the project profit and loss account. Earned value analysis integrates scope, schedule and cost against the baseline. All of these support better decision-making, compliance, efficiency and profitability.',
   admin:
     'Contract administration is mandatory to fulfil the commercial management objectives. It covers interim valuations, both upstream to the employer and downstream to subcontractors; variations, again upstream and downstream; claims, including notices, detailed particulars and negotiations; and final accounts. As a task, candidates who chose commercial management as their core technical competency should draft their statement of experience for Level 1, using the statement of experience tracker on the A.P.C. portal.',
+  fullnotes:
+    'The full lecturer’s notes — every page of the Commercial Management handout by Asmy Sheriff, transcribed in teaching order across three days. Day one covers pre-contract estimating and tendering. Day two covers budgets and the post-contract control tools — cost value reconciliation, cost to complete and cost reports. Day three covers earned value, cash flow and supply-chain management. Use it as your complete revision reference.',
   soe:
     'Three sample Summaries of Experience for the Commercial Management competency, written in first person across Levels 1, 2 and 3. Use them as a structure to model your own statements — never copy them; your SOE must reflect your real projects and decisions.',
   flashcards:
