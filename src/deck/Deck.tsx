@@ -1,8 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronLeft, ChevronRight, LayoutGrid, ListTree, Maximize, X } from 'lucide-react'
+import {
+  ChevronLeft,
+  ChevronRight,
+  Headphones,
+  LayoutGrid,
+  ListTree,
+  Maximize,
+  Minimize,
+  Square,
+  X,
+} from 'lucide-react'
 import Slide from './Slide'
 import { SLIDES } from './slides'
+import { slideSpeech } from './narration'
+import { useSpeech } from '../audio/speech'
 
 const STORAGE_KEY = 'cm-deck-slide-v1'
 
@@ -14,7 +26,14 @@ export default function Deck({ onExit }: { onExit: () => void }) {
   })
   const [dir, setDir] = useState(1)
   const [contents, setContents] = useState(false)
+  const [fs, setFs] = useState(false)
   const touchX = useRef<number | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const currentRef = useRef(current)
+  currentRef.current = current
+
+  const speech = useSpeech()
+  const narrating = speech.supported && speech.status !== 'idle'
 
   useEffect(() => {
     try {
@@ -24,20 +43,80 @@ export default function Deck({ onExit }: { onExit: () => void }) {
     }
   }, [current])
 
-  const go = useCallback(
+  // ── Navigation ──────────────────────────────────────────────
+  const setSlide = useCallback(
     (to: number, d: number) => {
       setDir(d)
       setCurrent((c) => {
-        const next = Math.max(0, Math.min(total - 1, to))
-        return next === c ? c : next
+        const n = Math.max(0, Math.min(total - 1, to))
+        return n === c ? c : n
       })
     },
     [total],
   )
-  const next = useCallback(() => go(current + 1, 1), [current, go])
-  const prev = useCallback(() => go(current - 1, -1), [current, go])
 
-  // keyboard
+  // manual navigation cancels any running narration
+  const go = useCallback(
+    (to: number, d: number) => {
+      if (narrating) speech.stop()
+      setSlide(to, d)
+    },
+    [narrating, speech, setSlide],
+  )
+  const next = useCallback(() => go(currentRef.current + 1, 1), [go])
+  const prev = useCallback(() => go(currentRef.current - 1, -1), [go])
+
+  // ── Narration follows the slide order, auto-advancing the deck ──
+  useEffect(() => {
+    if (!speech.activeId) return
+    const idx = SLIDES.findIndex((s) => s.id === speech.activeId)
+    if (idx >= 0 && idx !== currentRef.current) {
+      setSlide(idx, idx > currentRef.current ? 1 : -1)
+    }
+  }, [speech.activeId, setSlide])
+
+  const listen = useCallback(() => {
+    if (narrating) {
+      speech.stop()
+    } else {
+      const queue = SLIDES.slice(currentRef.current).map((s) => ({ id: s.id, text: slideSpeech(s) }))
+      speech.playQueue(queue)
+    }
+  }, [narrating, speech])
+
+  // ── Fullscreen / kiosk ──────────────────────────────────────
+  const canFs =
+    typeof document !== 'undefined' &&
+    (document.fullscreenEnabled || Boolean((document as unknown as { webkitFullscreenEnabled?: boolean }).webkitFullscreenEnabled))
+
+  useEffect(() => {
+    const onFs = () =>
+      setFs(
+        Boolean(
+          document.fullscreenElement ||
+            (document as unknown as { webkitFullscreenElement?: Element }).webkitFullscreenElement,
+        ),
+      )
+    document.addEventListener('fullscreenchange', onFs)
+    document.addEventListener('webkitfullscreenchange', onFs as EventListener)
+    return () => {
+      document.removeEventListener('fullscreenchange', onFs)
+      document.removeEventListener('webkitfullscreenchange', onFs as EventListener)
+    }
+  }, [])
+
+  const toggleFs = useCallback(() => {
+    const el = rootRef.current as unknown as { requestFullscreen?: () => Promise<void>; webkitRequestFullscreen?: () => void } | null
+    const doc = document as unknown as { webkitExitFullscreen?: () => void; webkitFullscreenElement?: Element }
+    const isFs = document.fullscreenElement || doc.webkitFullscreenElement
+    if (isFs) {
+      ;(document.exitFullscreen?.bind(document) || doc.webkitExitFullscreen?.bind(doc))?.()
+    } else if (el) {
+      ;(el.requestFullscreen?.bind(el) || el.webkitRequestFullscreen?.bind(el))?.()
+    }
+  }, [])
+
+  // ── Keyboard ────────────────────────────────────────────────
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (contents) {
@@ -52,10 +131,11 @@ export default function Deck({ onExit }: { onExit: () => void }) {
         prev()
       } else if (e.key === 'Home') go(0, -1)
       else if (e.key === 'End') go(total - 1, 1)
+      else if (e.key.toLowerCase() === 'f') toggleFs()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [next, prev, go, total, contents])
+  }, [next, prev, go, total, contents, toggleFs])
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchX.current = e.changedTouches[0].clientX
@@ -69,9 +149,10 @@ export default function Deck({ onExit }: { onExit: () => void }) {
 
   const slide = SLIDES[current]
   const part = slide.part
+  const partColor = part === 1 ? '#9E875D' : part === 2 ? '#8A6491' : '#7C8C5A'
 
   return (
-    <div className="flex h-[100dvh] flex-col bg-cream">
+    <div ref={rootRef} className="flex h-[100dvh] flex-col bg-cream">
       {/* Top bar */}
       <header className="flex items-center justify-between gap-2 px-3 pt-3 sm:px-5">
         <button
@@ -79,16 +160,38 @@ export default function Deck({ onExit }: { onExit: () => void }) {
           className="inline-flex items-center gap-2 rounded-xl glass-tan px-3 py-2 font-note text-sm font-bold text-charcoal-600 transition-transform hover:-translate-y-0.5"
         >
           <LayoutGrid className="h-4 w-4 text-bronze-700" />
-          <span className="hidden sm:inline">Explore mode</span>
+          <span className="hidden sm:inline">Explore</span>
         </button>
 
         <div className="flex items-center gap-2">
           <span
-            className="rounded-full px-3 py-1 font-note text-xs font-bold text-cream"
-            style={{ background: part === 1 ? '#9E875D' : part === 2 ? '#8A6491' : '#7C8C5A' }}
+            className="hidden rounded-full px-3 py-1 font-note text-xs font-bold text-cream sm:inline"
+            style={{ background: partColor }}
           >
             {part === 1 ? 'Part 1 · Pre-Contract' : part === 2 ? 'Part 2 · Post-Contract' : 'Overview'}
           </span>
+
+          <button
+            onClick={listen}
+            aria-label={narrating ? 'Stop narration' : 'Listen from here'}
+            className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 font-note text-sm font-bold transition-transform hover:-translate-y-0.5 ${
+              narrating ? 'bg-coral text-cream' : 'glass-tan text-charcoal-600'
+            }`}
+          >
+            {narrating ? <Square className="h-4 w-4" /> : <Headphones className="h-4 w-4 text-bronze-700" />}
+            <span className="hidden sm:inline">{narrating ? 'Stop' : 'Listen'}</span>
+          </button>
+
+          {canFs && (
+            <button
+              onClick={toggleFs}
+              aria-label={fs ? 'Exit fullscreen' : 'Fullscreen'}
+              className="grid h-9 w-9 place-items-center rounded-xl glass-tan text-charcoal-600 transition-transform hover:-translate-y-0.5"
+            >
+              {fs ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+            </button>
+          )}
+
           <button
             onClick={() => setContents(true)}
             aria-label="Slide contents"
@@ -120,10 +223,10 @@ export default function Deck({ onExit }: { onExit: () => void }) {
             <motion.div
               key={slide.id}
               custom={dir}
-              initial={{ opacity: 0, x: dir * 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: dir * -60 }}
-              transition={{ duration: 0.32, ease: 'easeInOut' }}
+              initial={{ opacity: 0, x: dir * 80, scale: 0.97 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: dir * -80, scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 30 }}
               className="absolute inset-0"
             >
               <Slide slide={slide} index={current} total={total} />
@@ -131,7 +234,7 @@ export default function Deck({ onExit }: { onExit: () => void }) {
           </AnimatePresence>
         </div>
 
-        {/* side arrows (desktop / tablet) */}
+        {/* side arrows */}
         <button
           onClick={prev}
           disabled={current === 0}
@@ -150,7 +253,7 @@ export default function Deck({ onExit }: { onExit: () => void }) {
         </button>
       </main>
 
-      {/* Bottom controls (touch-friendly) */}
+      {/* Bottom controls */}
       <footer className="flex items-center gap-3 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-1 sm:px-5">
         <button
           onClick={prev}
@@ -228,7 +331,7 @@ export default function Deck({ onExit }: { onExit: () => void }) {
                   onClick={onExit}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-charcoal py-3 font-note font-bold text-cream"
                 >
-                  <Maximize className="h-4 w-4 text-bronze-300" /> Open Explore mode
+                  <LayoutGrid className="h-4 w-4 text-bronze-300" /> Open Explore mode
                 </button>
               </div>
             </motion.aside>
