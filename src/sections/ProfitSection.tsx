@@ -4,6 +4,7 @@ import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { Pills, Reveal } from '../components/ui'
 import BalanceScale from '../components/art/BalanceScale'
+import LectureNotes from '../components/LectureNotes'
 import { BULK_BUYING, PROFIT_OPPORTUNITIES, PROFIT_RISKS, REGISTERS, SECTION_NARRATION } from '../data/content'
 
 export default function ProfitSection() {
@@ -131,6 +132,8 @@ export default function ProfitSection() {
           </div>
         </div>
       </Reveal>
+
+      <LectureNotes id="profit" />
     </Section>
   )
 }

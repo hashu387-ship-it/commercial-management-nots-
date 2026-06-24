@@ -1,6 +1,7 @@
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import Timeline from '../components/Timeline'
+import LectureNotes from '../components/LectureNotes'
 import { PRE_CONTRACT_STAGES, SECTION_NARRATION } from '../data/content'
 
 export default function PreContractSection() {
@@ -14,6 +15,7 @@ export default function PreContractSection() {
         narration={{ id: 'precontract', text: SECTION_NARRATION.precontract }}
       />
       <Timeline stages={PRE_CONTRACT_STAGES} />
+      <LectureNotes id="precontract" />
     </Section>
   )
 }

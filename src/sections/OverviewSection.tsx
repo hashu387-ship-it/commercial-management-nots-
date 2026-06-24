@@ -2,6 +2,7 @@ import { Shield, Sparkles, Target, Clock } from 'lucide-react'
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { BulletList, GlassPanel, Reveal } from '../components/ui'
+import LectureNotes from '../components/LectureNotes'
 import { SECTION_NARRATION, WHAT_WHY } from '../data/content'
 
 export default function OverviewSection() {
@@ -87,6 +88,8 @@ export default function OverviewSection() {
           <BulletList items={WHAT_WHY.rationale} />
         </GlassPanel>
       </Reveal>
+
+      <LectureNotes id="overview" />
     </Section>
   )
 }

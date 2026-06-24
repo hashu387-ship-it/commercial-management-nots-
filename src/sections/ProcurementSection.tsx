@@ -3,6 +3,7 @@ import SectionHeading from '../components/SectionHeading'
 import Tabs from '../components/Tabs'
 import TenderVolumes from '../components/art/TenderVolumes'
 import { Reveal } from '../components/ui'
+import LectureNotes from '../components/LectureNotes'
 import { PROCUREMENT_TABS, SECTION_NARRATION } from '../data/content'
 
 export default function ProcurementSection() {
@@ -27,6 +28,7 @@ export default function ProcurementSection() {
       </Reveal>
 
       <Tabs tabs={PROCUREMENT_TABS} />
+      <LectureNotes id="procurement" />
     </Section>
   )
 }

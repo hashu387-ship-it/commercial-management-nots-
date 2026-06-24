@@ -4,6 +4,7 @@ import SectionHeading from '../components/SectionHeading'
 import Accordion from '../components/Accordion'
 import { Reveal } from '../components/ui'
 import CostBuildup from '../components/art/CostBuildup'
+import LectureNotes from '../components/LectureNotes'
 import { ESTIMATING_TOPICS, SECTION_NARRATION } from '../data/content'
 
 export default function EstimatingSection() {
@@ -39,6 +40,8 @@ export default function EstimatingSection() {
           </div>
         </Reveal>
       </div>
+
+      <LectureNotes id="estimating" />
     </Section>
   )
 }

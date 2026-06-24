@@ -73,3 +73,15 @@ export interface QuizQuestion {
   options: QuizOption[]
   explanation: string
 }
+
+/** A structured block of the presenter's spoken explanation (handwritten notes). */
+export interface LectureBlock {
+  heading: string
+  points: string[]
+  /** 📌 APC / exam tip */
+  tip?: string
+  /** 💡 worked example or anecdote from the lecture */
+  example?: string
+  /** ⚠ common mistake / thing to watch out for */
+  watch?: string
+}
