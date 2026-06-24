@@ -22,7 +22,7 @@ export default function BalanceScale() {
           transition={{ type: 'spring', stiffness: 60, damping: 9, delay: 0.3 }}
           style={{ transformOrigin: '180px 44px' }}
         >
-          <line x1="70" y1="44" x2="290" y2="44" stroke="#2D3436" strokeWidth="5" strokeLinecap="round" />
+          <line x1="70" y1="44" x2="290" y2="44" stroke="#6A5938" strokeWidth="5" strokeLinecap="round" />
 
           {/* left pan — Risks */}
           <line x1="80" y1="44" x2="80" y2="92" stroke="#857049" strokeWidth="2.5" />

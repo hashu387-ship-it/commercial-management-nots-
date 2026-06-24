@@ -8,8 +8,8 @@ export default function CvrChart() {
     { m: 'P3', value: 150, cost: 132 },
   ]
   return (
-    <figure className="paper rounded-3xl border border-bronze-200/60 p-5 shadow-neo-sm">
-      <figcaption className="mb-2 font-hand text-2xl font-bold text-charcoal">
+    <figure className="chartcard rounded-3xl border border-bronze-200/60 p-5 shadow-neo-sm">
+      <figcaption className="mb-2 font-hand text-2xl font-bold text-[#2D3436]">
         CVR — value vs cost = profit
       </figcaption>
       <svg viewBox="0 0 360 220" className="w-full" role="img" aria-label="Bar chart comparing value of work done against cost incurred each period">

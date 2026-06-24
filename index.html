@@ -30,6 +30,19 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Apply saved/system theme before paint to avoid a flash.
+      (function () {
+        try {
+          var t = localStorage.getItem('cm-theme-v1');
+          if (t !== 'dark' && t !== 'light') {
+            t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          if (t === 'dark') document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = t;
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

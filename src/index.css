@@ -268,6 +268,110 @@
   }
 }
 
+/* ════════════════════════════════════════════════════════════════
+   Dark "liquid glass" theme — overrides the shared utilities so the
+   whole app flips with a single `.dark` class on <html>.
+   ════════════════════════════════════════════════════════════════ */
+.dark body {
+  background-color: #14181a;
+  background-image:
+    radial-gradient(60rem 60rem at 8% -10%, rgba(158, 135, 93, 0.20), transparent 60%),
+    radial-gradient(52rem 52rem at 105% 5%, rgba(124, 140, 90, 0.12), transparent 55%),
+    radial-gradient(48rem 48rem at 90% 112%, rgba(158, 135, 93, 0.16), transparent 60%);
+  color: #ece7dc;
+}
+.dark ::selection {
+  background-color: rgba(198, 176, 131, 0.35);
+  color: #fff;
+}
+
+/* Text */
+.dark .text-charcoal { color: #ece7dc; }
+.dark .text-charcoal-700 { color: #e0dace; }
+.dark .text-charcoal-600 { color: #cfc9bd; }
+.dark .text-charcoal-500 { color: #b6b0a4; }
+.dark .text-charcoal-400 { color: #9c968b; }
+.dark .text-bronze-700,
+.dark .text-bronze-600 { color: #cdb78b; }
+
+/* Frosted "liquid glass" surfaces */
+.dark .glass {
+  background: rgba(48, 54, 56, 0.45);
+  border-color: rgba(198, 176, 131, 0.16);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+.dark .glass-tan {
+  background: rgba(74, 63, 44, 0.42);
+  border-color: rgba(198, 176, 131, 0.16);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.dark .glass-dark {
+  background: rgba(9, 11, 12, 0.82);
+}
+
+/* Neomorphism (dark) */
+.dark .neo,
+.dark .neo-sm {
+  background: #1b2122;
+  box-shadow: 9px 9px 22px #0d1112, -9px -9px 22px #29302f;
+}
+.dark .neo-inset {
+  background: #1b2122;
+  box-shadow: inset 6px 6px 12px #0d1112, inset -6px -6px 12px #29302f;
+}
+
+/* Paper surfaces (dark) */
+.dark .paper {
+  background-color: #1a1f20;
+  background-image: linear-gradient(rgba(198, 176, 131, 0.08) 1px, transparent 1px);
+}
+.dark .paper-grid {
+  background-color: #1a1f20;
+  background-image:
+    linear-gradient(rgba(198, 176, 131, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(198, 176, 131, 0.08) 1px, transparent 1px);
+}
+.dark .paper-dots {
+  background-color: #1a1f20;
+  background-image: radial-gradient(rgba(236, 231, 220, 0.1) 1.2px, transparent 1.2px);
+}
+.dark .sticky-note {
+  background: #2b2519;
+  box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.45);
+}
+
+/* Opacity-tinted backgrounds */
+.dark .bg-cream { background-color: #14181a; }
+.dark .bg-white\/40 { background-color: rgba(255, 255, 255, 0.05); }
+.dark .bg-white\/50 { background-color: rgba(255, 255, 255, 0.06); }
+.dark .bg-white\/60 { background-color: rgba(255, 255, 255, 0.07); }
+.dark .bg-tan\/40 { background-color: rgba(158, 135, 93, 0.08); }
+.dark .bg-tan\/50,
+.dark .bg-tan\/60,
+.dark .bg-tan\/70 { background-color: rgba(158, 135, 93, 0.12); }
+
+/* Borders */
+.dark .border-bronze-200\/60 { border-color: rgba(198, 176, 131, 0.18); }
+.dark .border-white\/50,
+.dark .border-white\/60 { border-color: rgba(255, 255, 255, 0.08); }
+
+/* Scrollbar */
+.dark ::-webkit-scrollbar-track { background: #1a1f20; }
+.dark ::-webkit-scrollbar-thumb {
+  background: #4a4636;
+  border-color: #1a1f20;
+}
+
+/* An always-light data card so chart infographics stay readable in both
+   themes (their axes are drawn in charcoal). */
+.chartcard {
+  background-color: #fbfaf6;
+  background-image:
+    linear-gradient(rgba(158, 135, 93, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(158, 135, 93, 0.1) 1px, transparent 1px);
+  background-size: 1.5rem 1.5rem;
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -15,6 +15,7 @@ import Slide from './Slide'
 import { SLIDES } from './slides'
 import { slideSpeech } from './narration'
 import { useSpeech } from '../audio/speech'
+import ThemeToggle from '../components/ThemeToggle'
 
 const STORAGE_KEY = 'cm-deck-slide-v1'
 
@@ -191,6 +192,8 @@ export default function Deck({ onExit }: { onExit: () => void }) {
               {fs ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
             </button>
           )}
+
+          <ThemeToggle />
 
           <button
             onClick={() => setContents(true)}
