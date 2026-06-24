@@ -8,6 +8,8 @@ interface TimelineProps {
   stages: TimelineStage[]
 }
 
+const NODE_ACCENTS = ['#9E875D', '#7C8C5A', '#5B7DA6', '#E0A23B', '#8A6491', '#D9694C']
+
 export default function Timeline({ stages }: TimelineProps) {
   const [open, setOpen] = useState<string | null>(stages[0]?.id ?? null)
 
@@ -21,6 +23,7 @@ export default function Timeline({ stages }: TimelineProps) {
           const Icon = getIcon(stage.icon)
           const isOpen = open === stage.id
           const onLeft = i % 2 === 0
+          const accent = NODE_ACCENTS[i % NODE_ACCENTS.length]
           return (
             <motion.div
               key={stage.id}
@@ -32,7 +35,10 @@ export default function Timeline({ stages }: TimelineProps) {
             >
               {/* Node */}
               <div className="absolute left-0 top-1 z-10 sm:left-1/2 sm:-translate-x-1/2">
-                <span className="grid h-[54px] w-[54px] place-items-center rounded-2xl bg-bronze-500 text-cream shadow-bronze ring-4 ring-cream">
+                <span
+                  className="grid h-[54px] w-[54px] -rotate-3 place-items-center rounded-2xl text-cream shadow-neo-sm ring-4 ring-cream"
+                  style={{ backgroundColor: accent }}
+                >
                   <Icon className="h-6 w-6" />
                 </span>
               </div>
@@ -51,14 +57,19 @@ export default function Timeline({ stages }: TimelineProps) {
                     aria-controls={`tl-panel-${stage.id}`}
                     className="flex w-full items-start gap-3 p-5 text-left"
                   >
-                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-bronze-500/15 text-sm font-bold text-bronze-700">
+                    <span
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full font-note text-sm font-bold text-cream"
+                      style={{ backgroundColor: accent }}
+                    >
                       {stage.index}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block font-display text-lg font-bold leading-snug text-charcoal">
                         {stage.title}
                       </span>
-                      <span className="mt-0.5 block text-sm text-bronze-700">{stage.tagline}</span>
+                      <span className="mt-0.5 block font-note text-sm font-semibold" style={{ color: accent }}>
+                        {stage.tagline}
+                      </span>
                     </span>
                     <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="pt-1">
                       <ChevronDown className="h-5 w-5 text-bronze-600" />

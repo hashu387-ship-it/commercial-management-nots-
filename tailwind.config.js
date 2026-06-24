@@ -33,10 +33,21 @@ export default {
         },
         cream: '#F5F3EE',
         tan: '#EDE6D3',
+        // ── Expanded "study-journal" accent set (warm + muted jewel, NO teal) ──
+        ink: '#33373B',
+        coral: '#D9694C', // red highlighter
+        amber: '#E0A23B', // marker yellow / gold
+        sage: '#7C8C5A', // muted green
+        plum: '#8A6491', // muted purple
+        sky: '#5B7DA6', // dusty blue (NOT teal/cyan)
+        rust: '#B25B3E',
       },
       fontFamily: {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+        // handwriting families for the annotated study-notes feel
+        hand: ['"Caveat"', 'cursive'],
+        note: ['"Kalam"', 'cursive'],
       },
       boxShadow: {
         // Neomorphic shadows tuned to the cream surface
@@ -74,6 +85,17 @@ export default {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        'draw-in': {
+          '0%': { strokeDashoffset: '1000' },
+          '100%': { strokeDashoffset: '0' },
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-1.5deg)' },
+          '50%': { transform: 'rotate(1.5deg)' },
+        },
+        'dash-march': {
+          to: { strokeDashoffset: '-16' },
+        },
       },
       animation: {
         'blob-1': 'blob-1 18s ease-in-out infinite',
@@ -81,6 +103,9 @@ export default {
         'blob-3': 'blob-3 26s ease-in-out infinite',
         shimmer: 'shimmer 3s linear infinite',
         float: 'float 6s ease-in-out infinite',
+        'draw-in': 'draw-in 2s ease-out forwards',
+        wiggle: 'wiggle 4s ease-in-out infinite',
+        'dash-march': 'dash-march 1s linear infinite',
       },
     },
   },

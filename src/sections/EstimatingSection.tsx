@@ -3,6 +3,7 @@ import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import Accordion from '../components/Accordion'
 import { Reveal } from '../components/ui'
+import CostBuildup from '../components/art/CostBuildup'
 import { ESTIMATING_TOPICS } from '../data/content'
 
 export default function EstimatingSection() {
@@ -14,6 +15,10 @@ export default function EstimatingSection() {
         title="Building the Cost Base"
         description="Rates can be drawn from in-house data, built from first principles, sourced from suppliers, or modelled operationally — then risk-adjusted."
       />
+
+      <Reveal className="mx-auto mb-10 max-w-2xl">
+        <CostBuildup />
+      </Reveal>
 
       <div className="mx-auto max-w-4xl">
         <Accordion items={ESTIMATING_TOPICS} />

@@ -3,6 +3,7 @@ import { Boxes, CircleAlert, ListChecks, Sparkles, TrendingUp } from 'lucide-rea
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { Pills, Reveal } from '../components/ui'
+import BalanceScale from '../components/art/BalanceScale'
 import { BULK_BUYING, PROFIT_OPPORTUNITIES, PROFIT_RISKS, REGISTERS } from '../data/content'
 
 export default function ProfitSection() {
@@ -15,7 +16,11 @@ export default function ProfitSection() {
         description="Profit enhancement depends on striking an appropriate balance between the project’s risks and its opportunities."
       />
 
-      {/* Balance scale */}
+      <Reveal className="mb-10">
+        <BalanceScale />
+      </Reveal>
+
+      {/* Risks vs opportunities */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Risks */}
         <Reveal>

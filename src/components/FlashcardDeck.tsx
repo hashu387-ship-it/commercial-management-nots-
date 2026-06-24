@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Filter } from 'lucide-react'
 import Flashcard from './Flashcard'
+import { accentFor } from '../lib/accents'
 import { FLASHCARDS } from '../data/content'
 
 export default function FlashcardDeck() {
@@ -34,17 +35,22 @@ export default function FlashcardDeck() {
           <span className="grid h-9 w-9 place-items-center text-bronze-600">
             <Filter className="h-4 w-4" />
           </span>
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setFilter(c)}
-              className={`rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors duration-300 ${
-                filter === c ? 'bg-bronze-500 text-cream shadow-bronze' : 'text-charcoal-500 hover:text-bronze-700'
-              }`}
-            >
-              {c}
-            </button>
-          ))}
+          {categories.map((c) => {
+            const isActive = filter === c
+            const accent = c === 'All' ? '#9E875D' : accentFor(c)
+            return (
+              <button
+                key={c}
+                onClick={() => setFilter(c)}
+                style={isActive ? { backgroundColor: accent, color: '#F5F3EE' } : undefined}
+                className={`rounded-xl px-3.5 py-2 font-note text-sm font-bold transition-colors duration-300 ${
+                  isActive ? 'shadow-bronze' : 'text-charcoal-500 hover:text-bronze-700'
+                }`}
+              >
+                {c}
+              </button>
+            )
+          })}
         </div>
         <p className="flex items-center gap-2 text-sm text-charcoal-400">
           <Check className="h-4 w-4 text-bronze-600" />

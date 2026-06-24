@@ -3,6 +3,8 @@ import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import Tabs from '../components/Tabs'
 import { Reveal } from '../components/ui'
+import CashFlowCurve from '../components/art/CashFlowCurve'
+import CvrChart from '../components/art/CvrChart'
 import { REPORTING_TABS } from '../data/content'
 
 export default function ReportingSection() {
@@ -14,6 +16,14 @@ export default function ReportingSection() {
         title="Cash Flow · CVR · CTC · EVA"
         description="Inter alia, these four reports drive better decision-making, compliance, efficiency and profitability."
       />
+
+      <Reveal className="mb-10">
+        <div className="grid gap-6 md:grid-cols-2">
+          <CashFlowCurve />
+          <CvrChart />
+        </div>
+      </Reveal>
+
       <Tabs tabs={REPORTING_TABS} />
 
       <Reveal delay={0.1} className="mt-6">

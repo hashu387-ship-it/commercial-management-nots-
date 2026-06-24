@@ -29,15 +29,15 @@ export default function OverviewSection() {
           >
             <p className="text-balance text-lg leading-relaxed text-charcoal-500">{WHAT_WHY.what}</p>
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <div className="neo-inset rounded-2xl p-4 text-center">
-                <Shield className="mx-auto mb-2 h-5 w-5 text-bronze-600" />
-                <p className="font-display text-base font-bold text-charcoal">Secure</p>
-                <p className="text-xs text-charcoal-400">the intended profit</p>
+              <div className="rounded-2xl border-2 border-dashed border-sage/50 bg-sage/10 p-4 text-center">
+                <Shield className="mx-auto mb-2 h-5 w-5 text-sage" />
+                <p className="font-hand text-2xl font-bold text-charcoal">Secure</p>
+                <p className="font-note text-xs text-charcoal-500">the intended profit</p>
               </div>
-              <div className="neo-inset rounded-2xl p-4 text-center">
-                <Sparkles className="mx-auto mb-2 h-5 w-5 text-bronze-600" />
-                <p className="font-display text-base font-bold text-charcoal">Enhance</p>
-                <p className="text-xs text-charcoal-400">the secured profit</p>
+              <div className="rounded-2xl border-2 border-dashed border-amber/60 bg-amber/10 p-4 text-center">
+                <Sparkles className="mx-auto mb-2 h-5 w-5 text-amber" />
+                <p className="font-hand text-2xl font-bold text-charcoal">Enhance</p>
+                <p className="font-note text-xs text-charcoal-500">the secured profit</p>
               </div>
             </div>
           </GlassPanel>
