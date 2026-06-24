@@ -1,0 +1,16 @@
+{
+  "name": "Commercial Management in Construction · Interactive Study",
+  "short_name": "CM Study",
+  "description": "An interactive study experience for Commercial Management in Construction (RICS & AIQS APC).",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#2D3436",
+  "theme_color": "#F5F3EE",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
