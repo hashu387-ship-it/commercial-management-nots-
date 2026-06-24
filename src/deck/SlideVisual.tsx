@@ -37,6 +37,7 @@ import CostBuildup from '../components/art/CostBuildup'
 import BalanceScale from '../components/art/BalanceScale'
 import TenderVolumes from '../components/art/TenderVolumes'
 import IconScene from '../components/art/IconScene'
+import AiPhoto from '../components/AiPhoto'
 import { ContractScene, DashboardScene, SiteScene } from '../components/art/Scenes'
 
 /** Resolve a slide's `visual` key to a suitable image. */
@@ -44,6 +45,14 @@ export default function SlideVisual({ name }: { name: string }) {
   switch (name) {
     case 'hero':
       return <HeroDoodle className="mx-auto w-full max-w-sm" />
+    case 'photo-hero':
+      return <AiPhoto src="/ai/hero.jpg" alt="A quantity surveyor's desk with blueprints, a hard hat and a calculator" className="mx-auto max-w-md" rotate={-1.5} />
+    case 'photo-pre':
+      return <AiPhoto src="/ai/precontract.jpg" alt="Tender documents and architectural drawings on a desk" className="mx-auto max-w-md" rotate={-1.5} />
+    case 'photo-post':
+      return <AiPhoto src="/ai/postcontract.jpg" alt="Printed cost reports with charts on a desk" className="mx-auto max-w-md" rotate={1.5} />
+    case 'photo-site':
+      return <AiPhoto src="/ai/site.jpg" alt="A construction site with a tower crane at golden hour" className="mx-auto max-w-md" rotate={-1} />
     case 'costbuildup':
       return <CostBuildup />
     case 'cashflow':

@@ -25,7 +25,7 @@ export const SLIDES: DeckSlide[] = [
     kicker: 'MRICS & AIQS APC Coaching',
     title: 'Commercial Management in Construction',
     subtitle: 'Part 1 · Pre-Contract — presented by Roshan de Silva',
-    visual: 'hero',
+    visual: 'photo-pre',
   },
   {
     id: 's-agenda-1',
@@ -271,7 +271,7 @@ export const SLIDES: DeckSlide[] = [
     kicker: 'MRICS & AIQS APC Coaching',
     title: 'Commercial Management in Construction',
     subtitle: 'Part 2 · Post-Contract',
-    visual: 'hero',
+    visual: 'photo-post',
   },
   {
     id: 's-agenda-2',
@@ -563,6 +563,6 @@ export const SLIDES: DeckSlide[] = [
       'Now reinforce with the flashcards and the quiz in Explore mode.',
       'Each slide links to the full lecture explanation.',
     ],
-    visual: 'thanks',
+    visual: 'photo-site',
   },
 ]
