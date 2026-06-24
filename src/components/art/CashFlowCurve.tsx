@@ -7,8 +7,8 @@ import { motion } from 'framer-motion'
  */
 export default function CashFlowCurve() {
   return (
-    <figure className="paper-grid rounded-3xl border border-bronze-200/60 p-5 shadow-neo-sm">
-      <figcaption className="mb-2 font-hand text-2xl font-bold text-charcoal">
+    <figure className="chartcard rounded-3xl border border-bronze-200/60 p-5 shadow-neo-sm">
+      <figcaption className="mb-2 font-hand text-2xl font-bold text-[#2D3436]">
         Cash flow — value vs cost over time
       </figcaption>
       <svg viewBox="0 0 420 260" className="w-full" role="img" aria-label="Cash flow S-curve showing cumulative value above the cost line">

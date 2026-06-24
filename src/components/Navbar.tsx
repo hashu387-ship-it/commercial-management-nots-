@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react'
 import { SECTIONS } from '../data/content'
 import { getIcon } from '../lib/icons'
 import ProgressRing from './ProgressRing'
+import ThemeToggle from './ThemeToggle'
 import type { SectionId } from '../types'
 
 interface NavbarProps {
@@ -60,6 +61,7 @@ export default function Navbar({ active, percent }: NavbarProps) {
               <ProgressRing percent={percent} size={34} stroke={3.5} />
               <span className="text-[0.7rem] font-semibold text-charcoal-500">Reviewed</span>
             </div>
+            <ThemeToggle />
             <button
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? 'Close menu' : 'Open menu'}

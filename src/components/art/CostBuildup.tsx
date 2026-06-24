@@ -28,8 +28,8 @@ export default function CostBuildup() {
   }
 
   return (
-    <figure className="paper-dots rounded-3xl border border-bronze-200/60 p-5 shadow-neo-sm">
-      <figcaption className="mb-2 font-hand text-2xl font-bold text-charcoal">
+    <figure className="chartcard rounded-3xl border border-bronze-200/60 p-5 shadow-neo-sm">
+      <figcaption className="mb-2 font-hand text-2xl font-bold text-[#2D3436]">
         From estimate → tender bid
       </figcaption>
       <svg viewBox="0 0 360 240" className="w-full" role="img" aria-label="Stacked cost build-up from net estimate plus overheads, risk and profit to the final bid">
