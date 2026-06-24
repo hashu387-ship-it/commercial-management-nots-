@@ -30,8 +30,10 @@ export default function Accordion({ items, defaultOpen = 0 }: AccordionProps) {
             }`}
           >
             <button
+              id={`acc-btn-${item.id}`}
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
+              aria-controls={`acc-panel-${item.id}`}
               className="flex w-full items-center gap-4 px-5 py-5 text-left sm:px-7"
             >
               <span
@@ -57,6 +59,9 @@ export default function Accordion({ items, defaultOpen = 0 }: AccordionProps) {
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
+                  id={`acc-panel-${item.id}`}
+                  role="region"
+                  aria-labelledby={`acc-btn-${item.id}`}
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState, type KeyboardEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { GitCompareArrows, ListChecks, Quote } from 'lucide-react'
 import Section from '../components/Section'
@@ -8,8 +8,27 @@ import { COMPETENCY_MAPPING, COMPETENCY_RICS } from '../data/content'
 
 type View = 'rics' | 'mapping'
 
+const VIEWS = [
+  { id: 'rics', label: 'RICS Competencies', icon: ListChecks },
+  { id: 'mapping', label: 'MRICS vs MAIQS', icon: GitCompareArrows },
+] as const
+
 export default function CompetencySection() {
   const [view, setView] = useState<View>('rics')
+  const btnRefs = useRef<(HTMLButtonElement | null)[]>([])
+
+  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const i = VIEWS.findIndex((v) => v.id === view)
+    let next = i
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % VIEWS.length
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + VIEWS.length) % VIEWS.length
+    else if (e.key === 'Home') next = 0
+    else if (e.key === 'End') next = VIEWS.length - 1
+    else return
+    e.preventDefault()
+    setView(VIEWS[next].id)
+    btnRefs.current[next]?.focus()
+  }
 
   return (
     <Section id="competency">
@@ -21,17 +40,18 @@ export default function CompetencySection() {
 
       {/* View switch */}
       <div className="mb-9 flex justify-center">
-        <div className="glass flex gap-1.5 rounded-2xl p-1.5">
-          {(
-            [
-              { id: 'rics', label: 'RICS Competencies', icon: ListChecks },
-              { id: 'mapping', label: 'MRICS vs MAIQS', icon: GitCompareArrows },
-            ] as const
-          ).map((opt) => {
+        <div role="tablist" aria-label="Competency view" onKeyDown={onKeyDown} className="glass flex gap-1.5 rounded-2xl p-1.5">
+          {VIEWS.map((opt, i) => {
             const isActive = view === opt.id
             return (
               <button
                 key={opt.id}
+                ref={(el) => (btnRefs.current[i] = el)}
+                role="tab"
+                id={`comp-tab-${opt.id}`}
+                aria-selected={isActive}
+                aria-controls={`comp-panel-${opt.id}`}
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => setView(opt.id)}
                 className={`relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                   isActive ? 'text-cream' : 'text-charcoal-500 hover:text-bronze-700'
@@ -45,7 +65,7 @@ export default function CompetencySection() {
                   />
                 )}
                 <span className="relative z-10 flex items-center gap-2">
-                  <opt.icon className="h-4 w-4" />
+                  <opt.icon className="h-4 w-4" aria-hidden />
                   {opt.label}
                 </span>
               </button>
@@ -58,6 +78,10 @@ export default function CompetencySection() {
         {view === 'rics' ? (
           <motion.div
             key="rics"
+            role="tabpanel"
+            id="comp-panel-rics"
+            aria-labelledby="comp-tab-rics"
+            tabIndex={0}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -105,6 +129,10 @@ export default function CompetencySection() {
         ) : (
           <motion.div
             key="mapping"
+            role="tabpanel"
+            id="comp-panel-mapping"
+            aria-labelledby="comp-tab-mapping"
+            tabIndex={0}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}

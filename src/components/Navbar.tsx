@@ -30,7 +30,7 @@ export default function Navbar({ active, percent }: NavbarProps) {
             </span>
             <span className="hidden leading-tight sm:block">
               <span className="block font-display text-sm font-bold text-charcoal">Commercial Management</span>
-              <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-bronze-600">
+              <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-bronze-700">
                 Interactive Study
               </span>
             </span>
@@ -62,7 +62,9 @@ export default function Navbar({ active, percent }: NavbarProps) {
             </div>
             <button
               onClick={() => setOpen((o) => !o)}
-              aria-label="Toggle menu"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
               className="grid h-10 w-10 place-items-center rounded-xl glass-tan text-charcoal xl:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -73,7 +75,9 @@ export default function Navbar({ active, percent }: NavbarProps) {
         {/* Mobile / tablet drawer */}
         <AnimatePresence>
           {open && (
-            <motion.div
+            <motion.nav
+              id="mobile-nav"
+              aria-label="Sections"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -91,12 +95,12 @@ export default function Navbar({ active, percent }: NavbarProps) {
                       isActive ? 'bg-bronze-500 text-cream' : 'text-charcoal-500 hover:bg-bronze-500/10'
                     }`}
                   >
-                    <Icon className="h-4 w-4 shrink-0" />
+                    <Icon className="h-4 w-4 shrink-0" aria-hidden />
                     <span className="truncate">{s.label}</span>
                   </button>
                 )
               })}
-            </motion.div>
+            </motion.nav>
           )}
         </AnimatePresence>
       </div>

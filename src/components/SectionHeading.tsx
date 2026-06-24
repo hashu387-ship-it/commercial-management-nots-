@@ -29,7 +29,7 @@ export default function SectionHeading({ kicker, title, description, part }: Sec
         {title}
       </h2>
       {pl && (
-        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.25em] text-bronze-600">{pl}</p>
+        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.25em] text-bronze-700">{pl}</p>
       )}
       {description && (
         <p className="mt-5 text-balance text-base leading-relaxed text-charcoal-400 sm:text-lg">

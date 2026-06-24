@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { MotionConfig } from 'framer-motion'
 import LiquidBackground from './components/LiquidBackground'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -34,27 +35,35 @@ export default function App() {
   const completeQuiz = useCallback(() => markComplete('quiz'), [markComplete])
 
   return (
-    <div className="relative min-h-screen">
-      <LiquidBackground />
-      <Navbar active={active} percent={percent} />
+    <MotionConfig reducedMotion="user">
+      <div className="relative min-h-screen">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-xl focus:bg-charcoal focus:px-4 focus:py-2 focus:font-semibold focus:text-cream focus:shadow-glass-lg"
+        >
+          Skip to content
+        </a>
+        <LiquidBackground />
+        <Navbar active={active} percent={percent} />
 
-      <main>
-        <Hero onJump={jump} />
-        <OverviewSection />
-        <CompetencySection />
-        <PreContractSection />
-        <EstimatingSection />
-        <TenderSection />
-        <PostContractSection />
-        <ProfitSection />
-        <ProcurementSection />
-        <ReportingSection />
-        <AdminSection />
-        <FlashcardsSection />
-        <QuizSection onComplete={completeQuiz} />
-      </main>
+        <main id="main" tabIndex={-1}>
+          <Hero onJump={jump} />
+          <OverviewSection />
+          <CompetencySection />
+          <PreContractSection />
+          <EstimatingSection />
+          <TenderSection />
+          <PostContractSection />
+          <ProfitSection />
+          <ProcurementSection />
+          <ReportingSection />
+          <AdminSection />
+          <FlashcardsSection />
+          <QuizSection onComplete={completeQuiz} />
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </MotionConfig>
   )
 }

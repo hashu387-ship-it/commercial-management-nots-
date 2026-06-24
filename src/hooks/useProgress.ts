@@ -35,9 +35,8 @@ export function useProgress(total: number) {
     })
   }, [])
 
-  const reset = useCallback(() => setCompleted(new Set<SectionId>()), [])
-
+  // `completed` backs the percentage + persistence; it is not exposed.
   const percent = total > 0 ? Math.round((completed.size / total) * 100) : 0
 
-  return { completed, markComplete, reset, percent }
+  return { markComplete, percent }
 }

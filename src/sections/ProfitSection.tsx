@@ -81,7 +81,7 @@ export default function ProfitSection() {
             </span>
             <div>
               <h3 className="font-display text-xl font-bold text-charcoal">Bulk Buying Gains</h3>
-              <p className="text-sm text-bronze-600">{BULK_BUYING.intro}</p>
+              <p className="text-sm text-bronze-700">{BULK_BUYING.intro}</p>
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

@@ -25,7 +25,7 @@ export default function TenderSection() {
               </span>
               <div>
                 <h3 className="font-display text-2xl font-bold text-charcoal">Tender Adjudication</h3>
-                <p className="text-sm text-bronze-600">The settlement meeting</p>
+                <p className="text-sm text-bronze-700">The settlement meeting</p>
               </div>
             </div>
           }

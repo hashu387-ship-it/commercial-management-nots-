@@ -80,7 +80,7 @@ export default function Quiz({ onComplete }: QuizProps) {
       <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-charcoal/10">
         <motion.div
           className="h-full rounded-full bg-gradient-to-r from-bronze-300 to-bronze-600"
-          animate={{ width: `${(current / QUIZ.length) * 100}%` }}
+          animate={{ width: `${((current + 1) / QUIZ.length) * 100}%` }}
           transition={{ duration: 0.4 }}
         />
       </div>

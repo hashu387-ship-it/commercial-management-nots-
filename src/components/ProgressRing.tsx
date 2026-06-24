@@ -1,3 +1,5 @@
+import { useId } from 'react'
+
 interface ProgressRingProps {
   percent: number
   size?: number
@@ -7,6 +9,7 @@ interface ProgressRingProps {
 
 /** Circular progress indicator rendered with SVG, palette-only. */
 export default function ProgressRing({ percent, size = 44, stroke = 4, label }: ProgressRingProps) {
+  const gradId = useId()
   const radius = (size - stroke) / 2
   const circumference = 2 * Math.PI * radius
   const clamped = Math.max(0, Math.min(100, percent))
@@ -28,7 +31,7 @@ export default function ProgressRing({ percent, size = 44, stroke = 4, label }: 
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="url(#ring-bronze)"
+          stroke={`url(#${gradId})`}
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -36,7 +39,7 @@ export default function ProgressRing({ percent, size = 44, stroke = 4, label }: 
           className="transition-[stroke-dashoffset] duration-700 ease-out"
         />
         <defs>
-          <linearGradient id="ring-bronze" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#C6B083" />
             <stop offset="100%" stopColor="#6A5938" />
           </linearGradient>

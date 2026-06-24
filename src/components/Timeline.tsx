@@ -6,7 +6,6 @@ import { getIcon } from '../lib/icons'
 
 interface TimelineProps {
   stages: TimelineStage[]
-  accent?: 'bronze' | 'charcoal'
 }
 
 export default function Timeline({ stages }: TimelineProps) {
@@ -46,8 +45,10 @@ export default function Timeline({ stages }: TimelineProps) {
               >
                 <div className="glass overflow-hidden rounded-3xl">
                   <button
+                    id={`tl-btn-${stage.id}`}
                     onClick={() => setOpen(isOpen ? null : stage.id)}
                     aria-expanded={isOpen}
+                    aria-controls={`tl-panel-${stage.id}`}
                     className="flex w-full items-start gap-3 p-5 text-left"
                   >
                     <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-bronze-500/15 text-sm font-bold text-bronze-700">
@@ -57,7 +58,7 @@ export default function Timeline({ stages }: TimelineProps) {
                       <span className="block font-display text-lg font-bold leading-snug text-charcoal">
                         {stage.title}
                       </span>
-                      <span className="mt-0.5 block text-sm text-bronze-600">{stage.tagline}</span>
+                      <span className="mt-0.5 block text-sm text-bronze-700">{stage.tagline}</span>
                     </span>
                     <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }} className="pt-1">
                       <ChevronDown className="h-5 w-5 text-bronze-600" />
@@ -67,6 +68,9 @@ export default function Timeline({ stages }: TimelineProps) {
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
+                        id={`tl-panel-${stage.id}`}
+                        role="region"
+                        aria-labelledby={`tl-btn-${stage.id}`}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
