@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, BookOpen, Building2, Layers, Sparkles } from 'lucide-react'
 import { COURSE } from '../data/content'
-import AiPhoto from './AiPhoto'
+import AiVideo from './AiVideo'
 import { DoodleArrow } from './art/Doodles'
 import type { SectionId } from '../types'
 
@@ -89,9 +89,9 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative mx-auto w-full max-w-md"
         >
-          <AiPhoto
-            src="/ai/hero.jpg"
-            alt="A quantity surveyor's desk with rolled blueprints, a bronze hard hat, calculator and coffee"
+          <AiVideo
+            src="/ai/intro.mp4"
+            poster="/ai/hero.jpg"
             caption="secure it. then grow it."
             rotate={1.5}
           />

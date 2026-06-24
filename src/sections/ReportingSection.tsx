@@ -6,6 +6,7 @@ import { Reveal } from '../components/ui'
 import CashFlowCurve from '../components/art/CashFlowCurve'
 import CvrChart from '../components/art/CvrChart'
 import LectureNotes from '../components/LectureNotes'
+import AiVideo from '../components/AiVideo'
 import { REPORTING_TABS, SECTION_NARRATION } from '../data/content'
 
 export default function ReportingSection() {
@@ -18,6 +19,10 @@ export default function ReportingSection() {
         description="Inter alia, these four reports drive better decision-making, compliance, efficiency and profitability."
         narration={{ id: 'reporting', text: SECTION_NARRATION.reporting }}
       />
+
+      <Reveal className="mx-auto mb-8 max-w-lg">
+        <AiVideo src="/ai/reports.mp4" poster="/ai/reports-poster.jpg" rotate={1} />
+      </Reveal>
 
       <Reveal className="mb-10">
         <div className="grid gap-6 md:grid-cols-2">

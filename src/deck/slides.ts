@@ -25,7 +25,7 @@ export const SLIDES: DeckSlide[] = [
     kicker: 'MRICS & AIQS APC Coaching',
     title: 'Commercial Management in Construction',
     subtitle: 'Part 1 · Pre-Contract — presented by Roshan de Silva',
-    visual: 'photo-pre',
+    visual: 'video-intro',
   },
   {
     id: 's-agenda-1',
@@ -118,7 +118,7 @@ export const SLIDES: DeckSlide[] = [
       '5 · Tender Adjudication',
       '6 · Tender Submission / post-tender dealings',
     ],
-    visual: 'lifecycle-pre',
+    visual: 'photo-pre',
     lecture: 'precontract',
   },
   {
@@ -271,7 +271,7 @@ export const SLIDES: DeckSlide[] = [
     kicker: 'MRICS & AIQS APC Coaching',
     title: 'Commercial Management in Construction',
     subtitle: 'Part 2 · Post-Contract',
-    visual: 'photo-post',
+    visual: 'video-reports',
   },
   {
     id: 's-agenda-2',
@@ -304,7 +304,7 @@ export const SLIDES: DeckSlide[] = [
       '4 · Contract Administration',
     ],
     note: 'Beneath it all: balance risks against opportunities — upstream (client) and downstream (subs).',
-    visual: 'lifecycle-post',
+    visual: 'photo-post',
     lecture: 'postcontract',
   },
   {
@@ -563,6 +563,6 @@ export const SLIDES: DeckSlide[] = [
       'Now reinforce with the flashcards and the quiz in Explore mode.',
       'Each slide links to the full lecture explanation.',
     ],
-    visual: 'photo-site',
+    visual: 'video-site',
   },
 ]

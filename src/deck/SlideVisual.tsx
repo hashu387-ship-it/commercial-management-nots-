@@ -38,6 +38,7 @@ import BalanceScale from '../components/art/BalanceScale'
 import TenderVolumes from '../components/art/TenderVolumes'
 import IconScene from '../components/art/IconScene'
 import AiPhoto from '../components/AiPhoto'
+import AiVideo from '../components/AiVideo'
 import { ContractScene, DashboardScene, SiteScene } from '../components/art/Scenes'
 
 /** Resolve a slide's `visual` key to a suitable image. */
@@ -53,6 +54,12 @@ export default function SlideVisual({ name }: { name: string }) {
       return <AiPhoto src="/ai/postcontract.jpg" alt="Printed cost reports with charts on a desk" className="mx-auto max-w-md" rotate={1.5} />
     case 'photo-site':
       return <AiPhoto src="/ai/site.jpg" alt="A construction site with a tower crane at golden hour" className="mx-auto max-w-md" rotate={-1} />
+    case 'video-intro':
+      return <AiVideo src="/ai/intro.mp4" poster="/ai/intro-poster.jpg" className="mx-auto max-w-md" rotate={-1.5} />
+    case 'video-site':
+      return <AiVideo src="/ai/site.mp4" poster="/ai/site-poster.jpg" className="mx-auto max-w-md" rotate={-1} />
+    case 'video-reports':
+      return <AiVideo src="/ai/reports.mp4" poster="/ai/reports-poster.jpg" className="mx-auto max-w-md" rotate={1.5} />
     case 'costbuildup':
       return <CostBuildup />
     case 'cashflow':
