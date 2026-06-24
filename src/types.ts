@@ -11,6 +11,7 @@ export type SectionId =
   | 'procurement'
   | 'reporting'
   | 'admin'
+  | 'soe'
   | 'flashcards'
   | 'quiz'
 

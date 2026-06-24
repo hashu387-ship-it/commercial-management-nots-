@@ -29,7 +29,6 @@ import {
   TrendingUp,
   TriangleAlert,
   Trophy,
-  Workflow,
 } from 'lucide-react'
 import HeroDoodle from '../components/art/HeroDoodle'
 import CashFlowCurve from '../components/art/CashFlowCurve'
@@ -38,6 +37,7 @@ import CostBuildup from '../components/art/CostBuildup'
 import BalanceScale from '../components/art/BalanceScale'
 import TenderVolumes from '../components/art/TenderVolumes'
 import IconScene from '../components/art/IconScene'
+import { ContractScene, DashboardScene, SiteScene } from '../components/art/Scenes'
 
 /** Resolve a slide's `visual` key to a suitable image. */
 export default function SlideVisual({ name }: { name: string }) {
@@ -54,6 +54,13 @@ export default function SlideVisual({ name }: { name: string }) {
       return <BalanceScale />
     case 'volumes':
       return <TenderVolumes />
+    case 'lifecycle-pre':
+    case 'lifecycle-post':
+      return <SiteScene className="mx-auto max-w-md" />
+    case 'reports':
+      return <DashboardScene className="mx-auto max-w-md" />
+    case 'submission':
+      return <ContractScene className="mx-auto max-w-sm" />
 
     case 'agenda':
       return <IconScene Icon={ListChecks} accent="#9E875D" satellites={[Route, Calculator, Gavel, Send]} />
@@ -65,8 +72,6 @@ export default function SlideVisual({ name }: { name: string }) {
       return <IconScene Icon={GitCompareArrows} accent="#8A6491" satellites={[Award, FileSignature]} />
     case 'securenhance':
       return <IconScene Icon={Target} accent="#7C8C5A" satellites={[ShieldCheck, TrendingUp, Sparkles, Coins]} />
-    case 'lifecycle-pre':
-      return <IconScene Icon={Route} accent="#9E875D" satellites={[ClipboardCheck, Telescope, Calculator, Gavel]} />
     case 'docs':
       return <IconScene Icon={ClipboardCheck} accent="#5B7DA6" satellites={[FileStack, Banknote]} />
     case 'decision':
@@ -81,12 +86,8 @@ export default function SlideVisual({ name }: { name: string }) {
       return <IconScene Icon={ShieldCheck} accent="#7C8C5A" satellites={[Handshake, ClipboardList, Scale]} />
     case 'adjudication':
       return <IconScene Icon={Gavel} accent="#9E875D" satellites={[Coins, Banknote, Scale]} />
-    case 'submission':
-      return <IconScene Icon={Send} accent="#8A6491" satellites={[FileStack, FileSignature]} />
     case 'recap':
       return <IconScene Icon={ListChecks} accent="#7C8C5A" satellites={[Trophy, Sparkles]} />
-    case 'lifecycle-post':
-      return <IconScene Icon={Workflow} accent="#8A6491" satellites={[TrendingUp, PackageSearch, LineChart, FileSignature]} />
     case 'opportunities':
       return <IconScene Icon={TrendingUp} accent="#7C8C5A" satellites={[Hourglass, Coins, Sparkles, HardHat]} />
     case 'boxes':
@@ -99,8 +100,6 @@ export default function SlideVisual({ name }: { name: string }) {
       return <IconScene Icon={HardHat} accent="#E0A23B" satellites={[ClipboardList, Handshake]} />
     case 'network':
       return <IconScene Icon={Network} accent="#5B7DA6" satellites={[Handshake, FileStack, Scale]} />
-    case 'reports':
-      return <IconScene Icon={LineChart} accent="#9E875D" satellites={[Banknote, Scale, Hourglass]} />
     case 'ctc':
       return <IconScene Icon={Hourglass} accent="#8A6491" satellites={[Coins, LineChart, ClipboardList]} />
     case 'admin':

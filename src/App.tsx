@@ -3,6 +3,7 @@ import { MotionConfig } from 'framer-motion'
 import { Presentation } from 'lucide-react'
 import { SpeechProvider } from './audio/speech'
 import Deck from './deck/Deck'
+import SelectionTranslator from './components/SelectionTranslator'
 import LiquidBackground from './components/LiquidBackground'
 import Navbar from './components/Navbar'
 import NarratorDock from './components/NarratorDock'
@@ -18,6 +19,7 @@ import ProfitSection from './sections/ProfitSection'
 import ProcurementSection from './sections/ProcurementSection'
 import ReportingSection from './sections/ReportingSection'
 import AdminSection from './sections/AdminSection'
+import SoeSection from './sections/SoeSection'
 import FlashcardsSection from './sections/FlashcardsSection'
 import QuizSection from './sections/QuizSection'
 import { SECTIONS } from './data/content'
@@ -54,6 +56,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <SpeechProvider>
+        <SelectionTranslator />
         {view === 'deck' ? (
           <Deck onExit={() => setMode('explore')} />
         ) : (
@@ -79,6 +82,7 @@ export default function App() {
               <ProcurementSection />
               <ReportingSection />
               <AdminSection />
+              <SoeSection />
               <FlashcardsSection />
               <QuizSection onComplete={completeQuiz} />
             </main>
