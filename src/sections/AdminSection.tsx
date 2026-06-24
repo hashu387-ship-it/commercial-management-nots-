@@ -3,7 +3,7 @@ import { ArrowLeftRight, ClipboardList, FileSignature, GraduationCap } from 'luc
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { Reveal } from '../components/ui'
-import { CONTRACT_ADMIN } from '../data/content'
+import { CONTRACT_ADMIN, SECTION_NARRATION } from '../data/content'
 
 export default function AdminSection() {
   return (
@@ -13,6 +13,7 @@ export default function AdminSection() {
         kicker="Contract Administration"
         title="Closing Out the Contract"
         description={CONTRACT_ADMIN.intro}
+        narration={{ id: 'admin', text: SECTION_NARRATION.admin }}
       />
 
       <div className="grid gap-5 sm:grid-cols-2">

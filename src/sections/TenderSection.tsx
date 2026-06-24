@@ -2,7 +2,7 @@ import { ArrowRight, FileText, Gavel, Wallet } from 'lucide-react'
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { BulletList, GlassPanel, Pills, Reveal } from '../components/ui'
-import { ADJUDICATION, SUBMISSION } from '../data/content'
+import { ADJUDICATION, SECTION_NARRATION, SUBMISSION } from '../data/content'
 
 export default function TenderSection() {
   return (
@@ -12,6 +12,7 @@ export default function TenderSection() {
         kicker="Tender Adjudication & Submission"
         title="From Estimate to Offer"
         description="The settlement meeting converts the estimate into a bid; the submission packages it for the client."
+        narration={{ id: 'tender', text: SECTION_NARRATION.tender }}
       />
 
       {/* Adjudication */}

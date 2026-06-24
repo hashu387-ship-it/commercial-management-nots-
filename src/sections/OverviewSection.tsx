@@ -2,7 +2,7 @@ import { Shield, Sparkles, Target, Clock } from 'lucide-react'
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { BulletList, GlassPanel, Reveal } from '../components/ui'
-import { WHAT_WHY } from '../data/content'
+import { SECTION_NARRATION, WHAT_WHY } from '../data/content'
 
 export default function OverviewSection() {
   return (
@@ -11,6 +11,7 @@ export default function OverviewSection() {
         kicker="The Foundation"
         title="What & Why"
         description="Before the tools and techniques, fix the purpose of commercial management firmly in mind."
+        narration={{ id: 'overview', text: SECTION_NARRATION.overview }}
       />
 
       <div className="grid gap-6 lg:grid-cols-2">

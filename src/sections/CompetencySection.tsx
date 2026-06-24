@@ -1,15 +1,16 @@
 import { useRef, useState, type KeyboardEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { GitCompareArrows, ListChecks, Quote } from 'lucide-react'
+import { Building2, GitCompareArrows, ListChecks, Quote } from 'lucide-react'
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { BulletList, Pills, Reveal } from '../components/ui'
-import { COMPETENCY_MAPPING, COMPETENCY_RICS } from '../data/content'
+import { COMPETENCY_AIQS, COMPETENCY_MAPPING, COMPETENCY_RICS, SECTION_NARRATION } from '../data/content'
 
-type View = 'rics' | 'mapping'
+type View = 'rics' | 'aiqs' | 'mapping'
 
 const VIEWS = [
   { id: 'rics', label: 'RICS Competencies', icon: ListChecks },
+  { id: 'aiqs', label: 'AIQS Framework', icon: Building2 },
   { id: 'mapping', label: 'MRICS vs MAIQS', icon: GitCompareArrows },
 ] as const
 
@@ -36,6 +37,7 @@ export default function CompetencySection() {
         kicker="About the Competency"
         title="RICS & AIQS Alignment"
         description="Commercial management of construction works sits at the heart of both the MRICS and MAIQS pathways."
+        narration={{ id: 'competency', text: SECTION_NARRATION.competency }}
       />
 
       {/* View switch */}
@@ -75,7 +77,7 @@ export default function CompetencySection() {
       </div>
 
       <AnimatePresence mode="wait">
-        {view === 'rics' ? (
+        {view === 'rics' && (
           <motion.div
             key="rics"
             role="tabpanel"
@@ -126,7 +128,63 @@ export default function CompetencySection() {
               <Pills items={COMPETENCY_RICS.optional} />
             </div>
           </motion.div>
-        ) : (
+        )}
+
+        {view === 'aiqs' && (
+          <motion.div
+            key="aiqs"
+            role="tabpanel"
+            id="comp-panel-aiqs"
+            aria-labelledby="comp-tab-aiqs"
+            tabIndex={0}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="mb-5 rounded-2xl bg-tan/60 p-4 text-center text-sm leading-relaxed text-charcoal-600">
+              {COMPETENCY_AIQS.intro}
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {COMPETENCY_AIQS.groups.map((g) => (
+                <div key={g.title} className="glass rounded-3xl p-5" style={{ borderTop: `4px solid ${g.color}` }}>
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <h3 className="font-display text-base font-bold leading-tight text-charcoal">{g.title}</h3>
+                  </div>
+                  <span
+                    className="chip mb-3 font-note font-bold"
+                    style={{ backgroundColor: `${g.color}22`, color: g.color }}
+                  >
+                    {g.tag}
+                  </span>
+                  <ul className="space-y-1.5">
+                    {g.units.map((u) => {
+                      const star = u.includes('★')
+                      return (
+                        <li
+                          key={u}
+                          className={`flex gap-2 text-[0.82rem] leading-snug ${
+                            star ? 'font-bold text-coral' : 'text-charcoal-600'
+                          }`}
+                        >
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full" style={{ backgroundColor: g.color }} />
+                          {u}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-center font-note text-sm text-charcoal-400">
+              Plus the cross-cutting <span className="font-bold text-bronze-700">General</span> and{' '}
+              <span className="font-bold text-bronze-700">Soft Skills</span> competencies. ★ = the
+              Commercial Management unit covered by this programme.
+            </p>
+          </motion.div>
+        )}
+
+        {view === 'mapping' && (
           <motion.div
             key="mapping"
             role="tabpanel"

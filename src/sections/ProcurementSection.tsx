@@ -3,7 +3,7 @@ import SectionHeading from '../components/SectionHeading'
 import Tabs from '../components/Tabs'
 import TenderVolumes from '../components/art/TenderVolumes'
 import { Reveal } from '../components/ui'
-import { PROCUREMENT_TABS } from '../data/content'
+import { PROCUREMENT_TABS, SECTION_NARRATION } from '../data/content'
 
 export default function ProcurementSection() {
   return (
@@ -13,6 +13,7 @@ export default function ProcurementSection() {
         kicker="Procurement"
         title="Material · Labour · Subcontracts"
         description="Each procurement stream runs to its own schedule and strategy — supported by the right tender documents and route."
+        narration={{ id: 'procurement', text: SECTION_NARRATION.procurement }}
       />
 
       <Reveal className="mx-auto mb-10 max-w-md">

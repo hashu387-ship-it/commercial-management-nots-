@@ -4,7 +4,7 @@ import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { Pills, Reveal } from '../components/ui'
 import BalanceScale from '../components/art/BalanceScale'
-import { BULK_BUYING, PROFIT_OPPORTUNITIES, PROFIT_RISKS, REGISTERS } from '../data/content'
+import { BULK_BUYING, PROFIT_OPPORTUNITIES, PROFIT_RISKS, REGISTERS, SECTION_NARRATION } from '../data/content'
 
 export default function ProfitSection() {
   return (
@@ -14,6 +14,7 @@ export default function ProfitSection() {
         kicker="Profit Enhancement"
         title="Risks ⚖ Opportunities"
         description="Profit enhancement depends on striking an appropriate balance between the project’s risks and its opportunities."
+        narration={{ id: 'profit', text: SECTION_NARRATION.profit }}
       />
 
       <Reveal className="mb-10">
