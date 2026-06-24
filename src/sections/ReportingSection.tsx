@@ -5,7 +5,7 @@ import Tabs from '../components/Tabs'
 import { Reveal } from '../components/ui'
 import CashFlowCurve from '../components/art/CashFlowCurve'
 import CvrChart from '../components/art/CvrChart'
-import { REPORTING_TABS } from '../data/content'
+import { REPORTING_TABS, SECTION_NARRATION } from '../data/content'
 
 export default function ReportingSection() {
   return (
@@ -15,6 +15,7 @@ export default function ReportingSection() {
         kicker="Reporting in Commercial Management"
         title="Cash Flow · CVR · CTC · EVA"
         description="Inter alia, these four reports drive better decision-making, compliance, efficiency and profitability."
+        narration={{ id: 'reporting', text: SECTION_NARRATION.reporting }}
       />
 
       <Reveal className="mb-10">

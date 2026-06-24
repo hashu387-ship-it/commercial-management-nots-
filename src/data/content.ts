@@ -4,6 +4,7 @@ import type {
   NavSection,
   QuizQuestion,
   RiskOpp,
+  SectionId,
   TabItem,
   TimelineStage,
 } from '../types'
@@ -116,6 +117,90 @@ export const COMPETENCY_MAPPING = {
     'Contract Administration',
   ],
   note: 'Commercial Management spans both the pre-contract and post-contract halves of the project life-cycle and threads through the cost, procurement, contract and finance competencies in both the RICS and AIQS frameworks.',
+}
+
+/* AIQS Project Cost Management competency framework (38 units across 6 groups). */
+export const COMPETENCY_AIQS = {
+  intro:
+    'The AIQS framework maps Commercial Management within the Project Cost Management competencies. Unit 8 — Commercial Management — sits under Contract Documentation & Procurement.',
+  groups: [
+    {
+      title: 'Design Cost Advice, Cost Planning & Cost Engineering',
+      tag: 'Project Cost Management',
+      color: '#9E875D',
+      units: ['1 · Strategic Planning', '2 · Budgetary Process', '3 · Cost Estimating', '4 · Cost Planning'],
+    },
+    {
+      title: 'Contract Documentation & Procurement',
+      tag: 'Project Cost Management',
+      color: '#7C8C5A',
+      units: [
+        '5 · General Procurement Advice',
+        '6 · Quantification, Measurement & Documentation',
+        '7 · Tender Process',
+        '8 · Commercial Management ★',
+      ],
+    },
+    {
+      title: 'Contract Administration',
+      tag: 'Project Cost Management',
+      color: '#5B7DA6',
+      units: [
+        '9 · Account Management',
+        '10 · Construction Change Management',
+        '11 · Claims & Dispute Resolution',
+        '12 · Financial Audit',
+        '13 · Resource',
+      ],
+    },
+    {
+      title: 'Support Competencies',
+      tag: 'Support',
+      color: '#E0A23B',
+      units: [
+        '14 · Computer Services',
+        '15 · Construction Technology',
+        '16 · Government Regulation & Law',
+        '17 · Arbitration',
+        '18 · Expert Witness / Evidence',
+        '19 · Business Management',
+        '20 · Research & Development',
+        '21 · Cost Information Database',
+      ],
+    },
+    {
+      title: 'Asset Financial Management',
+      tag: 'Asset Finance',
+      color: '#8A6491',
+      units: [
+        '22 · Feasibility Studies',
+        '23 · Life Cycle Cost Analysis',
+        '24 · Tax Depreciation',
+        '25 · Special Assessments',
+        '26 · Audits',
+        '27 · Technical Due Diligence',
+        '28 · Compliance Issues',
+      ],
+    },
+    {
+      title: 'Specialised Management',
+      tag: 'Specialised',
+      color: '#D9694C',
+      units: [
+        '29 · Project Value Management',
+        '30 · Project Management',
+        '31 · Project Risk Management',
+        '32 · Quality Assurance',
+        '33 · Sustainability',
+        '34 · BIM',
+        '35 · Earned Value',
+        '36 · Cost Engineering',
+        '37 · Project Controls',
+        '38 · Planning & Programming',
+      ],
+    },
+  ],
+  general: ['General', 'Soft Skills'],
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -981,4 +1066,49 @@ export const QUIZ: QuizQuestion[] = [
     explanation:
       'Volume IV holds the BOQ (pricing preambles, bill section, day works, PS & PC and summary). Volume I is conditions, II specifications, III drawings, V soil report.',
   },
+]
+
+/* ════════════════════════════════════════════════════════════════
+   Spoken narration scripts — one per section, written to cover every
+   note from the presentation when read aloud (Web Speech API).
+   ════════════════════════════════════════════════════════════════ */
+export const SECTION_NARRATION: Record<SectionId, string> = {
+  overview:
+    'What and why. Commercial management is a process that focuses, firstly, on securing the intended profit, and then on enhancing that profit. It applies in two stages: the pre-contract stages, and the post-contract stages. Without proper financial safeguards during bidding and contract formation, contractors risk entering unprofitable projects. Proper commercial management during pre-contract stages ensures contracts are won at viable margins. Profitability is not just about winning contracts, but about managing them effectively. Risks and opportunities exist at both stages, so securing and enhancing profitability begins from the pre-contract stages.',
+  competency:
+    'About the competency. For the R.I.C.S. pathway, commercial management of construction works is a core competency taken to Level 3. Mandatory competencies include ethics and professionalism at Level 3; client care, communication and negotiation, and health and safety at Level 2; plus accounting, business planning, conflict avoidance, data management, diversity and inclusion, inclusive environments and sustainability at Level 1. Optional competencies, two taken to Level 2, include capital allowances, contract administration, corporate recovery and insolvency, due diligence, insurance, programming and planning, project feasibility analysis, and risk management. Candidates in a commercial or contracting environment usually take commercial management to Level 3, while those in a consulting environment usually take design economics and cost planning to Level 3. For the A.I.Q.S. pathway, commercial management is unit 8, sitting under contract documentation and procurement, within the wider project cost management competencies.',
+  precontract:
+    'The pre-contract journey has six stages. One: the preselection phase, where the contractor submits documents, including three years of audited financial statements, to prove technical and financial competence during prequalification. Two: the decision to tender, a bid or no-bid judgement that weighs workload, profitability, resources, risk and the business plan. Three: project appreciation, where you confirm the tender procedure, appoint the lead estimator, set the programme, prepare method statements and histograms, set a pricing strategy, and carry out site visits. Four: estimating the works. Five: tender adjudication, which converts the estimate into a bid. And six: tender submission, the technical and commercial offer.',
+  estimating:
+    'Estimating the works. Rates come from four data sources: in-house cost databases, first principles, supplier and subcontractor quotes, and operational estimates. First principles means building rates from scratch, considering material, labour, plant and subcontractor costs. Every supplier enquiry should state the project title and location, the work description and specifications, quality requirements, delivery period, contractor-provided facilities, the date of the request, and the validity of the quotation. An operational estimate is a detailed assessment of the costs of a specific construction operation or activity, based on the resource requirement, as defined by McCaffer and Baldwin in nineteen eighty-four. Estimating risks include a lack of drawings and details, missing specifications, BOQ accuracy, project duration and liquidated damages, and price fixity, plus market and buildability risks. Risk can be reduced by issuing tender queries to the employer, and managed through risk workshops, a risk register, quantitative risk analysis, a contingency budget, pre-bid agreements, and joint ventures.',
+  tender:
+    'Tender adjudication and submission. The adjudication, or settlement meeting, is a management process that makes a commercial judgement to determine the final bid amount — converting the estimate into a tender bid. The meeting discusses the head office overhead cost, the profit based on this year’s business plan, and the risk allowance. Head office overheads include staff salaries, office rent, insurance and bank charges, utilities, office supplies, equipment rentals, tender document costs, unrecoverable debts, advertising, recruitment, audit fees, and legal and professional fees. The tender submission has two parts. The technical submission includes the trade licence, technical form of tender, project profile, execution plan, method statement, programme, organisation chart, key C.V.s, quality and safety procedures, and the labour and plant histogram. The commercial submission includes the covering letter with the offer price and a schedule of qualifications, the form of tender, the priced bills of quantities, the schedule of rates, and the day-works rates.',
+  postcontract:
+    'The post-contract journey has four disciplines. One: profit enhancement, balancing risks against opportunities. Two: procurement of material, labour and subcontracts. Three: reporting, using cash flow, cost value reconciliation, cost to complete, and earned value analysis. And four: contract administration, covering valuations, variations, claims and final accounts. Together these protect and grow the margin secured at tender.',
+  profit:
+    'Profit enhancement depends on an appropriate balance between the risks and the opportunities. The risks include authorities risk from permit delays, design risk from incomplete design, services risk from utilities, health safety and environmental risk, and contractual risk from disputes. The opportunities include early completion, which saves on preliminaries; buying gains, using economies of scale where higher quantities attract lower rates; reducing running costs such as water, electricity and fuel; increasing productivity through targets and bonus schemes; and value engineering, which finds cost savings without sacrificing quality. Bulk buying only pays off if the contractor can afford the upfront expense, has multiple projects with similar specifications, has stock that matches the project, has low storage costs, and runs an organised material management system. Manage everything using the risks and opportunities register.',
+  procurement:
+    'Procurement covers materials, labour and subcontracts. For materials, set up a detailed schedule based on whether items are local or foreign, and purpose-made or standard, with support from the operations and central procurement teams, and keep a tracker. For labour, assess needs, decide in-house versus subcontract, issue requests for quotation, evaluate, negotiate, award and administer. For subcontracts, set up a schedule, define the procurement and contract strategy, plan the tendering strategy as open, selective or negotiated, prepare and issue tender documents, evaluate technically and commercially, negotiate discounts, award and administer. Tender documents come in five volumes: Volume one, tendering and contract conditions; Volume two, specifications; Volume three, drawings; Volume four, the bills of quantities; and Volume five, the soil report. Choose the procurement route — traditional, design and build, management contracting, or construction management — before tendering.',
+  reporting:
+    'Reporting in commercial management uses four tools: cash flow, cost value reconciliation, cost to complete, and earned value analysis. A cash flow forecast analyses expected inflows and outflows over a period, and can be organisational or project-specific. The R.I.C.S. Black Book defines three methods, including an equal cash assumption and a more accurate programme-based method. A negative cash flow, where cash out exceeds cash in, can be remedied with advance payments, extended supply-chain terms, reduced overheads, faster progress, retention release via a bond, or short-term finance. Cost to complete equals the actual cost to date plus the forecast cost to finish, compared against the final account and budget. Cost value reconciliation compares cost incurred against the value of work done, period by period — effectively the project profit and loss account. Earned value analysis integrates scope, schedule and cost against the baseline. All of these support better decision-making, compliance, efficiency and profitability.',
+  admin:
+    'Contract administration is mandatory to fulfil the commercial management objectives. It covers interim valuations, both upstream to the employer and downstream to subcontractors; variations, again upstream and downstream; claims, including notices, detailed particulars and negotiations; and final accounts. As a task, candidates who chose commercial management as their core technical competency should draft their statement of experience for Level 1, using the statement of experience tracker on the A.P.C. portal.',
+  flashcards:
+    'Use the flashcards for active recall. Tap any card to flip it and reveal the definition, and filter by topic to focus on the areas you find hardest.',
+  quiz:
+    'Test yourself with the ten-question knowledge check. It spans both pre-contract and post-contract commercial management, with instant feedback on every answer.',
+}
+
+/* Section order for the narrator’s "play full tour" feature. */
+export const NARRATION_ORDER: SectionId[] = [
+  'overview',
+  'competency',
+  'precontract',
+  'estimating',
+  'tender',
+  'postcontract',
+  'profit',
+  'procurement',
+  'reporting',
+  'admin',
 ]

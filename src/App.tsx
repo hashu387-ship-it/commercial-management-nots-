@@ -1,7 +1,9 @@
 import { useCallback } from 'react'
 import { MotionConfig } from 'framer-motion'
+import { SpeechProvider } from './audio/speech'
 import LiquidBackground from './components/LiquidBackground'
 import Navbar from './components/Navbar'
+import NarratorDock from './components/NarratorDock'
 import Hero from './components/Hero'
 import Footer from './components/Footer'
 import OverviewSection from './sections/OverviewSection'
@@ -36,6 +38,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
+      <SpeechProvider>
       <div className="relative min-h-screen">
         <a
           href="#main"
@@ -63,7 +66,9 @@ export default function App() {
         </main>
 
         <Footer />
+        <NarratorDock />
       </div>
+      </SpeechProvider>
     </MotionConfig>
   )
 }

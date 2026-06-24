@@ -1,17 +1,20 @@
 import { motion } from 'framer-motion'
 import { DoodleStar, DoodleUnderline } from './art/Doodles'
+import ListenButton from './ListenButton'
 
 interface SectionHeadingProps {
   kicker: string
   title: string
   description?: string
   part?: 1 | 2 | 0
+  /** When provided, renders a "Listen" control that narrates this section. */
+  narration?: { id: string; text: string }
 }
 
 const partLabel = (part?: 1 | 2 | 0) =>
   part === 1 ? 'Part 1 · Pre-Contract' : part === 2 ? 'Part 2 · Post-Contract' : null
 
-export default function SectionHeading({ kicker, title, description, part }: SectionHeadingProps) {
+export default function SectionHeading({ kicker, title, description, part, narration }: SectionHeadingProps) {
   const pl = partLabel(part)
   return (
     <motion.div
@@ -37,6 +40,11 @@ export default function SectionHeading({ kicker, title, description, part }: Sec
         <p className="mt-5 text-balance text-base leading-relaxed text-charcoal-400 sm:text-lg">
           {description}
         </p>
+      )}
+      {narration && (
+        <div className="mt-6 flex justify-center">
+          <ListenButton id={narration.id} text={narration.text} />
+        </div>
       )}
     </motion.div>
   )
