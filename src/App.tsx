@@ -19,6 +19,7 @@ import ProfitSection from './sections/ProfitSection'
 import ProcurementSection from './sections/ProcurementSection'
 import ReportingSection from './sections/ReportingSection'
 import AdminSection from './sections/AdminSection'
+import FullNotesSection from './sections/FullNotesSection'
 import SoeSection from './sections/SoeSection'
 import FlashcardsSection from './sections/FlashcardsSection'
 import QuizSection from './sections/QuizSection'
@@ -82,6 +83,7 @@ export default function App() {
               <ProcurementSection />
               <ReportingSection />
               <AdminSection />
+              <FullNotesSection />
               <SoeSection />
               <FlashcardsSection />
               <QuizSection onComplete={completeQuiz} />
