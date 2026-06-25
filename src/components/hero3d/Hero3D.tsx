@@ -7,7 +7,7 @@ import Monolith from './Monolith'
 import OrbitingLoads from './OrbitingLoads'
 import StudioEnv from './StudioEnv'
 
-function Scene({ dark, hovering }: { dark: boolean; hovering: React.MutableRefObject<boolean> }) {
+function Scene({ dark, hovering, count }: { dark: boolean; hovering: React.MutableRefObject<boolean>; count: number }) {
   const root = useRef<THREE.Group>(null)
 
   useFrame((state, dt) => {
@@ -26,12 +26,12 @@ function Scene({ dark, hovering }: { dark: boolean; hovering: React.MutableRefOb
   return (
     <group ref={root} position={[0, -0.05, 0]}>
       <Monolith />
-      <OrbitingLoads dark={dark} hovering={hovering} count={160} />
+      <OrbitingLoads dark={dark} hovering={hovering} count={count} />
     </group>
   )
 }
 
-export default function Hero3D({ paused }: { paused: boolean }) {
+export default function Hero3D({ paused, compact }: { paused: boolean; compact?: boolean }) {
   const hovering = useRef(false)
   const [dark, setDark] = useState(
     () => typeof document !== 'undefined' && document.documentElement.classList.contains('dark'),
@@ -48,7 +48,7 @@ export default function Hero3D({ paused }: { paused: boolean }) {
   return (
     <Canvas
       aria-hidden
-      dpr={[1, 1.75]}
+      dpr={compact ? [1, 1.5] : [1, 1.75]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       performance={{ min: 0.5 }}
       frameloop={paused ? 'never' : 'always'}
@@ -64,7 +64,7 @@ export default function Hero3D({ paused }: { paused: boolean }) {
 
       <Suspense fallback={null}>
         <StudioEnv dark={dark} />
-        <Scene dark={dark} hovering={hovering} />
+        <Scene dark={dark} hovering={hovering} count={compact ? 70 : 160} />
         <ContactShadows
           position={[0, -1.55, 0]}
           scale={6}
@@ -76,10 +76,12 @@ export default function Hero3D({ paused }: { paused: boolean }) {
         />
       </Suspense>
 
-      <EffectComposer multisampling={0} enableNormalPass={false}>
-        <Bloom intensity={dark ? 0.5 : 0.28} luminanceThreshold={0.55} luminanceSmoothing={0.2} mipmapBlur />
-        <Vignette darkness={dark ? 0.5 : 0.3} offset={0.25} eskil={false} />
-      </EffectComposer>
+      {!compact && (
+        <EffectComposer multisampling={0} enableNormalPass={false}>
+          <Bloom intensity={dark ? 0.5 : 0.28} luminanceThreshold={0.55} luminanceSmoothing={0.2} mipmapBlur />
+          <Vignette darkness={dark ? 0.5 : 0.3} offset={0.25} eskil={false} />
+        </EffectComposer>
+      )}
 
       <AdaptiveDpr pixelated={false} />
     </Canvas>

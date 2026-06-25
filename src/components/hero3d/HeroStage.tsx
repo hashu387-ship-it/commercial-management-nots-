@@ -18,7 +18,7 @@ class SafeBoundary extends Component<{ fallback: ReactNode; children: ReactNode 
 }
 
 export default function HeroStage() {
-  const { capable, enabled, skip, setSkip } = useHero3dGate()
+  const { capable, enabled, compact, skip, setSkip } = useHero3dGate()
   const wrap = useRef<HTMLDivElement>(null)
   const [paused, setPaused] = useState(false)
 
@@ -62,7 +62,7 @@ export default function HeroStage() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-charcoal" aria-hidden>
               {/* brief stage colour shows while the 3D chunk loads (no distorted poster) */}
               <Suspense fallback={null}>
-                <Hero3D paused={paused} />
+                <Hero3D paused={paused} compact={compact} />
               </Suspense>
               <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-charcoal/80 px-2 py-1 font-note text-[0.7rem] font-bold text-cream backdrop-blur">
                 <Boxes className="h-3 w-3 text-bronze-300" /> 3D · live
