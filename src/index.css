@@ -266,6 +266,12 @@
     box-shadow: -2px -2px 5px rgba(45, 52, 54, 0.12);
     pointer-events: none;
   }
+  /* Stacked page edges behind the open page (book thickness / fore-edge) */
+  .book-stack {
+    box-shadow:
+      3px 4px 0 #e7dec9, 6px 8px 0 #ddd3bc, 9px 12px 0 #d2c7ad,
+      12px 16px 0 #c8bca0, 16px 20px 34px rgba(45, 52, 54, 0.24);
+  }
 }
 
 @layer utilities {
@@ -362,6 +368,11 @@
 }
 .dark .page-curl::after {
   background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.4) 50%, rgba(198, 176, 131, 0.28) 64%, #20262a 66%);
+}
+.dark .book-stack {
+  box-shadow:
+    3px 4px 0 #232a2d, 6px 8px 0 #1c2225, 9px 12px 0 #161b1e,
+    12px 16px 0 #0f1416, 16px 20px 34px rgba(0, 0, 0, 0.55);
 }
 .dark .sticky-note {
   background: #2b2519;
