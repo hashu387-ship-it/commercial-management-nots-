@@ -245,6 +245,27 @@
     background: no-repeat center/contain
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12'%3E%3Cpath d='M2 7 C40 2 80 11 120 5 C150 1 180 8 198 4' fill='none' stroke='%23D9694C' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
   }
+
+  /* Realistic ruled notebook page (faint blue ink rules) */
+  .ruled-paper {
+    background-color: #fbf8ef;
+    background-image: linear-gradient(rgba(91, 125, 166, 0.18) 1px, transparent 1px);
+    background-size: 100% 2.1rem;
+    background-position: 0 2rem;
+  }
+  /* Folded page corner (bottom-right dog-ear) */
+  .page-curl::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.06) 50%, rgba(158, 135, 93, 0.28) 64%, #f3eede 66%);
+    border-bottom-right-radius: 0.4rem;
+    box-shadow: -2px -2px 5px rgba(45, 52, 54, 0.12);
+    pointer-events: none;
+  }
 }
 
 @layer utilities {
@@ -334,6 +355,13 @@
 .dark .paper-dots {
   background-color: #1a1f20;
   background-image: radial-gradient(rgba(236, 231, 220, 0.1) 1.2px, transparent 1.2px);
+}
+.dark .ruled-paper {
+  background-color: #181d1e;
+  background-image: linear-gradient(rgba(124, 152, 188, 0.16) 1px, transparent 1px);
+}
+.dark .page-curl::after {
+  background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.4) 50%, rgba(198, 176, 131, 0.28) 64%, #20262a 66%);
 }
 .dark .sticky-note {
   background: #2b2519;
