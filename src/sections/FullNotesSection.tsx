@@ -11,14 +11,32 @@ import {
 import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { DoodleStar } from '../components/art/Doodles'
-import {
-  COMPLETE_NOTES,
-  COMPLETE_NOTES_INTRO,
-  NOTE_DAYS,
-} from '../data/completeNotes'
+import { COMPLETE_NOTES } from '../data/completeNotes'
+import { PRESENTATION_NOTES } from '../data/presentationNotes'
 import type { NoteBlock, NotePage, NoteTone } from '../data/completeNotes'
 
 const STORAGE = 'cm-notebook-page-v1'
+
+/* The notebook reads end-to-end: the lecture slides first, then the
+   detailed complete notes — every page in teaching order. */
+const CHAPTERS = [
+  { id: 'sl1', label: 'Slides ①', pages: PRESENTATION_NOTES.filter((p) => p.day === 1) },
+  { id: 'sl2', label: 'Slides ②', pages: PRESENTATION_NOTES.filter((p) => p.day === 2) },
+  { id: 'nd1', label: 'Notes ①', pages: COMPLETE_NOTES.filter((p) => p.day === 1) },
+  { id: 'nd2', label: 'Notes ②', pages: COMPLETE_NOTES.filter((p) => p.day === 2) },
+  { id: 'nd3', label: 'Notes ③', pages: COMPLETE_NOTES.filter((p) => p.day === 3) },
+]
+const ALL_PAGES: NotePage[] = CHAPTERS.flatMap((c) => c.pages)
+const CHAPTER_STARTS = CHAPTERS.map((_, i) =>
+  CHAPTERS.slice(0, i).reduce((n, c) => n + c.pages.length, 0),
+)
+const chapterOf = (page: number) => {
+  let idx = 0
+  for (let i = 0; i < CHAPTER_STARTS.length; i++) if (page >= CHAPTER_STARTS[i]) idx = i
+  return idx
+}
+const COMPLETE_NOTES_INTRO =
+  'The whole course as one handwritten notebook — turn the pages like a real notepad. It opens with every lecture slide (Roshan de Silva’s APC deck, Parts 1 & 2) in presentation order, then the full detailed handout (Asmy Sheriff). Nothing from either source is left out.'
 
 /* Handwriting "ink" colours per accent (readable on warm + dark paper). */
 const INK: Record<NoteTone, string> = {
@@ -241,7 +259,7 @@ const variants = {
 }
 
 function Notebook() {
-  const total = COMPLETE_NOTES.length
+  const total = ALL_PAGES.length
   const [page, setPage] = useState(() => {
     const n = Number(localStorage.getItem(STORAGE))
     return Number.isFinite(n) && n >= 0 && n < total ? n : 0
@@ -290,25 +308,25 @@ function Notebook() {
     touchX.current = null
   }
 
-  const p = COMPLETE_NOTES[page]
-  const firstOf = (d: number) => COMPLETE_NOTES.findIndex((x) => x.day === d)
+  const p = ALL_PAGES[page]
+  const activeChapter = chapterOf(page)
 
   return (
     <div className="mx-auto max-w-2xl">
-      {/* chapter (day) tabs */}
-      <div className="mb-5 flex justify-center gap-2">
-        {NOTE_DAYS.map((d) => {
-          const idx = firstOf(d.day)
-          const activeChapter = p.day === d.day
+      {/* chapter tabs — lecture slides, then complete notes */}
+      <div className="mb-5 flex flex-wrap justify-center gap-2">
+        {CHAPTERS.map((c, i) => {
+          const idx = CHAPTER_STARTS[i]
+          const isActive = activeChapter === i
           return (
             <button
-              key={d.day}
+              key={c.id}
               onClick={() => go(idx, idx > page ? 1 : -1)}
               className={`chip font-note font-bold transition-transform duration-200 hover:-translate-y-0.5 ${
-                activeChapter ? 'bg-bronze-500 text-cream' : 'glass-tan text-charcoal-600'
+                isActive ? 'bg-bronze-500 text-cream' : 'glass-tan text-charcoal-600'
               }`}
             >
-              Day {d.day}
+              {c.label}
             </button>
           )
         })}
