@@ -77,7 +77,7 @@ function HandList({ items, ink = 'text-bronze-600' }: { items: string[]; ink?: s
   return (
     <ul className="space-y-1.5">
       {items.map((it, i) => (
-        <li key={i} className="flex gap-2.5 font-note text-[1.05rem] leading-snug text-charcoal-700">
+        <li key={i} className="flex gap-2.5 font-note text-[0.96rem] leading-snug text-charcoal-700 sm:text-[1.05rem]">
           <span className={`mt-0.5 shrink-0 font-hand text-lg leading-none ${ink}`} aria-hidden>
             ›
           </span>
@@ -91,7 +91,7 @@ function HandList({ items, ink = 'text-bronze-600' }: { items: string[]; ink?: s
 function Block({ b }: { b: NoteBlock }) {
   switch (b.t) {
     case 'lead':
-      return <p className="font-note text-[1.12rem] leading-relaxed text-charcoal-700">{b.text}</p>
+      return <p className="font-note text-[1rem] leading-relaxed text-charcoal-700 sm:text-[1.12rem]">{b.text}</p>
 
     case 'bullets':
       return (
@@ -110,7 +110,7 @@ function Block({ b }: { b: NoteBlock }) {
             const ink = INK[c.tone ?? 'tan']
             return (
               <div key={c.heading} className="border-l-2 border-charcoal-200 pl-3">
-                <p className={`mb-1.5 font-hand text-2xl font-bold underline-hand ${ink}`}>{c.heading}</p>
+                <p className={`mb-1.5 font-hand text-xl font-bold underline-hand sm:text-2xl ${ink}`}>{c.heading}</p>
                 <HandList items={c.items} ink={ink} />
               </div>
             )
@@ -234,7 +234,7 @@ function PageBody({ p, accent }: { p: NotePage; accent: string }) {
           {p.phase}
         </p>
         <span className="relative mt-1 inline-block">
-          <h4 className="font-hand text-4xl font-bold text-charcoal">{p.title}</h4>
+          <h4 className="font-hand text-3xl font-bold text-charcoal sm:text-4xl">{p.title}</h4>
           <HandUnderline color={accent} className="-bottom-2" />
         </span>
         {p.blocks.map((b, i) => (
@@ -248,7 +248,7 @@ function PageBody({ p, accent }: { p: NotePage; accent: string }) {
   }
 
   return (
-    <div className="flex h-full flex-col pl-12 pr-6">
+    <div className="flex h-full flex-col pl-11 pr-5 sm:pl-12 sm:pr-6">
       {/* page header */}
       <div className="mb-3 flex items-start justify-between gap-3 pt-1">
         <p className="font-hand text-xl font-bold" style={{ color: accent }}>
@@ -266,7 +266,7 @@ function PageBody({ p, accent }: { p: NotePage; accent: string }) {
         </div>
       </div>
       <span className="relative mb-5 inline-block self-start">
-        <h4 className="font-hand text-3xl font-bold leading-tight text-charcoal sm:text-4xl">{p.title}</h4>
+        <h4 className="font-hand text-2xl font-bold leading-tight text-charcoal sm:text-3xl lg:text-4xl">{p.title}</h4>
         <HandUnderline color={accent} className="-bottom-2" />
       </span>
 
@@ -351,7 +351,7 @@ function Notebook() {
   const accent = CHAPTERS[ci].color
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto w-full max-w-2xl lg:max-w-4xl">
       {/* colourful chapter index tabs + contents */}
       <div className="mb-4 flex flex-wrap items-center justify-center gap-1.5">
         {CHAPTERS.map((c, i) => {
@@ -401,7 +401,7 @@ function Notebook() {
 
         {/* hardcover case */}
         <div className="rounded-[1.5rem] bg-gradient-to-br from-bronze-300 to-bronze-700 p-2.5 shadow-glass-lg ring-1 ring-black/10 dark:from-charcoal-600 dark:to-charcoal-900 sm:p-3">
-          <div className="perspective relative min-h-[68vh] sm:min-h-[33rem]">
+          <div className="perspective relative h-[68vh] max-h-[46rem] min-h-[24rem] sm:h-[64vh] lg:h-[36rem]">
             {/* stacked page edges behind the open page (book thickness) */}
             <div className="book-stack absolute inset-0 rounded-r-xl rounded-l-md bg-cream dark:bg-charcoal-800" aria-hidden />
 
@@ -450,7 +450,7 @@ function Notebook() {
           onClick={prev}
           disabled={page === 0}
           aria-label="Previous page"
-          className="absolute -left-2 top-1/2 z-30 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-cream text-charcoal shadow-glass-lg ring-1 ring-bronze-200 transition hover:scale-110 disabled:opacity-25 dark:bg-charcoal-700 dark:text-cream dark:ring-charcoal-600 sm:-left-5"
+          className="absolute -left-2 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-cream text-charcoal shadow-glass-lg ring-1 ring-bronze-200 transition hover:scale-110 disabled:opacity-25 dark:bg-charcoal-700 dark:text-cream dark:ring-charcoal-600 sm:grid sm:-left-5"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
@@ -458,7 +458,7 @@ function Notebook() {
           onClick={next}
           disabled={page === total - 1}
           aria-label="Next page"
-          className="absolute -right-2 top-1/2 z-30 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-bronze-500 text-cream shadow-glass-lg ring-1 ring-bronze-600 transition hover:scale-110 disabled:opacity-25 sm:-right-5"
+          className="absolute -right-2 top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-bronze-500 text-cream shadow-glass-lg ring-1 ring-bronze-600 transition hover:scale-110 disabled:opacity-25 sm:grid sm:-right-5"
         >
           <ChevronRight className="h-6 w-6" />
         </button>

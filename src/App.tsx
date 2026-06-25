@@ -61,7 +61,7 @@ export default function App() {
         {view === 'deck' ? (
           <Deck onExit={() => setMode('explore')} />
         ) : (
-          <div className="relative min-h-screen">
+          <div className="relative min-h-screen overflow-x-clip">
             <a
               href="#main"
               className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-xl focus:bg-charcoal focus:px-4 focus:py-2 focus:font-semibold focus:text-cream focus:shadow-glass-lg"
