@@ -29,3 +29,7 @@ pnpm-debug.log*
 
 # Vite / cache
 .vite
+
+# Python bytecode (skill scripts)
+__pycache__/
+*.pyc
