@@ -38,6 +38,7 @@ export default function Hero3D({ paused }: { paused: boolean }) {
   )
 
   useEffect(() => {
+    if (typeof document === 'undefined') return
     const el = document.documentElement
     const obs = new MutationObserver(() => setDark(el.classList.contains('dark')))
     obs.observe(el, { attributes: true, attributeFilter: ['class'] })
@@ -46,8 +47,10 @@ export default function Hero3D({ paused }: { paused: boolean }) {
 
   return (
     <Canvas
-      dpr={[1, 2]}
+      aria-hidden
+      dpr={[1, 1.75]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
+      performance={{ min: 0.5 }}
       frameloop={paused ? 'never' : 'always'}
       camera={{ position: [0, 0.35, 5.4], fov: 36 }}
       onPointerOver={() => (hovering.current = true)}
@@ -65,15 +68,16 @@ export default function Hero3D({ paused }: { paused: boolean }) {
         <ContactShadows
           position={[0, -1.55, 0]}
           scale={6}
-          blur={2.6}
+          blur={2.2}
           far={3}
+          resolution={256}
           opacity={dark ? 0.6 : 0.35}
           color={dark ? '#0B0E0E' : '#857049'}
         />
       </Suspense>
 
       <EffectComposer multisampling={0} enableNormalPass={false}>
-        <Bloom intensity={dark ? 0.6 : 0.3} luminanceThreshold={0.55} luminanceSmoothing={0.2} mipmapBlur />
+        <Bloom intensity={dark ? 0.5 : 0.28} luminanceThreshold={0.55} luminanceSmoothing={0.2} mipmapBlur />
         <Vignette darkness={dark ? 0.5 : 0.3} offset={0.25} eskil={false} />
       </EffectComposer>
 

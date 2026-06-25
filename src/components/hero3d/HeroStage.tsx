@@ -25,7 +25,7 @@ export default function HeroStage() {
   // Pause the render loop while the hero is offscreen or the tab is hidden.
   useEffect(() => {
     const el = wrap.current
-    if (!el) return
+    if (!el || typeof document === 'undefined' || typeof IntersectionObserver === 'undefined') return
     let inView = true
     let visible = typeof document !== 'undefined' ? !document.hidden : true
     const update = () => setPaused(!inView || !visible)
@@ -51,40 +51,43 @@ export default function HeroStage() {
   return (
     <div ref={wrap} className="relative">
       {enabled ? (
-        <figure
-          style={{ rotate: '1.5deg' }}
-          className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/50 p-2 shadow-glass-lg backdrop-blur"
-        >
-          <span className="washi -left-3 -top-2 -rotate-6" aria-hidden />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-charcoal" aria-hidden>
-            <SafeBoundary fallback={<HeroPoster />}>
-              <Suspense fallback={<HeroPoster />}>
+        /* SafeBoundary sits OUTSIDE the figure so a WebGL/runtime error swaps
+           the whole card for the poster — never a distorted/aria-hidden frame. */
+        <SafeBoundary fallback={<HeroPoster />}>
+          <figure
+            style={{ rotate: '1.5deg' }}
+            className="group relative overflow-hidden rounded-3xl border border-white/60 bg-white/50 p-2 shadow-glass-lg backdrop-blur"
+          >
+            <span className="washi -left-3 -top-2 -rotate-6" aria-hidden />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-charcoal" aria-hidden>
+              {/* brief stage colour shows while the 3D chunk loads (no distorted poster) */}
+              <Suspense fallback={null}>
                 <Hero3D paused={paused} />
               </Suspense>
-            </SafeBoundary>
-            <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-charcoal/60 px-2 py-1 font-note text-[0.7rem] font-bold text-cream backdrop-blur">
-              <Boxes className="h-3 w-3 text-bronze-300" /> 3D · live
-            </span>
-          </div>
-          <button
-            onClick={() => setSkip(true)}
-            className="neo absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-note text-xs font-bold text-charcoal-600 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze-500"
-          >
-            <Pause className="h-3 w-3" /> Reduce motion
-          </button>
-          <figcaption className="px-2 pb-1 pt-2 text-center font-hand text-xl font-bold text-charcoal">
-            secure it. then grow it.
-          </figcaption>
-        </figure>
+              <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-charcoal/80 px-2 py-1 font-note text-[0.7rem] font-bold text-cream backdrop-blur">
+                <Boxes className="h-3 w-3 text-bronze-300" /> 3D · live
+              </span>
+            </div>
+            <button
+              onClick={() => setSkip(true)}
+              className="neo absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full px-3.5 py-2.5 font-note text-xs font-bold text-charcoal-600 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze-500"
+            >
+              <Pause className="h-3.5 w-3.5" /> Reduce motion
+            </button>
+            <figcaption className="px-2 pb-1 pt-2 text-center font-hand text-xl font-bold text-charcoal">
+              secure it. then grow it.
+            </figcaption>
+          </figure>
+        </SafeBoundary>
       ) : (
         <>
           <HeroPoster />
           {capable && skip && (
             <button
               onClick={() => setSkip(false)}
-              className="neo absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-note text-xs font-bold text-charcoal-600 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze-500"
+              className="neo absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-full px-3.5 py-2.5 font-note text-xs font-bold text-charcoal-600 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze-500"
             >
-              <Play className="h-3 w-3 text-bronze-700" /> Play 3D
+              <Play className="h-3.5 w-3.5 text-bronze-700" /> Play 3D
             </button>
           )}
         </>

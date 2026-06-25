@@ -19,7 +19,7 @@ export default function AiVideo({ src, poster, caption, className = '', rotate =
 
   useEffect(() => {
     const v = ref.current
-    if (!v) return
+    if (!v || typeof IntersectionObserver === 'undefined') return
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) v.play().catch(() => {})
