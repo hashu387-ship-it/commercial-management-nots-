@@ -30,7 +30,7 @@ export default function Flashcard({ card, flipped, onFlip }: FlashcardProps) {
         {/* Front */}
         <div
           aria-hidden={flipped}
-          className="backface-hidden glass liquid-sheen absolute inset-0 flex flex-col justify-between overflow-hidden rounded-3xl p-6"
+          className="backface-hidden clay absolute inset-0 flex flex-col justify-between overflow-hidden rounded-3xl p-6"
           style={{ borderTop: `4px solid ${accent}` }}
         >
           {/* coloured corner tab */}

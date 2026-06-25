@@ -55,14 +55,14 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
           >
             <button
               onClick={() => onJump('overview')}
-              className="group inline-flex items-center gap-2 rounded-full bg-bronze-500 px-7 py-3.5 font-semibold text-cream shadow-bronze transition-transform duration-300 hover:-translate-y-0.5"
+              className="clay-bronze clay-press group inline-flex items-center gap-2 px-8 py-4 font-semibold text-cream"
             >
               <BookOpen className="h-4 w-4" /> Start learning
               <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
             </button>
             <button
               onClick={() => onJump('flashcards')}
-              className="inline-flex items-center gap-2 rounded-full border border-charcoal/15 bg-white/40 px-7 py-3.5 font-semibold text-charcoal backdrop-blur transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-glass"
+              className="clay clay-press inline-flex items-center gap-2 px-8 py-4 font-semibold text-charcoal"
             >
               <Layers className="h-4 w-4 text-bronze-700" /> Flashcards
             </button>
@@ -100,7 +100,7 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
         className="absolute inset-x-0 bottom-6 mx-auto hidden max-w-3xl grid-cols-4 gap-3 px-5 lg:grid"
       >
         {stats.map((s) => (
-          <div key={s.label} className="neo rounded-2xl px-4 py-3 text-center">
+          <div key={s.label} className="clay px-4 py-3 text-center">
             <div className="font-hand text-3xl font-black" style={{ color: s.color }}>
               {s.value}
             </div>
