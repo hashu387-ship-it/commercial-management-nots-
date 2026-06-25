@@ -272,6 +272,34 @@
       3px 4px 0 #e7dec9, 6px 8px 0 #ddd3bc, 9px 12px 0 #d2c7ad,
       12px 16px 0 #c8bca0, 16px 20px 34px rgba(45, 52, 54, 0.24);
   }
+
+  /* Claymorphism — soft, puffy "clay" surfaces in the warm palette.
+     The signature look is the double inner shadow (light top-left + dark
+     bottom-right) that inflates the edge, over a soft outer drop. */
+  .clay {
+    border-radius: 1.75rem;
+    background: linear-gradient(145deg, #fbf8f1, #ece3d0);
+    box-shadow:
+      9px 11px 22px rgba(133, 112, 73, 0.20),
+      -7px -7px 16px rgba(255, 255, 255, 0.8),
+      inset 4px 4px 9px rgba(255, 255, 255, 0.85),
+      inset -6px -6px 12px rgba(133, 112, 73, 0.2);
+  }
+  .clay-bronze {
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #b29a6e, #93764f);
+    color: #f5f3ee;
+    box-shadow:
+      8px 10px 20px rgba(106, 89, 56, 0.4),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.3),
+      inset -5px -5px 11px rgba(53, 45, 28, 0.42);
+  }
+  .clay-press {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  }
+  .clay-press:active {
+    transform: scale(0.96);
+  }
 }
 
 @layer utilities {
@@ -373,6 +401,23 @@
   box-shadow:
     3px 4px 0 #232a2d, 6px 8px 0 #1c2225, 9px 12px 0 #161b1e,
     12px 16px 0 #0f1416, 16px 20px 34px rgba(0, 0, 0, 0.55);
+}
+
+/* Claymorphism (dark) */
+.dark .clay {
+  background: linear-gradient(145deg, #242b2d, #191f20);
+  box-shadow:
+    9px 11px 22px rgba(0, 0, 0, 0.5),
+    -7px -7px 16px rgba(255, 255, 255, 0.03),
+    inset 4px 4px 9px rgba(255, 255, 255, 0.05),
+    inset -6px -6px 12px rgba(0, 0, 0, 0.5);
+}
+.dark .clay-bronze {
+  background: linear-gradient(145deg, #8a744c, #654f30);
+  box-shadow:
+    8px 10px 20px rgba(0, 0, 0, 0.55),
+    inset 3px 3px 7px rgba(255, 255, 255, 0.12),
+    inset -5px -5px 11px rgba(0, 0, 0, 0.5);
 }
 .dark .sticky-note {
   background: #2b2519;
