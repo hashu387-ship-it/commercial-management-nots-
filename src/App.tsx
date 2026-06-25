@@ -29,13 +29,16 @@ import { useScrollSpy } from './hooks/useScrollSpy'
 import type { SectionId } from './types'
 
 const SECTION_IDS = SECTIONS.map((s) => s.id)
-const VIEW_KEY = 'cm-view-v1'
+// v2: open on the Explore hero (with the 3D scene) by default; the key bump
+// resets the previously-persisted "deck" preference so everyone lands on the
+// new landing once. The deck is one tap away via "Study slides".
+const VIEW_KEY = 'cm-view-v2'
 
 export default function App() {
   const { markComplete, percent } = useProgress(SECTIONS.length)
   const active = useScrollSpy(SECTION_IDS, markComplete)
   const [view, setView] = useState<'deck' | 'explore'>(() =>
-    localStorage.getItem(VIEW_KEY) === 'explore' ? 'explore' : 'deck',
+    localStorage.getItem(VIEW_KEY) === 'deck' ? 'deck' : 'explore',
   )
 
   const setMode = useCallback((m: 'deck' | 'explore') => {
