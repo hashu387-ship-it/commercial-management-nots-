@@ -46,6 +46,8 @@ export default {
       fontFamily: {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+        // rounded, chunky display face for the claymorphic interface
+        clay: ['"Nunito"', '"Open Sans"', 'sans-serif'],
         // handwriting families for the annotated study-notes feel
         hand: ['"Caveat"', 'cursive'],
         note: ['"Kalam"', 'cursive'],

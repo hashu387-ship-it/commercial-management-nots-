@@ -66,30 +66,46 @@
    Component utilities — Glass / Neomorphism / Liquid glass
    ════════════════════════════════════════════════════════════════ */
 @layer components {
-  /* Frosted glass surface */
+  /* ── Claymorphism is the house style ───────────────────────────────
+     The former glass/tan/dark surfaces are now soft, puffy CLAY: an outer
+     warm drop + cool top-left lift, plus the signature double inner shadow
+     (bright top-left, warm-dark bottom-right) that inflates every edge.
+     Reskinning the shared utilities flips the whole app to clay at once.
+     Element-level `rounded-*` utilities still win (they sit in a later
+     layer) so each surface keeps its intended corner radius. */
   .glass {
-    background: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    box-shadow: 0 8px 32px rgba(45, 52, 54, 0.12);
+    background: linear-gradient(145deg, #fcf9f3, #ece3d2);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 1.5rem;
+    box-shadow:
+      8px 9px 20px rgba(133, 112, 73, 0.18),
+      -7px -7px 16px rgba(255, 255, 255, 0.85),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.85),
+      inset -5px -5px 11px rgba(133, 112, 73, 0.16);
   }
 
   .glass-tan {
-    background: rgba(237, 230, 211, 0.5);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px rgba(45, 52, 54, 0.10);
+    background: linear-gradient(145deg, #efe7d4, #e1d5bb);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 1.5rem;
+    box-shadow:
+      7px 8px 18px rgba(133, 112, 73, 0.22),
+      -6px -6px 14px rgba(255, 255, 255, 0.7),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.72),
+      inset -5px -5px 11px rgba(133, 112, 73, 0.2);
   }
 
   .glass-dark {
-    /* Near-opaque charcoal so light/muted text on top clears WCAG AA */
-    background: rgba(20, 24, 25, 0.92);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 12px 40px rgba(45, 52, 54, 0.35);
+    /* Opaque charcoal clay so light/muted text on top clears WCAG AA */
+    background: linear-gradient(145deg, #2f3638, #1b2021);
+    color: #f5f3ee;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    box-shadow:
+      8px 10px 22px rgba(0, 0, 0, 0.4),
+      -6px -6px 14px rgba(255, 255, 255, 0.04),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.09),
+      inset -5px -5px 11px rgba(0, 0, 0, 0.45);
   }
 
   /* Liquid-glass sheen overlay (decorative) */
@@ -141,9 +157,13 @@
     scroll-margin-top: 96px;
   }
 
-  /* Pill tag */
+  /* Pill tag — now a tiny puffy clay pebble */
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wide;
+    box-shadow:
+      2px 2px 5px rgba(133, 112, 73, 0.18),
+      -2px -2px 4px rgba(255, 255, 255, 0.7),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.55);
   }
 
   /* ── Study-journal / handwritten aesthetic ─────────────────────── */
@@ -297,8 +317,61 @@
   .clay-press {
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
   }
+  .clay-press:hover {
+    transform: translateY(-2px);
+  }
   .clay-press:active {
     transform: scale(0.96);
+  }
+
+  /* Smaller puffy clay (chips, tight cards, icon buttons) */
+  .clay-sm {
+    border-radius: 1.1rem;
+    background: linear-gradient(145deg, #fcf9f3, #ece3d2);
+    box-shadow:
+      5px 6px 13px rgba(133, 112, 73, 0.18),
+      -4px -4px 10px rgba(255, 255, 255, 0.82),
+      inset 2px 2px 5px rgba(255, 255, 255, 0.85),
+      inset -3px -3px 7px rgba(133, 112, 73, 0.16);
+  }
+  /* Pressed-in clay well (inputs, progress tracks, insets) */
+  .clay-inset {
+    border-radius: 1.25rem;
+    background: linear-gradient(145deg, #ece3d2, #fcf9f3);
+    box-shadow:
+      inset 5px 6px 12px rgba(133, 112, 73, 0.26),
+      inset -5px -5px 11px rgba(255, 255, 255, 0.85);
+  }
+  /* Tinted accent clay buttons (pass a brand accent as the surface) */
+  .clay-coral {
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #e2795d, #cf5d44);
+    color: #fff5f1;
+    box-shadow:
+      8px 10px 20px rgba(176, 70, 49, 0.4),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.28),
+      inset -5px -5px 11px rgba(120, 44, 30, 0.42);
+  }
+  .clay-sage {
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #8a9a66, #6f8050);
+    color: #f6f8ee;
+    box-shadow:
+      8px 10px 20px rgba(80, 96, 52, 0.38),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.26),
+      inset -5px -5px 11px rgba(48, 60, 30, 0.42);
+  }
+
+  /* ── Clay interface scope ──────────────────────────────────────────
+     Within the claymorphic Explore experience, the elegant serif display
+     becomes a rounded, chunky clay typeface (Nunito). Handwriting
+     (Caveat/Kalam) is intentionally left untouched, and the slide deck —
+     which renders outside `.clay-ui` — keeps Playfair Display. */
+  .clay-ui :is(h1, h2, h3, h4, h5):not(.font-hand):not(.font-note),
+  .clay-ui .font-display:not(.font-hand):not(.font-note) {
+    font-family: 'Nunito', 'Open Sans', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.015em;
   }
 }
 
@@ -349,19 +422,47 @@
 .dark .text-bronze-700,
 .dark .text-bronze-600 { color: #cdb78b; }
 
-/* Frosted "liquid glass" surfaces */
+/* Clay surfaces (dark) — deep matte clay with a faint top-left lift */
 .dark .glass {
-  background: rgba(48, 54, 56, 0.45);
-  border-color: rgba(198, 176, 131, 0.16);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(145deg, #242b2d, #191f20);
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow:
+    8px 9px 20px rgba(0, 0, 0, 0.5),
+    -7px -7px 16px rgba(255, 255, 255, 0.03),
+    inset 3px 3px 7px rgba(255, 255, 255, 0.05),
+    inset -5px -5px 11px rgba(0, 0, 0, 0.5);
 }
 .dark .glass-tan {
-  background: rgba(74, 63, 44, 0.42);
-  border-color: rgba(198, 176, 131, 0.16);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(145deg, #2d2a20, #211e16);
+  border-color: rgba(198, 176, 131, 0.1);
+  box-shadow:
+    8px 9px 20px rgba(0, 0, 0, 0.5),
+    -6px -6px 14px rgba(255, 255, 255, 0.03),
+    inset 3px 3px 7px rgba(255, 255, 255, 0.04),
+    inset -5px -5px 11px rgba(0, 0, 0, 0.5);
 }
 .dark .glass-dark {
-  background: rgba(9, 11, 12, 0.82);
+  background: linear-gradient(145deg, #14181a, #0a0d0d);
+}
+.dark .chip {
+  box-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.45),
+    -2px -2px 4px rgba(255, 255, 255, 0.04),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.05);
+}
+.dark .clay-sm {
+  background: linear-gradient(145deg, #242b2d, #191f20);
+  box-shadow:
+    5px 6px 13px rgba(0, 0, 0, 0.5),
+    -4px -4px 10px rgba(255, 255, 255, 0.03),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.05),
+    inset -3px -3px 7px rgba(0, 0, 0, 0.5);
+}
+.dark .clay-inset {
+  background: linear-gradient(145deg, #191f20, #242b2d);
+  box-shadow:
+    inset 5px 6px 12px rgba(0, 0, 0, 0.55),
+    inset -5px -5px 11px rgba(255, 255, 255, 0.04);
 }
 
 /* Neomorphism (dark) */

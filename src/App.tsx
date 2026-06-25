@@ -64,7 +64,7 @@ export default function App() {
         {view === 'deck' ? (
           <Deck onExit={() => setMode('explore')} />
         ) : (
-          <div className="relative min-h-screen overflow-x-clip">
+          <div className="clay-ui relative min-h-screen overflow-x-clip">
             <a
               href="#main"
               className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-xl focus:bg-charcoal focus:px-4 focus:py-2 focus:font-semibold focus:text-cream focus:shadow-glass-lg"
@@ -98,9 +98,9 @@ export default function App() {
             {/* Switch back to the slide deck */}
             <button
               onClick={() => setMode('deck')}
-              className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-charcoal px-4 py-3 font-note text-sm font-bold text-cream shadow-glass-lg transition-transform duration-300 hover:-translate-y-0.5"
+              className="clay-bronze clay-press fixed bottom-4 right-4 z-50 inline-flex items-center gap-2 rounded-full px-5 py-3 font-note text-sm font-bold text-cream"
             >
-              <Presentation className="h-4 w-4 text-bronze-300" />
+              <Presentation className="h-4 w-4 text-bronze-200" />
               Study slides
             </button>
           </div>
