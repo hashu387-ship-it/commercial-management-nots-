@@ -3,12 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 /**
  * Capability + preference gate for the WebGL hero.
  *
- * - `capable`  — the device can run the 3D scene (WebGL2, ≥768px, motion allowed).
+ * - `capable`  — the device can run the 3D scene (WebGL2 + motion allowed).
  * - `enabled`  — capable AND the user hasn't switched it off.
+ * - `compact`  — a small screen (<768px); the scene renders a lighter,
+ *                battery-safe preset (fewer particles, no post-processing).
  *
- * Note: we deliberately gate on viewport width (≥768) rather than pointer
- * type, so the iPad (a touch device) still gets the full 3D experience while
- * phones fall back to the static poster for battery/perf.
+ * The 3D runs on phones, tablet and desktop alike; only no-WebGL2 or
+ * prefers-reduced-motion (or the user's own skip) fall back to the poster.
  */
 const OFF_KEY = 'cm-hero3d-off'
 
@@ -61,7 +62,8 @@ export function useHero3dGate() {
     }
   }
 
-  const capable = webgl2 && wide && !reduced
+  const capable = webgl2 && !reduced
   const enabled = capable && !skip
-  return { capable, enabled, skip, setSkip }
+  const compact = !wide
+  return { capable, enabled, compact, skip, setSkip }
 }
