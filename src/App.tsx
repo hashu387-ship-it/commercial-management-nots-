@@ -4,6 +4,7 @@ import { Presentation } from 'lucide-react'
 import { SpeechProvider } from './audio/speech'
 import Deck from './deck/Deck'
 import SelectionTranslator from './components/SelectionTranslator'
+import PencilPad from './components/PencilPad'
 import LiquidBackground from './components/LiquidBackground'
 import Navbar from './components/Navbar'
 import NarratorDock from './components/NarratorDock'
@@ -61,6 +62,7 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <SpeechProvider>
         <SelectionTranslator />
+        <PencilPad />
         {view === 'deck' ? (
           <Deck onExit={() => setMode('explore')} />
         ) : (
