@@ -42,12 +42,19 @@ export default {
         plum: '#8A6491', // muted purple
         sky: '#5B7DA6', // dusty blue (NOT teal/cyan)
         rust: '#B25B3E',
+        rose: '#C46B86', // dusty rose-pink
+        marigold: '#D98324', // deep warm orange
       },
       fontFamily: {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
-        // rounded, chunky display face for the claymorphic interface
-        clay: ['"Nunito"', '"Open Sans"', 'sans-serif'],
+        // rounded, chunky/playful display faces for the claymorphic interface
+        clay: ['"Baloo 2"', '"Nunito"', 'sans-serif'],
+        round: ['"Nunito"', '"Open Sans"', 'sans-serif'],
+        // editorial high-contrast serif accent
+        fun: ['"Fraunces"', 'Georgia', 'serif'],
+        // monospace for figures, codes and micro-labels
+        mono: ['"Space Mono"', 'ui-monospace', 'monospace'],
         // handwriting families for the annotated study-notes feel
         hand: ['"Caveat"', 'cursive'],
         note: ['"Kalam"', 'cursive'],

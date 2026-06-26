@@ -5,10 +5,10 @@ import HeroStage from './hero3d/HeroStage'
 import type { SectionId } from '../types'
 
 const stats = [
-  { value: '2', label: 'Parts · Pre & Post', color: '#9E875D' },
-  { value: '10', label: 'Core Stages', color: '#7C8C5A' },
-  { value: '18', label: 'Flashcards', color: '#E0A23B' },
-  { value: '10', label: 'Quiz Questions', color: '#D9694C' },
+  { value: '2', label: 'Parts · Pre & Post', color: '#C2532F', tint: '217,105,76' },
+  { value: '10', label: 'Core Stages', color: '#476793', tint: '91,125,166' },
+  { value: '18', label: 'Flashcards', color: '#B47A1E', tint: '224,162,59' },
+  { value: '10', label: 'Quiz Questions', color: '#75517D', tint: '138,100,145' },
 ]
 
 export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
@@ -21,7 +21,7 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full bg-coral/15 px-4 py-2 font-note text-sm font-bold tracking-wide text-rust lg:mx-0"
+            className="chip mx-auto mb-6 inline-flex items-center gap-2 bg-coral/15 px-4 py-2 font-mono text-[0.72rem] font-bold uppercase tracking-[0.12em] text-rust lg:mx-0"
           >
             <Sparkles className="h-3.5 w-3.5" />
             {COURSE.programme}
@@ -31,10 +31,10 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="text-balance text-5xl font-black leading-[1.05] text-charcoal sm:text-6xl"
+            className="font-fun text-balance text-5xl font-black leading-[1.05] text-charcoal sm:text-6xl"
           >
             Commercial Management
-            <span className="mt-2 block font-hand text-6xl text-gradient-bronze sm:text-7xl">in Construction</span>
+            <span className="mt-2 block font-hand text-6xl text-gradient-rainbow sm:text-7xl">in Construction</span>
           </motion.h1>
 
           <motion.p
@@ -62,9 +62,9 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
             </button>
             <button
               onClick={() => onJump('flashcards')}
-              className="clay clay-press inline-flex items-center gap-2 px-8 py-4 font-semibold text-charcoal"
+              className="clay-coral clay-press inline-flex items-center gap-2 px-8 py-4 font-semibold text-cream"
             >
-              <Layers className="h-4 w-4 text-bronze-700" /> Flashcards
+              <Layers className="h-4 w-4" /> Flashcards
             </button>
           </motion.div>
 
@@ -100,11 +100,17 @@ export default function Hero({ onJump }: { onJump: (id: SectionId) => void }) {
         className="absolute inset-x-0 bottom-6 mx-auto hidden max-w-3xl grid-cols-4 gap-3 px-5 lg:grid"
       >
         {stats.map((s) => (
-          <div key={s.label} className="clay px-4 py-3 text-center">
-            <div className="font-hand text-3xl font-black" style={{ color: s.color }}>
+          <div
+            key={s.label}
+            className="clay-tint clay-press px-4 py-3 text-center"
+            style={{ ['--tint' as string]: s.tint }}
+          >
+            <div className="font-clay text-3xl font-extrabold leading-none" style={{ color: s.color }}>
               {s.value}
             </div>
-            <div className="text-[0.68rem] font-semibold uppercase tracking-wide text-charcoal-400">{s.label}</div>
+            <div className="mt-1 font-mono text-[0.6rem] font-bold uppercase tracking-wide text-charcoal-500">
+              {s.label}
+            </div>
           </div>
         ))}
       </motion.div>
