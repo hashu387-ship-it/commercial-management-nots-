@@ -20,10 +20,14 @@
     @apply bg-cream text-charcoal font-sans antialiased;
     /* Liquid, layered background built from the strict palette */
     background-color: #f5f3ee;
+    /* Soft, multi-hue wash from the full accent palette — colourful but
+       low-alpha so text stays readable (no teal/cyan). */
     background-image:
-      radial-gradient(60rem 60rem at 8% -10%, rgba(158, 135, 93, 0.10), transparent 60%),
-      radial-gradient(50rem 50rem at 105% 5%, rgba(237, 230, 211, 0.9), transparent 55%),
-      radial-gradient(45rem 45rem at 90% 110%, rgba(158, 135, 93, 0.08), transparent 60%);
+      radial-gradient(48rem 48rem at 6% -8%, rgba(217, 105, 76, 0.12), transparent 60%),
+      radial-gradient(44rem 44rem at 100% 2%, rgba(224, 162, 59, 0.14), transparent 58%),
+      radial-gradient(46rem 46rem at 92% 108%, rgba(138, 100, 145, 0.12), transparent 60%),
+      radial-gradient(42rem 42rem at -6% 96%, rgba(124, 140, 90, 0.13), transparent 60%),
+      radial-gradient(40rem 40rem at 50% 50%, rgba(91, 125, 166, 0.07), transparent 65%);
     background-attachment: fixed;
   }
 
@@ -367,11 +371,80 @@
      becomes a rounded, chunky clay typeface (Nunito). Handwriting
      (Caveat/Kalam) is intentionally left untouched, and the slide deck —
      which renders outside `.clay-ui` — keeps Playfair Display. */
-  .clay-ui :is(h1, h2, h3, h4, h5):not(.font-hand):not(.font-note),
-  .clay-ui .font-display:not(.font-hand):not(.font-note) {
-    font-family: 'Nunito', 'Open Sans', sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.015em;
+  .clay-ui :is(h1, h2, h3, h4, h5):not(.font-hand):not(.font-note):not(.font-fun):not(.font-mono),
+  .clay-ui .font-display:not(.font-hand):not(.font-note):not(.font-fun):not(.font-mono) {
+    font-family: 'Baloo 2', 'Nunito', 'Open Sans', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* Font helpers so components can mix typefaces freely */
+  .font-fun {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+  .font-mono {
+    font-family: 'Space Mono', ui-monospace, monospace;
+  }
+
+  /* More colourful clay buttons / pebbles (one per accent) */
+  .clay-amber {
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #ecb157, #d9902f);
+    color: #3a2c10;
+    box-shadow:
+      8px 10px 20px rgba(176, 130, 40, 0.4),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.4),
+      inset -5px -5px 11px rgba(120, 88, 24, 0.4);
+  }
+  .clay-plum {
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #9d77a4, #7c5685);
+    color: #fbf4fc;
+    box-shadow:
+      8px 10px 20px rgba(95, 66, 102, 0.4),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.26),
+      inset -5px -5px 11px rgba(58, 38, 64, 0.42);
+  }
+  .clay-sky {
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #7193bb, #547298);
+    color: #f3f7fc;
+    box-shadow:
+      8px 10px 20px rgba(60, 86, 120, 0.4),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.28),
+      inset -5px -5px 11px rgba(34, 52, 76, 0.42);
+  }
+  .clay-rose {
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #d2849a, #be647f);
+    color: #fff4f7;
+    box-shadow:
+      8px 10px 20px rgba(150, 70, 95, 0.38),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.3),
+      inset -5px -5px 11px rgba(92, 40, 56, 0.42);
+  }
+
+  /* Soft accent-tinted clay card — pass a hue via --tint (rgb triplet) */
+  .clay-tint {
+    border-radius: 1.75rem;
+    background:
+      linear-gradient(145deg, rgba(var(--tint), 0.16), rgba(var(--tint), 0.05)),
+      linear-gradient(145deg, #fcf9f3, #ece3d0);
+    box-shadow:
+      8px 10px 20px rgba(var(--tint), 0.22),
+      -6px -6px 14px rgba(255, 255, 255, 0.7),
+      inset 3px 3px 7px rgba(255, 255, 255, 0.7),
+      inset -5px -5px 11px rgba(var(--tint), 0.22);
+  }
+
+  /* Warm multi-hue gradient text (coral → marigold → rose → plum → sky) */
+  .text-gradient-rainbow {
+    background: linear-gradient(100deg, #d9694c 0%, #e0a23b 28%, #c46b86 55%, #8a6491 78%, #5b7da6 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }
 
@@ -403,9 +476,11 @@
 .dark body {
   background-color: #14181a;
   background-image:
-    radial-gradient(60rem 60rem at 8% -10%, rgba(158, 135, 93, 0.20), transparent 60%),
-    radial-gradient(52rem 52rem at 105% 5%, rgba(124, 140, 90, 0.12), transparent 55%),
-    radial-gradient(48rem 48rem at 90% 112%, rgba(158, 135, 93, 0.16), transparent 60%);
+    radial-gradient(48rem 48rem at 6% -8%, rgba(217, 105, 76, 0.16), transparent 60%),
+    radial-gradient(44rem 44rem at 100% 2%, rgba(224, 162, 59, 0.16), transparent 58%),
+    radial-gradient(46rem 46rem at 92% 108%, rgba(138, 100, 145, 0.18), transparent 60%),
+    radial-gradient(42rem 42rem at -6% 96%, rgba(124, 140, 90, 0.16), transparent 60%),
+    radial-gradient(40rem 40rem at 50% 50%, rgba(91, 125, 166, 0.10), transparent 65%);
   color: #ece7dc;
 }
 .dark ::selection {
@@ -463,6 +538,16 @@
   box-shadow:
     inset 5px 6px 12px rgba(0, 0, 0, 0.55),
     inset -5px -5px 11px rgba(255, 255, 255, 0.04);
+}
+.dark .clay-tint {
+  background:
+    linear-gradient(145deg, rgba(var(--tint), 0.28), rgba(var(--tint), 0.08)),
+    linear-gradient(145deg, #242b2d, #191f20);
+  box-shadow:
+    8px 10px 20px rgba(0, 0, 0, 0.5),
+    -6px -6px 14px rgba(255, 255, 255, 0.03),
+    inset 3px 3px 7px rgba(255, 255, 255, 0.05),
+    inset -5px -5px 11px rgba(0, 0, 0, 0.5);
 }
 
 /* Neomorphism (dark) */
