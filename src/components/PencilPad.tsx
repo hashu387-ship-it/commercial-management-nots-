@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  Pencil,
   Highlighter,
   Eraser,
   Undo2,
@@ -11,8 +10,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Check,
-  StickyNote,
 } from 'lucide-react'
+import PenNib from './art/PenNib'
 
 /* ────────────────────────────────────────────────────────────────────
    PencilPad — a handwriting notepad you draw on with an Apple Pencil
@@ -294,17 +293,21 @@ export default function PencilPad() {
 
   return (
     <>
-      {/* Floating launcher (hidden while open) */}
+      {/* Right-edge pen-nib tab (the "notch"). Tap to slide the pad open. */}
       {!open && (
         <button
           data-no-pad
           onClick={() => setOpen(true)}
           aria-label="Open handwriting notepad"
-          title="Notepad — or double-tap anywhere"
-          className="clay-amber clay-press fixed bottom-4 right-44 z-50 hidden items-center gap-2 rounded-full px-4 py-3 font-note text-sm font-bold sm:inline-flex"
+          title="Notepad — write with your pencil (or double-tap anywhere)"
+          className="group fixed right-0 top-1/2 z-50 flex -translate-y-1/2 flex-col items-center gap-2 rounded-l-2xl border-y border-l border-bronze-300/30 bg-charcoal/95 py-4 pl-3 pr-2.5 text-cream shadow-glass-lg backdrop-blur transition-all duration-300 hover:pr-4"
         >
-          <StickyNote className="h-4 w-4" />
-          Notepad
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-b from-bronze-200 to-bronze-500 text-charcoal shadow-inner">
+            <PenNib className="h-5 w-5" />
+          </span>
+          <span className="font-note text-[0.72rem] font-bold uppercase tracking-[0.15em] [writing-mode:vertical-rl]">
+            Notes
+          </span>
         </button>
       )}
 
@@ -315,7 +318,7 @@ export default function PencilPad() {
             <div className="glass flex items-center gap-1 rounded-2xl px-2 py-1.5">
               {(
                 [
-                  { t: 'pen' as Tool, Icon: Pencil, label: 'Pen' },
+                  { t: 'pen' as Tool, Icon: PenNib, label: 'Pen' },
                   { t: 'marker' as Tool, Icon: Highlighter, label: 'Marker' },
                   { t: 'eraser' as Tool, Icon: Eraser, label: 'Eraser' },
                 ]
