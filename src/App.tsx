@@ -20,7 +20,7 @@ import ProfitSection from './sections/ProfitSection'
 import ProcurementSection from './sections/ProcurementSection'
 import ReportingSection from './sections/ReportingSection'
 import AdminSection from './sections/AdminSection'
-import FullNotesSection from './sections/FullNotesSection'
+import FullNotesPage from './components/FullNotesPage'
 import SoeSection from './sections/SoeSection'
 import FlashcardsSection from './sections/FlashcardsSection'
 import QuizSection from './sections/QuizSection'
@@ -29,14 +29,19 @@ import { useProgress } from './hooks/useProgress'
 import { useScrollSpy } from './hooks/useScrollSpy'
 import type { SectionId } from './types'
 
-const SECTION_IDS = SECTIONS.map((s) => s.id)
+// The Full Lecture Notes live on their own page (opened in a new tab via
+// `?view=notes`), so they're excluded from the in-page scroll + progress.
+const SECTION_IDS = SECTIONS.filter((s) => s.id !== 'fullnotes').map((s) => s.id)
 // v2: open on the Explore hero (with the 3D scene) by default; the key bump
 // resets the previously-persisted "deck" preference so everyone lands on the
 // new landing once. The deck is one tap away via "Study slides".
 const VIEW_KEY = 'cm-view-v2'
 
+const isNotesTab = () =>
+  typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('view') === 'notes'
+
 export default function App() {
-  const { markComplete, percent } = useProgress(SECTIONS.length)
+  const { markComplete, percent } = useProgress(SECTION_IDS.length)
   const active = useScrollSpy(SECTION_IDS, markComplete)
   const [view, setView] = useState<'deck' | 'explore'>(() =>
     localStorage.getItem(VIEW_KEY) === 'deck' ? 'deck' : 'explore',
@@ -63,7 +68,9 @@ export default function App() {
       <SpeechProvider>
         <SelectionTranslator />
         <PencilPad />
-        {view === 'deck' ? (
+        {isNotesTab() ? (
+          <FullNotesPage />
+        ) : view === 'deck' ? (
           <Deck onExit={() => setMode('explore')} />
         ) : (
           <div className="clay-ui relative min-h-screen overflow-x-clip">
@@ -88,7 +95,6 @@ export default function App() {
               <ProcurementSection />
               <ReportingSection />
               <AdminSection />
-              <FullNotesSection />
               <SoeSection />
               <FlashcardsSection />
               <QuizSection onComplete={completeQuiz} />

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { SECTIONS } from '../data/content'
 import { getIcon } from '../lib/icons'
 import ProgressRing from './ProgressRing'
@@ -53,6 +53,15 @@ export default function Navbar({ active, percent }: NavbarProps) {
                 </button>
               )
             })}
+            {/* Full Lecture Notes opens in its own tab */}
+            <a
+              href="?view=notes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[0.78rem] font-semibold text-bronze-700 transition-colors duration-300 hover:text-coral"
+            >
+              Full Notes <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
           </div>
 
           {/* Right cluster */}
@@ -88,6 +97,23 @@ export default function Navbar({ active, percent }: NavbarProps) {
             >
               {SECTIONS.map((s) => {
                 const Icon = getIcon(s.icon)
+                // Full Lecture Notes open in their own tab
+                if (s.id === 'fullnotes') {
+                  return (
+                    <a
+                      key={s.id}
+                      href="?view=notes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-left text-[0.8rem] font-semibold text-bronze-700 transition-colors hover:bg-bronze-500/10"
+                    >
+                      <Icon className="h-4 w-4 shrink-0" aria-hidden />
+                      <span className="truncate">{s.label}</span>
+                      <ArrowUpRight className="ml-auto h-3.5 w-3.5 shrink-0" aria-hidden />
+                    </a>
+                  )
+                }
                 const isActive = active === s.id
                 return (
                   <button

@@ -36,7 +36,9 @@ export function useProgress(total: number) {
   }, [])
 
   // `completed` backs the percentage + persistence; it is not exposed.
-  const percent = total > 0 ? Math.round((completed.size / total) * 100) : 0
+  // cap at 100 — a returning learner's saved set may include sections that
+  // have since moved off-page (e.g. the Full Lecture Notes now open in a tab)
+  const percent = total > 0 ? Math.min(100, Math.round((completed.size / total) * 100)) : 0
 
   return { markComplete, percent }
 }
