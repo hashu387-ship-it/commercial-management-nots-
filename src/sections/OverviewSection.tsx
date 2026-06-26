@@ -3,7 +3,7 @@ import Section from '../components/Section'
 import SectionHeading from '../components/SectionHeading'
 import { BulletList, GlassPanel, Reveal } from '../components/ui'
 import LectureNotes from '../components/LectureNotes'
-import MindMap from '../components/art/MindMap'
+import InteractiveMindMap from '../components/art/InteractiveMindMap'
 import { SECTION_NARRATION, WHAT_WHY } from '../data/content'
 
 export default function OverviewSection() {
@@ -16,18 +16,19 @@ export default function OverviewSection() {
         narration={{ id: 'overview', text: SECTION_NARRATION.overview }}
       />
 
-      {/* The whole course at a glance — colour-coded mind map */}
+      {/* The whole course as one explorable, colour-coded mind map */}
       <Reveal className="mb-8">
         <GlassPanel>
           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            <h3 className="font-clay text-2xl font-bold text-charcoal">The big picture</h3>
-            <span className="chip bg-sky/15 font-note font-bold text-sky">mind map</span>
+            <h3 className="font-clay text-2xl font-bold text-charcoal">The big picture — one map to memorise it all</h3>
+            <span className="chip bg-sky/15 font-note font-bold text-sky">interactive mind map</span>
           </div>
           <p className="mb-4 font-note text-sm text-charcoal-400">
-            One subject, two halves — securing profit before the contract, then enhancing it after. Follow a
-            branch to dive into its stages.
+            One subject, two halves — secure the profit before the contract, then enhance it after. Tap any
+            branch to open its detail: what each stage includes, its risks, qualifications and exclusions, all
+            colour-coded so it sticks.
           </p>
-          <MindMap className="h-auto w-full" />
+          <InteractiveMindMap />
         </GlassPanel>
       </Reveal>
 
