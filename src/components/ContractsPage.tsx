@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, Scale, ChevronDown, GitCompareArrows } from 'lucide-react'
 import RadialHub from './contracts/RadialHub'
+import StudyCards from './contracts/StudyCards'
 import { CONTRACTS_COURSE, BRANCHES, KEY_CLAUSES, VAR_VS_CLAIM } from '../data/contracts'
 
 /* Standalone page for the second subject — opened in its own tab via
@@ -151,6 +152,17 @@ export default function ContractsPage() {
             </motion.div>
           </AnimatePresence>
         </div>
+      </section>
+
+      {/* Study cards — every note in the swipeable notebook format */}
+      <section className="mx-auto w-[min(80rem,calc(100%-1.5rem))] py-10">
+        <div className="mb-5 text-center">
+          <h3 className="font-fun text-2xl font-black text-cream sm:text-3xl">Study cards</h3>
+          <p className="mx-auto mt-1 max-w-md font-note text-sm text-cream/60">
+            Flip through every note like a spiral notebook — swipe, or use the arrows / arrow keys.
+          </p>
+        </div>
+        <StudyCards />
       </section>
 
       {/* Key clause map */}
