@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   Highlighter,
   Eraser,
@@ -12,6 +13,7 @@ import {
   Check,
 } from 'lucide-react'
 import PenNib from './art/PenNib'
+import { toast } from './Toast'
 
 /* ────────────────────────────────────────────────────────────────────
    PencilPad — a handwriting notepad you draw on with an Apple Pencil
@@ -257,10 +259,25 @@ export default function PencilPad() {
     })
   }
   const clearPage = () => {
+    const cleared = pages[idx]?.strokes ?? []
+    const at = idx
+    if (!cleared.length) return
     setPages((prev) => {
-      const next = prev.map((pg, i) => (i === idx ? { ...pg, strokes: [] } : pg))
+      const next = prev.map((pg, i) => (i === at ? { ...pg, strokes: [] } : pg))
       persist(next)
       return next
+    })
+    toast('Page cleared', {
+      icon: 'trash',
+      action: {
+        label: 'Undo',
+        onClick: () =>
+          setPages((prev) => {
+            const next = prev.map((pg, i) => (i === at ? { ...pg, strokes: cleared } : pg))
+            persist(next)
+            return next
+          }),
+      },
     })
   }
   const addPage = () => {
@@ -270,6 +287,7 @@ export default function PencilPad() {
       return next
     })
     setIdx(pages.length)
+    toast('New page added', { icon: 'info' })
   }
   const download = () => {
     const canvas = canvasRef.current
@@ -286,6 +304,7 @@ export default function PencilPad() {
     a.href = out.toDataURL('image/png')
     a.download = `notes-page-${idx + 1}.png`
     a.click()
+    toast('Saved to your device', { icon: 'download' })
   }
 
   const page = pages[idx]
@@ -311,8 +330,24 @@ export default function PencilPad() {
         </button>
       )}
 
-      {open && (
-        <div className="fixed inset-0 z-[80] flex flex-col bg-charcoal/40 backdrop-blur-sm" data-no-pad>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="pad"
+            data-no-pad
+            className="fixed inset-0 z-[80] flex flex-col bg-charcoal/40 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.32, 0.72, 0, 1] }}
+          >
+            <motion.div
+              className="flex h-full flex-col"
+              initial={{ y: 22, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 22, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 340, damping: 32 }}
+            >
           {/* Toolbar */}
           <div className="clay-ui flex flex-wrap items-center gap-2 px-3 py-2.5 sm:px-5" style={{ background: 'transparent' }}>
             <div className="glass flex items-center gap-1 rounded-2xl px-2 py-1.5">
@@ -442,8 +477,10 @@ export default function PencilPad() {
               <Plus className="h-4 w-4" /> New page
             </button>
           </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

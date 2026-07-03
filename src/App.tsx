@@ -5,6 +5,7 @@ import { SpeechProvider } from './audio/speech'
 import Deck from './deck/Deck'
 import SelectionTranslator from './components/SelectionTranslator'
 import PencilPad from './components/PencilPad'
+import Toaster from './components/Toast'
 import LiquidBackground from './components/LiquidBackground'
 import Navbar from './components/Navbar'
 import NarratorDock from './components/NarratorDock'
@@ -68,6 +69,7 @@ export default function App() {
       <SpeechProvider>
         <SelectionTranslator />
         <PencilPad />
+        <Toaster />
         {isNotesTab() ? (
           <FullNotesPage />
         ) : view === 'deck' ? (
