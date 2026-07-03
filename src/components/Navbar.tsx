@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { Menu, X, ArrowUpRight, Scale } from 'lucide-react'
 import { SECTIONS } from '../data/content'
 import { getIcon } from '../lib/icons'
 import ProgressRing from './ProgressRing'
@@ -61,6 +61,15 @@ export default function Navbar({ active, percent }: NavbarProps) {
               className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[0.78rem] font-semibold text-bronze-700 transition-colors duration-300 hover:text-coral"
             >
               Full Notes <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+            {/* Second subject opens in its own tab */}
+            <a
+              href="?view=contracts"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-lg bg-sky/15 px-2.5 py-1.5 text-[0.78rem] font-semibold text-sky transition-colors duration-300 hover:bg-sky/25"
+            >
+              Contract Practice <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
 
@@ -128,6 +137,18 @@ export default function Navbar({ active, percent }: NavbarProps) {
                   </button>
                 )
               })}
+              {/* Second subject — opens in its own tab */}
+              <a
+                href="?view=contracts"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="col-span-2 flex items-center gap-2 rounded-xl bg-sky/15 px-3 py-2.5 text-left text-[0.8rem] font-semibold text-sky transition-colors hover:bg-sky/25 sm:col-span-3"
+              >
+                <Scale className="h-4 w-4 shrink-0" aria-hidden />
+                <span className="truncate">Contract Practice &amp; Administration</span>
+                <ArrowUpRight className="ml-auto h-3.5 w-3.5 shrink-0" aria-hidden />
+              </a>
             </motion.nav>
           )}
         </AnimatePresence>
