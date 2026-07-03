@@ -22,6 +22,7 @@ import ProcurementSection from './sections/ProcurementSection'
 import ReportingSection from './sections/ReportingSection'
 import AdminSection from './sections/AdminSection'
 import FullNotesPage from './components/FullNotesPage'
+import ContractsPage from './components/ContractsPage'
 import SoeSection from './sections/SoeSection'
 import FlashcardsSection from './sections/FlashcardsSection'
 import QuizSection from './sections/QuizSection'
@@ -38,8 +39,10 @@ const SECTION_IDS = SECTIONS.filter((s) => s.id !== 'fullnotes').map((s) => s.id
 // new landing once. The deck is one tap away via "Study slides".
 const VIEW_KEY = 'cm-view-v2'
 
-const isNotesTab = () =>
-  typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('view') === 'notes'
+const viewParam = () =>
+  typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('view') : null
+const isNotesTab = () => viewParam() === 'notes'
+const isContractsTab = () => viewParam() === 'contracts'
 
 export default function App() {
   const { markComplete, percent } = useProgress(SECTION_IDS.length)
@@ -70,7 +73,9 @@ export default function App() {
         <SelectionTranslator />
         <PencilPad />
         <Toaster />
-        {isNotesTab() ? (
+        {isContractsTab() ? (
+          <ContractsPage />
+        ) : isNotesTab() ? (
           <FullNotesPage />
         ) : view === 'deck' ? (
           <Deck onExit={() => setMode('explore')} />
