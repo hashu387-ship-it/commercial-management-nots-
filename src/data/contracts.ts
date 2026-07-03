@@ -368,3 +368,84 @@ export const VAR_VS_CLAIM: { a: string; b: string }[] = [
   { a: 'Valued & executed per contract terms', b: 'Requires evidence of impact' },
   { a: 'Affects price and/or schedule', b: 'Must demonstrate cause & effect' },
 ]
+
+/* ── Study-card deck — every note as a swipeable notebook card ──────── */
+export interface StudyCard {
+  kind: 'cover' | 'chapter' | 'topic' | 'clauses' | 'compare'
+  n: number
+  branchId: string
+  branchLabel: string
+  color: string
+  title: string
+  subtitle?: string
+  clause?: string
+  points?: string[]
+  tip?: string
+}
+
+const TIPS: Record<string, string> = {
+  practice: 'Terms → express · incorporated · implied. Say it in your sleep.',
+  securities: 'The bond words that matter: “unconditional & on demand”.',
+  loaloi: 'LOI = intent (quantum meruit) · LOA = binding contract.',
+  admin: 'A variation changes the WORKS, not the Contract.',
+  claims: '28 / 42 / 28 — notice · particulars · final.',
+  completion: 'TOC starts the DNP and ends your LD liability.',
+}
+
+/** Flatten the subject into an ordered deck of cards. */
+export function buildCards(): StudyCard[] {
+  const cards: StudyCard[] = []
+  let n = 0
+  const push = (c: Omit<StudyCard, 'n'>) => cards.push({ ...c, n: ++n })
+
+  push({
+    kind: 'cover',
+    branchId: 'cover',
+    branchLabel: 'APC',
+    color: '#8A6491',
+    title: CONTRACTS_COURSE.title,
+    subtitle: CONTRACTS_COURSE.subtitle,
+    tip: 'Flip through every note. Swipe →',
+  })
+
+  for (const b of BRANCHES) {
+    push({
+      kind: 'chapter',
+      branchId: b.id,
+      branchLabel: b.label,
+      color: b.color,
+      title: b.label,
+      subtitle: b.blurb,
+      tip: TIPS[b.id],
+    })
+    for (const t of b.topics) {
+      push({
+        kind: 'topic',
+        branchId: b.id,
+        branchLabel: b.label,
+        color: b.color,
+        title: t.label,
+        clause: t.clause,
+        points: t.points,
+      })
+    }
+  }
+
+  push({
+    kind: 'clauses',
+    branchId: 'admin',
+    branchLabel: 'Reference',
+    color: '#5B7DA6',
+    title: 'Clause map — know these cold',
+    tip: 'Numbers win marks. Drill them.',
+  })
+  push({
+    kind: 'compare',
+    branchId: 'claims',
+    branchLabel: 'Reference',
+    color: '#E0A23B',
+    title: 'Variation vs Claim',
+    tip: 'Different beasts — don’t conflate them.',
+  })
+  return cards
+}

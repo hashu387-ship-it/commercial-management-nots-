@@ -679,6 +679,26 @@
   font-family: 'Space Mono', ui-monospace, monospace;
   letter-spacing: 0.02em;
 }
+
+/* Spiral-notebook binding strip (a column of wire loops) */
+.spiral-binding {
+  background-color: #d7cdb4;
+  background-image: radial-gradient(ellipse 52% 32% at 58% 50%, #2f2a1a 0 58%, transparent 60%);
+  background-size: 100% 1.75rem;
+  background-repeat: repeat-y;
+  background-position: center;
+  box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.18);
+}
+.dark .spiral-binding {
+  background-color: #4a4433;
+  background-image: radial-gradient(ellipse 52% 32% at 58% 50%, #0c0a06 0 58%, transparent 60%);
+}
+/* Dashed "callout" box like the example's prompt box */
+.dash-box {
+  border: 2px dashed rgba(138, 100, 145, 0.5);
+  border-radius: 0.9rem;
+  background: rgba(138, 100, 145, 0.06);
+}
 .blueprint ::selection {
   background-color: rgba(91, 125, 166, 0.45);
   color: #fff;
